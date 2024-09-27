@@ -1,0 +1,59 @@
+﻿using System;
+using System.Threading.Tasks;
+using CrewMobile.Common.Models;
+
+namespace CrewMobileApi.Apis.Interfaces
+{
+    public interface ICopaAPIs
+    {
+        Task<Response> GetSSR(
+             string flightNumber,
+             DateTime departureDate,
+             string operatorCarrier,
+             string origin,
+             string destination);
+
+        Task<Response> GetPrefer(
+            string flightNumber,
+            DateTime departureDate,
+            string operatorCarrier,
+            string origin,
+            string destination);
+
+        Task<Response> GetPassengerList(
+            string flightNumber,
+            DateTime departureDate,
+            string operatorCarrier,
+            string origin,
+            string destination,
+            string cabinClass);
+
+        Task<Response> GetCounts(
+            string flightNumber,
+            DateTime departureDate,
+            string operatorCarrier,
+            string origin,
+            string destination);
+
+        Task<Response> GetPassengerListStandbyList(
+            string flightNumber,
+            DateTime departureDate,
+            string operatorCarrier,
+            string origin,
+            string destination);
+
+        Task<Response> GetApiFlightInformation(
+            DateTime departureFrom,
+            DateTime departureTo,
+            string flightNumber);
+
+        Task<Response> GetSeats(
+            string flightNumber,
+            DateTime departureDate,
+            string operatorCarrier,
+            string origin,
+            string destination);
+
+        Task <Response> GetIrregularOperations();
+    }
+}

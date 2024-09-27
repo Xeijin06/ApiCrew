@@ -1,0 +1,17 @@
+﻿<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flif="http://www.eds.com/AirlineSOASchema/Flifo/" xmlns:air="http://www.opentravel.org/OTA/2003/05/AirFlifoRQ" xmlns:com="http://www.opentravel.org/OTA/2003/05/CommonTypes">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <flif:getFlifo>
+      <air:OTA_AirFlifoRQ EchoToken="New Revenue Accounting" Version="4.0">
+        <air:POS>
+          <com:Source AirlineVendorID="CM"/>
+        </air:POS>
+        <air:FlightSegment>
+          <air:Airline Code="CM"/>
+          <air:FlightNumber>226</air:FlightNumber>
+          <air:DepartureDate>2024-09-13</air:DepartureDate>
+        </air:FlightSegment>
+      </air:OTA_AirFlifoRQ>
+    </flif:getFlifo>
+  </soapenv:Body>
+</soapenv:Envelope>

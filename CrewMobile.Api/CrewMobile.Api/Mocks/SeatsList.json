@@ -1,0 +1,5123 @@
+{
+  "FlightSegment": {
+    "FlightSegment": {
+      "AirlineMarketing": {
+        "Code": "CM",
+        "Description": "CM"
+      },
+      "FlightNumber": "226",
+      "DateTimeDepart": {
+        "Date": "2024-09-24",
+        "Time": "20:49:00"
+      },
+      "LocationDepart": {
+        "Code": "PTY"
+      },
+      "LocationArrive": {
+        "Code": "MCO"
+      },
+      "Equipment": {
+        "Code": "73L",
+        "Description": "BOEING 737-800 NEW NUMBERS"
+      }
+    },
+    "EquipmentRows": [
+      {
+        "RowNumber": 1,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Business"
+          },
+          {
+            "Code": "Name",
+            "Description": "C"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 1,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "1A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            },
+            "Key": "2"
+          },
+          {
+            "RowNumber": 1,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "1B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            },
+            "Key": "2"
+          },
+          {
+            "RowNumber": 1,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "1E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          },
+          {
+            "RowNumber": 1,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "1F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            },
+            "Key": "2"
+          }
+        ]
+      },
+      {
+        "RowNumber": 2,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Business"
+          },
+          {
+            "Code": "Name",
+            "Description": "C"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 2,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "2A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          },
+          {
+            "RowNumber": 2,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "2B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          },
+          {
+            "RowNumber": 2,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "2E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            },
+            "Key": "2"
+          },
+          {
+            "RowNumber": 2,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "2F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            },
+            "Key": "2"
+          }
+        ]
+      },
+      {
+        "RowNumber": 3,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Business"
+          },
+          {
+            "Code": "Name",
+            "Description": "C"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 3,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "3A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          },
+          {
+            "RowNumber": 3,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "3B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          },
+          {
+            "RowNumber": 3,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "3E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          },
+          {
+            "RowNumber": 3,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "3F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          }
+        ]
+      },
+      {
+        "RowNumber": 4,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Business"
+          },
+          {
+            "Code": "Name",
+            "Description": "C"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 4,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "4A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          },
+          {
+            "RowNumber": 4,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "4B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          },
+          {
+            "RowNumber": 4,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "4E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          },
+          {
+            "RowNumber": 4,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "4F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            },
+            "Key": "1"
+          }
+        ]
+      },
+      {
+        "RowNumber": 5,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 5,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "5A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 5,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              }
+            ],
+            "SeatLocation": "5B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 5,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              }
+            ],
+            "SeatLocation": "5C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 5,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              }
+            ],
+            "SeatLocation": "5D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 5,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              }
+            ],
+            "SeatLocation": "5E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 5,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "5F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 6,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 6,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "6A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 6,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              }
+            ],
+            "SeatLocation": "6B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 6,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              }
+            ],
+            "SeatLocation": "6C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 6,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              }
+            ],
+            "SeatLocation": "6D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 6,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              }
+            ],
+            "SeatLocation": "6E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          },
+          {
+            "RowNumber": 6,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Preferred seat / preferential seat",
+                "Key": "60"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "6F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Protected seat",
+              "Key": "15"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 7,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 7,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              },
+              {
+                "Description": "Extra LegRoom seat",
+                "Key": "32"
+              }
+            ],
+            "SeatLocation": "7A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 7,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Extra LegRoom seat",
+                "Key": "32"
+              }
+            ],
+            "SeatLocation": "7B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 7,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Extra LegRoom seat",
+                "Key": "32"
+              }
+            ],
+            "SeatLocation": "7C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 7,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Extra LegRoom seat",
+                "Key": "32"
+              }
+            ],
+            "SeatLocation": "7D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 7,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Extra LegRoom seat",
+                "Key": "32"
+              }
+            ],
+            "SeatLocation": "7E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 7,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              },
+              {
+                "Description": "Extra LegRoom seat",
+                "Key": "32"
+              }
+            ],
+            "SeatLocation": "7F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 8,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 8,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Key": "31"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "8A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 8,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Key": "31"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "8B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 8,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Key": "31"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "8C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 8,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Key": "31"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "8D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 8,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Key": "31"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "8E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 8,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Key": "31"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "8F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 9,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 9,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              },
+              {
+                "Key": "88"
+              }
+            ],
+            "SeatLocation": "9A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 9,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Key": "88"
+              }
+            ],
+            "SeatLocation": "9B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 9,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Key": "88"
+              }
+            ],
+            "SeatLocation": "9C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 9,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Key": "88"
+              }
+            ],
+            "SeatLocation": "9D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 9,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Key": "88"
+              }
+            ],
+            "SeatLocation": "9E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 9,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              },
+              {
+                "Key": "88"
+              }
+            ],
+            "SeatLocation": "9F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 10,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Over wing row",
+            "Key": "13"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 10,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "10A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 10,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "10B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 10,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "10C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 10,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "10D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 10,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "10E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 10,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "10F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 11,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Over wing row",
+            "Key": "13"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 11,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "11A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 11,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "11B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 11,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "11C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 11,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "11D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 11,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "11E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 11,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "11F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 12,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Over wing row",
+            "Key": "13"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Row does not exist",
+            "Key": "14"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 12,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "12A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 12,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "12B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 12,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "12C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 12,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "12D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 12,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "12E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 12,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "12F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 13,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Over wing row",
+            "Key": "13"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Row does not exist",
+            "Key": "14"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 13,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "13A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 13,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "13B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 13,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "13C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 13,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "13D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 13,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "13E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 13,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "13F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 14,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Over wing row",
+            "Key": "13"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Row does not exist",
+            "Key": "14"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 14,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "14A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 14,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "14B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 14,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "14C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 14,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "14D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 14,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "14E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 14,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "14F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 15,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Over wing row",
+            "Key": "13"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Row does not exist",
+            "Key": "14"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 15,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "15A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 15,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "15B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 15,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "15C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 15,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "15D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 15,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "15E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 15,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "15F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 16,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Over wing row",
+            "Key": "13"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Row does not exist",
+            "Key": "14"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 16,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "16A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 16,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "16B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 16,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "16C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 16,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "16D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 16,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "16E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          },
+          {
+            "RowNumber": 16,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "No seat at this location",
+                "Key": "47"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "16F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "No seat here",
+              "Key": "16"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 17,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Exit row",
+            "Key": "4"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Over wing row",
+            "Key": "13"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 17,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "17A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 17,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "17B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 17,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "17C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 17,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "17D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 17,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "17E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 17,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "17F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 18,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Exit row",
+            "Key": "4"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "Over wing row",
+            "Key": "13"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 18,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "18A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 18,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "18B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 18,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "18C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 18,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "18D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 18,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              }
+            ],
+            "SeatLocation": "18E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 18,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Exit row seat",
+                "Key": "17"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Not allowed for infants",
+                "Key": "51"
+              },
+              {
+                "Description": "Over wing seat",
+                "Key": "58"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "18F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 19,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 19,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "19A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 19,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "19B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 19,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "19C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 19,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "19D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 19,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "19E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 19,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "19F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 20,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 20,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "20A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 20,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "20B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 20,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "20C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 20,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "20D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 20,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "20E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 20,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "20F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 21,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 21,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "21A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 21,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "21B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 21,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "21C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 21,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "21D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Seat is assigned",
+              "Key": "2"
+            }
+          },
+          {
+            "RowNumber": 21,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "21E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 21,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "21F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 22,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 22,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "22A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 22,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "22B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 22,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "22C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 22,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "22D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 22,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "22E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 22,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "22F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 23,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 23,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "23A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 23,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "23B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 23,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "23C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 23,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "23D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 23,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "23E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 23,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "23F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 24,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 24,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "24A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 24,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "24B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 24,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "24C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 24,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "24D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 24,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "24E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 24,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "24F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 25,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 25,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "25A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 25,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "25B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 25,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "25C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 25,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "25D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 25,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "25E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 25,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "25F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 26,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 26,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "26A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 26,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "26B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 26,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "26C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 26,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "26D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 26,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "26E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 26,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "26F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 27,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 27,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "27A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 27,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "27B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 27,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "27C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 27,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "27D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 27,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "27E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 27,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "27F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 28,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 28,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "28A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 28,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "28B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 28,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "28C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 28,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "28D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 28,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "28E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 28,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "28F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 29,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 29,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "29A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 29,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "29B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 29,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "29C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 29,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "29D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 29,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "29E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 29,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "29F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 30,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 30,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "30A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 30,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "30B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 30,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "30C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 30,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "30D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 30,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "30E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 30,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "30F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 31,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 31,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "31A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 31,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "31B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 31,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "31C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 31,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "31D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 31,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "31E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 31,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "31F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 32,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 32,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "32A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 32,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "32B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 32,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "32C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 32,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "32D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 32,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "32E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 32,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "32F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      },
+      {
+        "RowNumber": 33,
+        "Attributes": [
+          {
+            "Code": "CabinType",
+            "Description": "Economy"
+          },
+          {
+            "Code": "Name",
+            "Description": "Y"
+          },
+          {
+            "Code": "Characteristic",
+            "Description": "No-smoking row",
+            "Key": "11"
+          }
+        ],
+        "Seats": [
+          {
+            "RowNumber": 33,
+            "Position": "A",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "33A",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 33,
+            "Position": "B",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "33B",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 33,
+            "Position": "C",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "33C",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 33,
+            "Position": "D",
+            "Attributes": [
+              {
+                "Description": "Aisle seat",
+                "Key": "3"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "33D",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 33,
+            "Position": "E",
+            "Attributes": [
+              {
+                "Description": "Center seat not window, not aisle",
+                "Key": "12"
+              },
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              }
+            ],
+            "SeatLocation": "33E",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          },
+          {
+            "RowNumber": 33,
+            "Position": "F",
+            "Attributes": [
+              {
+                "Description": "Non-smoking seat",
+                "Key": "49"
+              },
+              {
+                "Description": "Window seat",
+                "Key": "85"
+              }
+            ],
+            "SeatLocation": "33F",
+            "Status": {
+              "Code": "SeatAvailability",
+              "Description": "Available seat",
+              "Key": "1"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

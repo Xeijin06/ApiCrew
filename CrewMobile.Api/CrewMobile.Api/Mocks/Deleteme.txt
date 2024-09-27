@@ -1,0 +1,13 @@
+﻿"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:v01="\"http://copaservices.com/Utilities/TimeZone/Requests/COPA_TimeZoneInformationRQ/V01\" xmlns:v011="\"http://copaservices.com/Utilities/TimeZone/Common/COPA_TimeZoneCommonTypes/V01\">" +
+"   <soapenv:Header/>" +
+"   <soapenv:Body>" +
+"      <v01:COPA_TimeZoneInformationRQ Version=\"1.0\" EchoToken=\"ERP_TimeZoneCollector {758DD629-9D96-441D-B9FD-52C418955D56}\" TimeStamp="\"2015-07-15T08:06:00.000Z\">" +
+"         <v01:TimeZones>" +
+"            <v011:DisplayOffsetChange Begin_UTC_TimeInstant=\"2018-01-01T00:00:00.000Z\" End_UTC_TimeInstant=\"2018-12-31T23:59:59.999Z\"/>" +
+"            <v011:Location LocationCode=\"ACA\" LocationCategoryCode=\"Airport\"/>" +
+"            <v011:Location LocationCode=\"ADZ\" LocationCategoryCode=\"Airport\"/>" +
+"            <v011:Location LocationCode=\"AGT\" LocationCategoryCode=\"Airport\"/>" +
+"         </v01:TimeZones>" +
+"      </v01:COPA_TimeZoneInformationRQ>" +
+"   </soapenv:Body>" +
+"</soapenv:Envelope>";
