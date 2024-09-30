@@ -1,0 +1,591 @@
+{
+  "MarketingAirline": {
+    "Airline": "CM",
+    "FlightNumber": "226"
+  },
+  "OperatingAirline": {
+    "Airline": "CM",
+    "FlightNumber": "226"
+  },
+  "OriginDescription": "Panama City, PA (PTY)",
+  "DestinationDescription": "Orlando, US (MCO)",
+  "EstimatedDepartureDateTime": "2024-09-24T20:49:00",
+  "PassengerList": [
+    {
+      "Surname": "ZULUAGA",
+      "GivenName": "JUAN CARLOS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "C",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Y",
+      "Seat": "02B",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "T2",
+          "StatusDescription": "Gold",
+          "AllianceStatusCode": "CM*G",
+          "AllianceStatusDescription": "Star Alliance Gold",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "230467825"
+        }
+      ]
+    },
+    {
+      "Surname": "JULIAN",
+      "GivenName": "CASTRO",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "C",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Q",
+      "Seat": "01A",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "T4",
+          "StatusDescription": "Presidential",
+          "AllianceStatusCode": "CM*G",
+          "AllianceStatusDescription": "Star Alliance Gold",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "230408583"
+        }
+      ]
+    },
+    {
+      "Surname": "ESPINOZA",
+      "GivenName": "IRIS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "C",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "01B",
+      "LoyaltyPrograms": [
+        {
+          "StatusDescription": "PREMIER SILVER",
+          "AllianceStatusCode": "CM*S",
+          "AllianceStatusDescription": "Star Alliance Silver",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "243005488"
+        }
+      ]
+    },
+    {
+      "Surname": "ACOSTA",
+      "GivenName": "MIRIAMEDITH",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "21E",
+      "IrreguarOperation": {
+        "Code": "IRROP",
+        "Description": "ATB - Air turn back"
+      }
+    },
+    {
+      "Surname": "AGUIRRE",
+      "GivenName": "JULIOCESAR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": false,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "26A"
+    },
+    {
+      "Surname": "ALGARTE",
+      "GivenName": "MIGUELANGELMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "21C"
+    },
+    {
+      "Surname": "ALONSO",
+      "GivenName": "NOELIA",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "C",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "C",
+      "Seat": "01F"
+    },
+    {
+      "Surname": "ASCHERO",
+      "GivenName": "RUBENDARIO",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "22D"
+    },
+    {
+      "Surname": "BARONI",
+      "GivenName": "DIEGOFERNANDO",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "25C",
+      "IrreguarOperation": {
+        "Code": "IRROP",
+        "Description": "ATB - Air turn back"
+      }
+    },
+    {
+      "Surname": "BARRERA",
+      "GivenName": "OSCAREDGARMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "19C",
+      "LoyaltyPrograms": [
+        {
+          "StatusDescription": "PREMIER SILVER",
+          "AllianceStatusCode": "CM*S",
+          "AllianceStatusDescription": "Star Alliance Silver",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "243005488"
+        }
+      ]
+    },
+    {
+      "Surname": "BARRETO",
+      "GivenName": "ANDREAVERONICA",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "25F"
+    },
+    {
+      "Surname": "BETANCOURT",
+      "GivenName": "JORGEORLANDO",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "U",
+      "Seat": "20A"
+    },
+    {
+      "Surname": "CAL",
+      "GivenName": "ROBERTOJOSE",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "27C"
+    },
+    {
+      "Surname": "CASTETS",
+      "GivenName": "FERNANDOMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "C",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "D",
+      "Seat": "02A"
+    },
+    {
+      "Surname": "ESTEVEZ",
+      "GivenName": "IRENENILDA",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "U",
+      "Seat": "09F"
+    },
+    {
+      "Surname": "FERIATOVAR",
+      "GivenName": "HERMINIAMRS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "28A"
+    },
+    {
+      "Surname": "GARCIA",
+      "GivenName": "NORMAGLADYS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "28D"
+    },
+    {
+      "Surname": "OZORES",
+      "GivenName": "JUANMARTINMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Q",
+      "Seat": "05A",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "T4",
+          "StatusDescription": "Presidential",
+          "AllianceStatusCode": "CM*G",
+          "AllianceStatusDescription": "Star Alliance Gold",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "235787368"
+        }
+      ]
+    },
+    {
+      "Surname": "ROMERO",
+      "GivenName": "DIANA",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Y",
+      "Seat": "05C"
+    },
+    {
+      "Surname": "TARAZONAVILLAMIZAR",
+      "GivenName": "FRANCISCOJAVIERMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Q",
+      "Seat": "07A",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "T4",
+          "StatusDescription": "Presidential",
+          "AllianceStatusCode": "CM*G",
+          "AllianceStatusDescription": "Star Alliance Gold",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "230408583"
+        }
+      ]
+    },
+    {
+      "Surname": "ACOSTA",
+      "GivenName": "RICHARDMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "30D"
+    },
+    {
+      "Surname": "ALONSO",
+      "GivenName": "CELIOMARCIORECIPUTEMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "24A"
+    },
+    {
+      "Surname": "ANTUNES",
+      "GivenName": "IONEMRS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "26F"
+    },
+    {
+      "Surname": "ARAUJO",
+      "GivenName": "JESSICAMRS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "W",
+      "Seat": "07C",
+      "LoyaltyPrograms": [
+        {
+          "Code": "UA",
+          "Description": "Mileage Plus",
+          "Key": "MC335505"
+        }
+      ]
+    },
+    {
+      "Surname": "ARDILAARENAS",
+      "GivenName": "TERESITA",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "C",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "I",
+      "Seat": "01E",
+      "LoyaltyPrograms": [
+        {
+          "Code": "AV",
+          "Description": "LifeMiles",
+          "Key": "13413780833"
+        }
+      ]
+    },
+    {
+      "Surname": "BOLEABIANI",
+      "GivenName": "MIGUELANGEL",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "U",
+      "Seat": "06A"
+    },
+    {
+      "Surname": "BORTOLETTODUCATI",
+      "GivenName": "SIDNEI",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "33C"
+    },
+    {
+      "Surname": "BUENOGOULART",
+      "GivenName": "RICARDOMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "30F"
+    },
+    {
+      "Surname": "CEJAS",
+      "GivenName": "JAVIERERNESTO",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "E",
+      "Seat": "32D",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "B0",
+          "StatusDescription": "Member",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "238279018"
+        }
+      ]
+    },
+    {
+      "Surname": "DASILVA",
+      "GivenName": "JULIANI",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "U",
+      "Seat": "27F"
+    },
+    {
+      "Surname": "ESVELDJR",
+      "GivenName": "PETERWILLIAMMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "32C",
+      "LoyaltyPrograms": [
+        {
+          "Code": "UA",
+          "Description": "Mileage Plus",
+          "Key": "TL083791"
+        }
+      ]
+    },
+    {
+      "Surname": "FREITAS",
+      "GivenName": "RUBEMMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "U",
+      "Seat": "23A"
+    },
+    {
+      "Surname": "ATENCIO",
+      "GivenName": "MARIA",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Y",
+      "Seat": "05F",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "T2",
+          "StatusDescription": "Gold",
+          "AllianceStatusCode": "CM*G",
+          "AllianceStatusDescription": "Star Alliance Gold",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "230467825"
+        }
+      ]
+    },
+    {
+      "Surname": "PEREIRA",
+      "GivenName": "IZABELAPARECIDAMRS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "W",
+      "Seat": "10C"
+    },
+    {
+      "Surname": "DEL BORBON",
+      "GivenName": "PEDRO",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Y",
+      "Seat": "05B",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "T4",
+          "StatusDescription": "Presidential",
+          "AllianceStatusCode": "CM*G",
+          "AllianceStatusDescription": "Star Alliance Gold",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "230005766"
+        }
+      ]
+    },
+    {
+      "Surname": "VERACRUZ",
+      "GivenName": "JUAN",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Y",
+      "Seat": "05D",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "T4",
+          "StatusDescription": "Presidential",
+          "AllianceStatusCode": "CM*G",
+          "AllianceStatusDescription": "Star Alliance Gold",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "230027127"
+        }
+      ]
+    },
+    {
+      "Surname": "ECHANDIA",
+      "GivenName": "SANDRA",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Y",
+      "Seat": "05E",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "T1",
+          "StatusDescription": "Silver",
+          "AllianceStatusCode": "CM*S",
+          "AllianceStatusDescription": "Star Alliance Silver",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "230436782"
+        }
+      ]
+    },
+    {
+      "Surname": "TARAJIA",
+      "GivenName": "IRFAN",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "07F",
+      "LoyaltyPrograms": [
+        {
+          "StatusCode": "T1",
+          "StatusDescription": "Silver",
+          "AllianceStatusCode": "CM*S",
+          "AllianceStatusDescription": "Star Alliance Silver",
+          "Code": "CM",
+          "Description": "ConnectMiles",
+          "Key": "234595563"
+        }
+
+      ]
+    }
+  ]
+}
