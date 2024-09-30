@@ -127,6 +127,8 @@ namespace CrewMobileApi.Business
         /// <param name="line"></param>
         /// <returns>IEnumerable FlightCrew </returns>
 
+
+        //TODO: Agregar Summary
         private List<FlightCrew> DeserializationList(string line)
         {
             List<FlightCrew> listFly = new List<FlightCrew>();
@@ -206,6 +208,7 @@ namespace CrewMobileApi.Business
             return listFly;
         }
 
+        //TODO: Validar si este metodo se puede mover a una clase comun o a un helper
         private async Task SaveLog(string message, bool wasSucces)
         {
             var proccessFileLog2 = new ProccessFileLog

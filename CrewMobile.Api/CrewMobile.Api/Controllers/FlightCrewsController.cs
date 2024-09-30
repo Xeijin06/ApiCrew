@@ -13,6 +13,7 @@ using Microsoft.Identity.Client;
 using System.IO;
 using Renci.SshNet;
 using CrewMobileApi.Services;
+using CrewMobileApi.Business;
 using GModels = Microsoft.Graph.Models;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 using CrewMobileApi.Mocks;
@@ -808,6 +809,17 @@ namespace CrewMobile.Api.Controllers
             await MakeFinalResponse(i);
 
             return Ok(nextLegResponse);
+        }
+
+        //TODO: Validar si se debe agregar Autorhize, http method y route
+        /// <summary>
+        /// Call the process file FTP to get flight atendance agenda
+        /// </summary>
+        /// <returns>None</returns>
+        public async Task<IActionResult> Post()
+        {
+            await this.ProcessFile();
+            return Ok("Ok");
         }
 
         #endregion
@@ -2112,7 +2124,7 @@ namespace CrewMobile.Api.Controllers
         }
 
         /// <summary>
-        /// Sale file log
+        /// Save Log on file and DB
         /// </summary>
         /// <param name="message">The message</param>
         /// <param name="wasSucces">Indicates if the operation was succssfull</param>
@@ -2137,6 +2149,12 @@ namespace CrewMobile.Api.Controllers
             }
         }
 
+        // TODO: Validar la necesidad de este codigo.
+        /// <summary>
+        /// Save file log
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <returns>None</returns>
         private void SaveLog(string message)
         {
             this.streamWriter.WriteLine(message);
