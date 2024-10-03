@@ -30,11 +30,12 @@ namespace CrewMobile.Api.Controllers
 
         #region Endpoints
 
-        //TODO: Validar agregar Authorize, http method y Route
+        //TODO: Validar agregar Authorize y Route
         /// <summary>
         /// Get parametes
         /// </summary>
         /// <returns>The parameters</returns>
+        [HttpGet]
         public IActionResult GetParameters()
         {
             var parameter = db.Parameters.FirstOrDefault();
