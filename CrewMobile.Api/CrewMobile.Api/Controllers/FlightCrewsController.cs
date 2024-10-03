@@ -811,11 +811,12 @@ namespace CrewMobile.Api.Controllers
             return Ok(nextLegResponse);
         }
 
-        //TODO: Validar si se debe agregar Autorhize, http method y route
+        //TODO: Validar si se debe agregar Autorhize y route
         /// <summary>
         /// Call the process file FTP to get flight atendance agenda
         /// </summary>
-        /// <returns>None</returns>
+        /// <returns>None</returns>       
+        [HttpPost]
         public async Task<IActionResult> Post()
         {
             await this.ProcessFile();
