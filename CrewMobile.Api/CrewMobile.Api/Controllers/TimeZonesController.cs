@@ -21,7 +21,7 @@ namespace CrewMobile.Api.Controllers
         #endregion
 
         #region Constructors
-
+        
         public TimeZonesController(ApplicationDbContext context, ICopaSoap _copaSoap)
         {
             copaSoap = _copaSoap;
@@ -32,6 +32,13 @@ namespace CrewMobile.Api.Controllers
 
         #region Endpoints
 
+        //TODO: Validar agregar Authorize y Route
+        //TODO: Revisar el Summary
+        /// <summary>
+        /// Cargar las TimeZones de Aeropuertos
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
         public async Task<IActionResult> Post()
         {
             var airports = await db.Airports.ToListAsync();
