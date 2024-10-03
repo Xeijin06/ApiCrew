@@ -38,11 +38,12 @@ namespace CrewMobile.Api.Controllers
 
         #region Endpoints
 
-        //TODO: Validar agregar Authorize, http method y Route
+        //TODO: Validar agregar Authorize y Route
         /// <summary>
         /// Process IrrOps
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public async Task<IActionResult> Post()
         {
             await SaveLog("Start Proceess", true);
