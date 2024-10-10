@@ -353,7 +353,7 @@ namespace CrewMobile.Api.Controllers
             DateTime departureTo,
             string flightNumber)
         {
-            var result = await this.copaApi.GetApiFlightInformation(
+            var result = await copaApi.GetApiFlightInformation(
                 departureFrom,
                 departureTo,
                 flightNumber);
@@ -394,7 +394,7 @@ namespace CrewMobile.Api.Controllers
             }
 
             int index = 0;
-            var flightInformation = this.copaSoap.GetFlightInformation(flightNumber, date);
+            var flightInformation = await copaSoap.GetFlightInformation(flightNumber, date);
             if (flightInformation != null && flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.FlightNumber != null)
             {
                 if (flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo.Count > 1)
@@ -1125,7 +1125,7 @@ namespace CrewMobile.Api.Controllers
 
                 var dateFormated = string.Format("{0:yyyy-MM-dd}", currentEmpFlight.DateStart.AddHours(offset).Date);
                 //var flightInformation = copaSoap.GetFlightInformation(currentEmpFlight.FlightNumber.ToString(), dateFormated);
-                var flightInformation = parameters.AlwaysMockServices ? MockHelper.GetFlightInformation() : this.copaSoap.GetFlightInformation(currentEmpFlight.FlightNumber.ToString(), dateFormated);
+                var flightInformation = parameters.AlwaysMockServices ? MockHelper.GetFlightInformation() : await copaSoap.GetFlightInformation(currentEmpFlight.FlightNumber.ToString(), dateFormated);
 
                 if (flightInformation == null)
                 {
