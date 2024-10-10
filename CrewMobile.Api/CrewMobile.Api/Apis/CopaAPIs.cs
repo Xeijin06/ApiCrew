@@ -64,9 +64,9 @@ namespace CrewMobileApi.Apis
         public CopaAPIs(IConfiguration configuration)
         {
             //TODO: Change to use configuration manager
-            urlCopa = configuration["CopaApi:URLCopa"];
+            urlCopa = configuration["CopaApi:ApiUrl"];
             urlCopaSecured = configuration["CopaApi:URLCopaSecured"];
-            subscriptionKey = configuration["CopaApi:SubscriptionKey"];
+            subscriptionKey = configuration["CopaApi:SubscriptionKeyHeader"];
             subscriptionCheckinValue = configuration["RestApiSuscriptionKeys:Checkin"];
             subscriptionFlightOperationsValue = configuration["RestApiSuscriptionKeys:FlightOperations"];
             subscriptionCheckinSeatsValue = configuration["RestApiSuscriptionKeys:CheckinSeats"];
@@ -370,7 +370,7 @@ namespace CrewMobileApi.Apis
                 client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionFlightOperationsValue);
                 client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
                 var url = string.Format(
-                    "/FlightOperations/v1/Flights/flight?dateofdepartureFrom={0:yyyyMMdd}&dateofdepartureTo={1:yyyyMMdd}&flightnumber={2}",
+                    "/FlightOperations/v2/Flights/flight?dateofdepartureFrom={0:yyyyMMdd}&dateofdepartureTo={1:yyyyMMdd}&flightnumber={2}",
                     departureFrom,
                     departureTo,
                     flightNumber);
