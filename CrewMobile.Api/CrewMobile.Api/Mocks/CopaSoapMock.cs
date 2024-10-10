@@ -12,10 +12,12 @@ namespace CrewMobileApi.Mocks
     {
         public const string VARPATH = @"C:\GitRepo\CrewMobile_API\CrewMobile.Api\CrewMobile.Api\Mocks\";
 
-        public FlightDetailSoapCom2 GetFlightInformation(string flightNumber, string date)
+        public async Task<FlightDetailSoapCom2> GetFlightInformation(string flightNumber, string date)
         {
             var jsonString = File.ReadAllText($"{VARPATH}FlightInformation.json");
             var result = JsonConvert.DeserializeObject<FlightDetailSoapCom2>(jsonString);
+
+            await Task.Delay(1000);
 
             return result;
         }
