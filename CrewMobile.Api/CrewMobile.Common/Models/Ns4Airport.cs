@@ -2,7 +2,7 @@
 
 namespace CrewMobile.Common.Models
 {
-    public class Ns6Airport
+    public class Ns4Airport
     {
         [JsonProperty("@LocationCode")]
         public string LocationCode { get; set; }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace CrewMobile.Common.Models
 {
-    public class Ns6DateTime
+    public class Ns4DateTime
     {
         [JsonProperty("@Scheduled")]
         public DateTimeOffset Scheduled { get; set; }

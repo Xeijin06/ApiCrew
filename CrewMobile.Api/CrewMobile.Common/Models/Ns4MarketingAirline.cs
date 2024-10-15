@@ -2,7 +2,7 @@
 
 namespace CrewMobile.Common.Models
 {
-    public class Ns6MarketingAirline
+    public class Ns4MarketingAirline
     {
         [JsonProperty("@Code")]
         public string Code { get; set; }

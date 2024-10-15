@@ -143,22 +143,22 @@ namespace CrewMobileApi.Apis
             {
                 var json = JsonConvert.SerializeXmlNode(xmlResult);
                 var flightDetailSoapCom = JsonConvert.DeserializeObject<FlightDetailSoapCom>(json);
-                var ns6FlightLegInfo = new List<Ns6FlightLegInfo>();
-                ns6FlightLegInfo.Add(flightDetailSoapCom.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo);
+                var ns4FlightLegInfo = new List<Ns4FlightLegInfo>();
+                ns4FlightLegInfo.Add(flightDetailSoapCom.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo);
                 var flightDetailSoapCom2 = new FlightDetailSoapCom2
                 {
                     SoapEnvelope = new SoapEnvelope2
                     {
                         SoapBody = new SoapBody2
                         {
-                            Ns4GetFlifoResponse = new Ns4GetFlifoResponse2
+                            Ns3GetFlifoResponse = new Ns3GetFlifoResponse2
                             {
-                                Ns6OtaAirFlifoRs = new Ns6OtaAirFlifoRs2
+                                Ns4OtaAirFlifoRs = new Ns4OtaAirFlifoRs2
                                 {
-                                    Ns6FlightInfoDetails = new Ns6FlightInfoDetails2
+                                    Ns4FlightInfoDetails = new Ns4FlightInfoDetails2
                                     {
-                                        FlightNumber = flightDetailSoapCom.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.FlightNumber,
-                                        Ns6FlightLegInfo = ns6FlightLegInfo,
+                                        FlightNumber = flightDetailSoapCom.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber,
+                                        Ns4FlightLegInfo = ns4FlightLegInfo,
                                     },
                                 },
                             },
@@ -222,8 +222,6 @@ namespace CrewMobileApi.Apis
                 var responseContent = await response.Content.ReadAsStringAsync();
                 xmlDoc = XDocument.Parse(responseContent);
 
-                //var json = JsonConvert.SerializeXNode(xmlDoc);
-
                 //Console.WriteLine(responseContent);
             }
             catch (Exception ex)
@@ -237,22 +235,22 @@ namespace CrewMobileApi.Apis
             {
                 var json = JsonConvert.SerializeXNode(xmlDoc);
                 var flightDetailSoapCom = JsonConvert.DeserializeObject<FlightDetailSoapCom>(json);
-                var ns6FlightLegInfo = new List<Ns6FlightLegInfo>();
-                ns6FlightLegInfo.Add(flightDetailSoapCom.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo);
+                var ns4FlightLegInfo = new List<Ns4FlightLegInfo>();
+                ns4FlightLegInfo.Add(flightDetailSoapCom.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo);
                 var flightDetailSoapCom2 = new FlightDetailSoapCom2
                 {
                     SoapEnvelope = new SoapEnvelope2
                     {
                         SoapBody = new SoapBody2
                         {
-                            Ns4GetFlifoResponse = new Ns4GetFlifoResponse2
+                            Ns3GetFlifoResponse = new Ns3GetFlifoResponse2
                             {
-                                Ns6OtaAirFlifoRs = new Ns6OtaAirFlifoRs2
+                                Ns4OtaAirFlifoRs = new Ns4OtaAirFlifoRs2
                                 {
-                                    Ns6FlightInfoDetails = new Ns6FlightInfoDetails2
+                                    Ns4FlightInfoDetails = new Ns4FlightInfoDetails2
                                     {
-                                        FlightNumber = flightDetailSoapCom.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.FlightNumber,
-                                        Ns6FlightLegInfo = ns6FlightLegInfo,
+                                        FlightNumber = flightDetailSoapCom.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber,
+                                        Ns4FlightLegInfo = ns4FlightLegInfo,
                                     },
                                 },
                             },

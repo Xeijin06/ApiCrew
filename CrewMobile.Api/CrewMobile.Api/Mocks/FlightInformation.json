@@ -2,44 +2,44 @@
   "soap:Envelope": {
     "@xmlns:soap": "http://schemas.xmlsoap.org/soap/envelope/",
     "soap:Body": {
-      "ns4:getFlifoResponse": {
+      "ns3:getFlifoResponse": {
         "@xmlns:ns8": "http://www.opentravel.org/OTA/2003/05/AirBookRQ",
         "@xmlns:ns7": "http://www.opentravel.org/OTA/2003/05/AirCommonTypes",
-        "@xmlns:ns6": "http://www.opentravel.org/OTA/2003/05/AirFlifoRS",
-        "@xmlns:ns5": "http://www.eds.com/AirlineSOASchema/HistoryRS",
-        "@xmlns:ns4": "http://www.eds.com/AirlineSOASchema/Flifo/",
-        "@xmlns:ns3": "http://www.opentravel.org/OTA/2003/05/AirFlifoRQ",
-        "@xmlns:ns2": "http://www.opentravel.org/OTA/2003/05/CommonTypes",
-        "ns6:OTA_AirFlifoRS": {
+        "@xmlns:ns4": "http://www.opentravel.org/OTA/2003/05/AirFlifoRS",
+        "@xmlns:ns6": "http://www.eds.com/AirlineSOASchema/HistoryRS",
+        "@xmlns:ns3": "http://www.eds.com/AirlineSOASchema/Flifo/",
+        "@xmlns:ns2": "http://www.opentravel.org/OTA/2003/05/AirFlifoRQ",
+        "@xmlns:ns5": "http://www.opentravel.org/OTA/2003/05/CommonTypes",
+        "ns4:OTA_AirFlifoRS": {
           "@EchoToken": "New Revenue Accounting",
           "@TimeStamp": "2024-09-29T10:49:16",
           "@Version": "4.000",
-          "ns6:Success": null,
-          "ns6:FlightInfoDetails": {
+          "ns4:Success": null,
+          "ns4:FlightInfoDetails": {
             "@FlightNumber": "0226",
-            "ns6:FlightLegInfo": [
+            "ns4:FlightLegInfo": [
               {
                 "@FlightStatus": "ON-TIME",
-                "ns6:DepartureAirport": {
+                "ns4:DepartureAirport": {
                   "@LocationCode": "PTY",
                   "@Gate": "J18"
                 },
-                "ns6:ArrivalAirport": {
+                "ns4:ArrivalAirport": {
                   "@Diversion": "false",
                   "@LocationCode": "MCO"
                 },
-                "ns6:MarketingAirline": {
+                "ns4:MarketingAirline": {
                   "@Code": "CM"
                 },
-                "ns6:Equipment": {
+                "ns4:Equipment": {
                   "@AircraftTailNumber": "137",
                   "@AirEquipType": "73A"
                 },
-                "ns6:DepartureDateTime": {
+                "ns4:DepartureDateTime": {
                   "@Scheduled": "2024-09-24T20:49:00",
                   "@Actual": "2024-09-24T20:51:00"
                 },
-                "ns6:ArrivalDateTime": {
+                "ns4:ArrivalDateTime": {
                   "@Scheduled": "2024-09-24T23:38:00",
                   "@Actual": "2024-09-24T23:40:00"
                 }

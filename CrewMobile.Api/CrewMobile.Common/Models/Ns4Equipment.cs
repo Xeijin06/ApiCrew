@@ -2,7 +2,7 @@
 
 namespace CrewMobile.Common.Models
 {
-    public class Ns6Equipment
+    public class Ns4Equipment
     {
         [JsonProperty("@AircraftTailNumber")]
         public string AircraftTailNumber { get; set; }

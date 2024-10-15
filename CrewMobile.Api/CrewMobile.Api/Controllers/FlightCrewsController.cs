@@ -395,21 +395,21 @@ namespace CrewMobile.Api.Controllers
 
             int index = 0;
             var flightInformation = await copaSoap.GetFlightInformation(flightNumber, date);
-            if (flightInformation != null && flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.FlightNumber != null)
+            if (flightInformation != null && flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber != null)
             {
-                if (flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo.Count > 1)
+                if (flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo.Count > 1)
                 {
                     int k = 0;
-                    for (; k < flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo.Count; k++)
+                    for (; k < flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo.Count; k++)
                     {
-                        if (flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[k].Ns6DepartureAirport.LocationCode == source &&
-                            flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[k].Ns6ArrivalAirport.LocationCode == destination)
+                        if (flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[k].Ns4DepartureAirport.LocationCode == source &&
+                            flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[k].Ns4ArrivalAirport.LocationCode == destination)
                         {
                             break;
                         }
                     }
 
-                    if (k == flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo.Count)
+                    if (k == flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo.Count)
                     {
                         k = 0;
                     }
@@ -422,9 +422,9 @@ namespace CrewMobile.Api.Controllers
                 }
             }
 
-            var departureDateScheduled = flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[index].Ns6DepartureDateTime.Scheduled.UtcDateTime.ToLocalTime();
-            var departureDateEstimated = flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[index].Ns6DepartureDateTime.Estimated.UtcDateTime.ToLocalTime();
-            var departureDateActual = flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[index].Ns6DepartureDateTime.Actual.UtcDateTime.ToLocalTime();
+            var departureDateScheduled = flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[index].Ns4DepartureDateTime.Scheduled.UtcDateTime.ToLocalTime();
+            var departureDateEstimated = flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[index].Ns4DepartureDateTime.Estimated.UtcDateTime.ToLocalTime();
+            var departureDateActual = flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[index].Ns4DepartureDateTime.Actual.UtcDateTime.ToLocalTime();
 
             int gmt = 0;
             var airport = await this.db.Airports.Where(a => a.AirportCode == source).FirstOrDefaultAsync();
@@ -435,7 +435,7 @@ namespace CrewMobile.Api.Controllers
 
             DateTime departureDateUTC;
 
-            if (string.IsNullOrEmpty(flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].FlightStatus))
+            if (string.IsNullOrEmpty(flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].FlightStatus))
             {
                 // Delayed
                 departureDateUTC = departureDateEstimated.AddHours(gmt * -1);
@@ -859,15 +859,15 @@ namespace CrewMobile.Api.Controllers
 
                     result = null;
 
-                    List<Ns6FlightLegInfo> allLegs = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo;
+                    List<Ns4FlightLegInfo> allLegs = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo;
                     if (allLegs.Count >= 2)
                     {
                         result = await copaApi.GetPassengerList(
                                                                 listEmployeeFlights[i].FlightCrew.FlightNumber.ToString(),
                                                                 listEmployeeFlights[i].FlightCrew.DateStart.AddHours(offSets[i]),
                                                                 listEmployeeFlights[i].FlightCrew.Company,
-                                                                allLegs[0].Ns6DepartureAirport.LocationCode,
-                                                                allLegs[allLegs.Count - 1].Ns6ArrivalAirport.LocationCode,
+                                                                allLegs[0].Ns4DepartureAirport.LocationCode,
+                                                                allLegs[allLegs.Count - 1].Ns4ArrivalAirport.LocationCode,
                                                                 "All");
 
                         PassengerListHeaderCom othePaxs = (PassengerListHeaderCom)result.Result;
@@ -1132,7 +1132,7 @@ namespace CrewMobile.Api.Controllers
                     return -2;
                 }
 
-                if (flightInformation != null && flightInformation.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.FlightNumber != null)
+                if (flightInformation != null && flightInformation.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber != null)
                 {
                     listEmployeeFlights.Add(new PreNextLegResponseCom
                     {
@@ -1152,7 +1152,7 @@ namespace CrewMobile.Api.Controllers
 
 
             listEmployeeFlights = listEmployeeFlights.
-                                    OrderBy(f => f.FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[0].Ns6DepartureDateTime.Scheduled).
+                                    OrderBy(f => f.FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[0].Ns4DepartureDateTime.Scheduled).
                                     ToList();
 
             int currentFlightIndex = 0;
@@ -1161,16 +1161,16 @@ namespace CrewMobile.Api.Controllers
             for (; currentFlightIndex < listEmployeeFlights.Count; currentFlightIndex++)
             {
                 bool flightFound = false;
-                Ns6FlightInfoDetails2 flightInfo = listEmployeeFlights[currentFlightIndex].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails;
+                Ns4FlightInfoDetails2 flightInfo = listEmployeeFlights[currentFlightIndex].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails;
                 //--Determina la pierna correcta del vuelo
-                for (int k = 0; k < flightInfo.Ns6FlightLegInfo.Count; k++)
+                for (int k = 0; k < flightInfo.Ns4FlightLegInfo.Count; k++)
                 {
-                    if (flightInfo.Ns6FlightLegInfo[k].Ns6DepartureAirport.LocationCode == listEmployeeFlights[currentFlightIndex].FlightCrew.Source &&
-                        flightInfo.Ns6FlightLegInfo[k].Ns6ArrivalAirport.LocationCode == listEmployeeFlights[currentFlightIndex].FlightCrew.Destination)
+                    if (flightInfo.Ns4FlightLegInfo[k].Ns4DepartureAirport.LocationCode == listEmployeeFlights[currentFlightIndex].FlightCrew.Source &&
+                        flightInfo.Ns4FlightLegInfo[k].Ns4ArrivalAirport.LocationCode == listEmployeeFlights[currentFlightIndex].FlightCrew.Destination)
                     {
                         legIndex = k;
                         int arrivalOffSet = GetAirportTimeZone(listEmployeeFlights[currentFlightIndex].FlightCrew.Destination);
-                        DateTime arrivalDate = GetCorrectDepartureOrArrivalTime(flightInfo.Ns6FlightLegInfo[k].Ns6ArrivalDateTime).AddHours(arrivalOffSet * -1);
+                        DateTime arrivalDate = GetCorrectDepartureOrArrivalTime(flightInfo.Ns4FlightLegInfo[k].Ns4ArrivalDateTime).AddHours(arrivalOffSet * -1);
                         if (calledServiceDate <= arrivalDate.AddMinutes(parameters.MinuteToKeepFlight))
                         {
                             flightFound = true;
@@ -1190,7 +1190,7 @@ namespace CrewMobile.Api.Controllers
         /// </summary>
         /// <param name="flightDateTime">Información del vuelo</param>
         /// <returns>Hora Correcta</returns>
-        private DateTime GetCorrectDepartureOrArrivalTime(Ns6DateTime flightDateTime)
+        private DateTime GetCorrectDepartureOrArrivalTime(Ns4DateTime flightDateTime)
         {
             if (flightDateTime.Actual.DateTime != DateTime.MinValue)
             {
@@ -1223,18 +1223,18 @@ namespace CrewMobile.Api.Controllers
             }
 
             nextLegResponse.NextLeg = new NextNextLegResponse();
-            List<Ns6FlightLegInfo> legs = listEmployeeFlights[i + 1].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo;
+            List<Ns4FlightLegInfo> legs = listEmployeeFlights[i + 1].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo;
             int legIndex = 0;
             for (legIndex = 0; legIndex < legs.Count; legIndex++)
             {
-                if (listEmployeeFlights[i + 1].FlightCrew.Source.ToUpper() == legs[legIndex].Ns6DepartureAirport.LocationCode.ToUpper() &&
-                    listEmployeeFlights[i + 1].FlightCrew.Destination.ToUpper() == legs[legIndex].Ns6ArrivalAirport.LocationCode.ToUpper())
+                if (listEmployeeFlights[i + 1].FlightCrew.Source.ToUpper() == legs[legIndex].Ns4DepartureAirport.LocationCode.ToUpper() &&
+                    listEmployeeFlights[i + 1].FlightCrew.Destination.ToUpper() == legs[legIndex].Ns4ArrivalAirport.LocationCode.ToUpper())
                 {
                     break;
                 }
             }
-            var departureDate = GetCorrectDepartureOrArrivalTime(legs[legIndex].Ns6DepartureDateTime);
-            var arrivalDate = GetCorrectDepartureOrArrivalTime(legs[legIndex].Ns6ArrivalDateTime);
+            var departureDate = GetCorrectDepartureOrArrivalTime(legs[legIndex].Ns4DepartureDateTime);
+            var arrivalDate = GetCorrectDepartureOrArrivalTime(legs[legIndex].Ns4ArrivalDateTime);
 
             var source = airports.
                 Where(a => a.AirportCode == listEmployeeFlights[i + 1].FlightCrew.Source).
@@ -1287,8 +1287,8 @@ namespace CrewMobile.Api.Controllers
             }
 
             await GetCounts(i + 1);
-            nextLegResponse.NextLeg.Airline = listEmployeeFlights[i + 1].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[0].Ns6MarketingAirline.Code;
-            nextLegResponse.NextLeg.FlightNumber = listEmployeeFlights[i + 1].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.FlightNumber;
+            nextLegResponse.NextLeg.Airline = listEmployeeFlights[i + 1].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[0].Ns4MarketingAirline.Code;
+            nextLegResponse.NextLeg.FlightNumber = listEmployeeFlights[i + 1].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber;
             await this.SetFlighStatusNextLeg(nextLegResponse.NextLeg, i + 1, true);
             SetCountersNextLeg(i);
         }
@@ -1312,7 +1312,7 @@ namespace CrewMobile.Api.Controllers
                     if (!isNextLeg)
                         legIndex = this.legIndex;
 
-                    string currentStatus = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].FlightStatus;
+                    string currentStatus = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].FlightStatus;
                     if (!string.IsNullOrEmpty(currentStatus))
                     {
                         if (currentStatus.ToLower().Contains("cancelled"))
@@ -1577,7 +1577,7 @@ namespace CrewMobile.Api.Controllers
                 //}
                 if (passengerIrregularOperation != null)
                 {
-                    var currentflighNumber = int.Parse(listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.FlightNumber);
+                    var currentflighNumber = int.Parse(listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber);
                     var irropFligthNumber = int.Parse(passengerIrregularOperation.IrregularOperation.FlightNumber);
                     if (currentflighNumber != irropFligthNumber)
                     {
@@ -1877,10 +1877,10 @@ namespace CrewMobile.Api.Controllers
         /// <param name="i">Flight index</param>
         private async Task MakeFinalResponse(int i)
         {
-            nextLegResponse.Airline = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].Ns6MarketingAirline.Code;
-            nextLegResponse.FlightNumber = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.FlightNumber;
-            nextLegResponse.Gate = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].Ns6DepartureAirport.Gate;
-            nextLegResponse.Equipment = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].Ns6Equipment.AirEquipType;
+            nextLegResponse.Airline = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].Ns4MarketingAirline.Code;
+            nextLegResponse.FlightNumber = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber;
+            nextLegResponse.Gate = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].Ns4DepartureAirport.Gate;
+            nextLegResponse.Equipment = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].Ns4Equipment.AirEquipType;
 
             await this.SetFlighStatusNextLeg(nextLegResponse, i);
             SetCounters(i);
@@ -1956,12 +1956,12 @@ namespace CrewMobile.Api.Controllers
                 Where(a => a.AirportCode == listEmployeeFlights[i].FlightCrew.Source).
                 FirstOrDefault();
 
-            var departureDateScheduled = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].Ns6DepartureDateTime.Scheduled.UtcDateTime.ToLocalTime();
-            var departureDateEstimated = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].Ns6DepartureDateTime.Estimated.UtcDateTime.ToLocalTime();
-            var departureDateActual = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].Ns6DepartureDateTime.Actual.UtcDateTime.ToLocalTime();
-            var arrivalDateScheduled = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].Ns6ArrivalDateTime.Scheduled.UtcDateTime.ToLocalTime();
-            var arrivalDateEstimated = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].Ns6ArrivalDateTime.Estimated.UtcDateTime.ToLocalTime();
-            var arrivalDateActual = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].Ns6ArrivalDateTime.Actual.UtcDateTime.ToLocalTime();
+            var departureDateScheduled = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].Ns4DepartureDateTime.Scheduled.UtcDateTime.ToLocalTime();
+            var departureDateEstimated = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].Ns4DepartureDateTime.Estimated.UtcDateTime.ToLocalTime();
+            var departureDateActual = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].Ns4DepartureDateTime.Actual.UtcDateTime.ToLocalTime();
+            var arrivalDateScheduled = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].Ns4ArrivalDateTime.Scheduled.UtcDateTime.ToLocalTime();
+            var arrivalDateEstimated = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].Ns4ArrivalDateTime.Estimated.UtcDateTime.ToLocalTime();
+            var arrivalDateActual = listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].Ns4ArrivalDateTime.Actual.UtcDateTime.ToLocalTime();
 
             if (departureDateEstimated == DateTime.MinValue)
             {
@@ -1988,7 +1988,7 @@ namespace CrewMobile.Api.Controllers
 
             DateTime departureDateUTC;
 
-            if (string.IsNullOrEmpty(listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo[legIndex].FlightStatus))
+            if (string.IsNullOrEmpty(listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo[legIndex].FlightStatus))
             {
                 // Delayed
                 departureDateUTC = departureDateEstimated.AddHours(offSets[i] * -1);
