@@ -199,6 +199,8 @@ namespace CrewMobileApi.Apis
             }
         }
 
+
+        //TODO: Validar el uso del parametro de la cabina
         public async Task<Response> GetPassengerList(
             string flightNumber,
             DateTime departureDate,
@@ -214,7 +216,7 @@ namespace CrewMobileApi.Apis
                 client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionCheckinValue);
                 client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
                 var url = string.Format(
-                    "/checkin/passengerlist/v1.2/{0}/{1:yyyy-MM-dd}/{2}/{3}/{4}",
+                    "/checkin/passengerlist/v1.2/{0}/{1:yyyy-MM-dd}/{2}/{3}/{4}?CabinClass={5}",
                     flightNumber,
                     departureDate,
                     operatorCarrier,
@@ -254,6 +256,7 @@ namespace CrewMobileApi.Apis
             }
         }
 
+        //TODO: Validar la reactivacion o reemplazo de la obtencion de los totales
         public async Task<Response> GetCounts(
             string flightNumber,
             DateTime departureDate,
