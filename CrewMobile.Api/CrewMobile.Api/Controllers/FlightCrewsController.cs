@@ -525,10 +525,11 @@ namespace CrewMobile.Api.Controllers
                     return BadRequest("003. No available flights information.");
                 }
 
-                if (i + 1 == listEmployeeFlights.Count)
+                //TODO: Validar la necesidad de este codigo
+                /*if (i + 1 == listEmployeeFlights.Count)
                 {
                     return BadRequest("003. No available flights information.");
-                }
+                }*/
 
                 nextLegResponse.ShowFullFare = parameters.ShowFullFare;
 
