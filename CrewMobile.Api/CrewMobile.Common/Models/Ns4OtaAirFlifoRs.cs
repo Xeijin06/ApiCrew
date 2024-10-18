@@ -4,7 +4,7 @@ namespace CrewMobile.Common.Models
 {
     public class Ns4OtaAirFlifoRs
     {
-        [JsonProperty("ns4:FlightInfoDetails")]
+        [JsonProperty("FlightInfoDetails")]
         public Ns4FlightInfoDetails Ns4FlightInfoDetails { get; set; }
     }
 }

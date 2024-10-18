@@ -7,7 +7,7 @@ namespace CrewMobile.Common.Models
         [JsonProperty("@FlightNumber")]
         public string FlightNumber { get; set; }
 
-        [JsonProperty("ns4:FlightLegInfo")]
+        [JsonProperty("FlightLegInfo")]
         public Ns4FlightLegInfo Ns4FlightLegInfo { get; set; }
     }
 }

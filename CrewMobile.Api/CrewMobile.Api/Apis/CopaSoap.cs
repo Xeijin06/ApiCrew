@@ -219,7 +219,8 @@ namespace CrewMobileApi.Apis
             try
             {
                 var response = await httpClient.SendAsync(httpRequest);
-                var responseContent = await response.Content.ReadAsStringAsync();
+                var responseContentOriginal = await response.Content.ReadAsStringAsync();
+                var responseContent = ReplaceSoapNameSpacesNodes(responseContentOriginal);
                 xmlDoc = XDocument.Parse(responseContent);
 
                 //Console.WriteLine(responseContent);
@@ -451,6 +452,20 @@ namespace CrewMobileApi.Apis
                 ex.ToString();
                 return null;
             }
+        }
+
+        private string ReplaceSoapNameSpacesNodes(string responseSoapOriginal)
+        {
+            string[] valuesToRemove = { "ns1:", "ns2:", "ns3:", "ns4:", "ns5:", "ns6:", "ns7:", "ns8:" };
+
+            string responseSoap = responseSoapOriginal;
+
+            foreach (var value in valuesToRemove)
+            {
+                responseSoap = responseSoap.Replace(value, string.Empty);
+            }
+
+            return responseSoap;
         }
         #endregion
     }

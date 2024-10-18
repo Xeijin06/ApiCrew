@@ -4,7 +4,7 @@
 
     public class SoapBody
     {
-        [JsonProperty("ns3:getFlifoResponse")]
+        [JsonProperty("getFlifoResponse")]
         public Ns3GetFlifoResponse Ns3GetFlifoResponse { get; set; }
     }
 }

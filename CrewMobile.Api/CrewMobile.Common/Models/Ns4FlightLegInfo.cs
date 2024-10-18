@@ -7,22 +7,22 @@ namespace CrewMobile.Common.Models
         [JsonProperty("@FlightStatus")]
         public string FlightStatus { get; set; }
 
-        [JsonProperty("ns4:DepartureAirport")]
+        [JsonProperty("DepartureAirport")]
         public Ns4Airport Ns4DepartureAirport { get; set; }
 
-        [JsonProperty("ns4:ArrivalAirport")]
+        [JsonProperty("ArrivalAirport")]
         public Ns4Airport Ns4ArrivalAirport { get; set; }
 
-        [JsonProperty("ns4:MarketingAirline")]
+        [JsonProperty("MarketingAirline")]
         public Ns4MarketingAirline Ns4MarketingAirline { get; set; }
 
-        [JsonProperty("ns4:Equipment")]
+        [JsonProperty("Equipment")]
         public Ns4Equipment Ns4Equipment { get; set; }
 
-        [JsonProperty("ns4:DepartureDateTime")]
+        [JsonProperty("DepartureDateTime")]
         public Ns4DateTime Ns4DepartureDateTime { get; set; }
 
-        [JsonProperty("ns4:ArrivalDateTime")]
+        [JsonProperty("ArrivalDateTime")]
         public Ns4DateTime Ns4ArrivalDateTime { get; set; }
     }
 }
