@@ -1011,8 +1011,10 @@ namespace CrewMobile.Api.Controllers
         /// <returns>None</returns>
         private async Task GetCounts(int i)
         {
-            //this.gotCounts = false;
-            //return;
+            //TODO: Comentar dicha respuesta cuando se restaure el Endpoint
+            this.gotCounts = true;
+            listEmployeeFlights[i].FlightCountHeader = MockHelper.MockCounts();
+            return;
 
             if (parameters.MockServices && parameters.AlwaysMockServices)
             {
