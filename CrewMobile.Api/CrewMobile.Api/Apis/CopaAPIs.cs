@@ -470,7 +470,7 @@ namespace CrewMobileApi.Apis
                 client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionIrregularOperations);
                 client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
                 var date = $"{DateTime.Today:yyyy-MM-dd}";
-                var url = $"/Irrops/v1.1/Irrops/FlightDateFrom/FlightDateTo?FlightDateFrom={date}&FlightDateTo={date}&TypeOfIrrop=ALL";
+                var url = $"/osl/osb/irrops/v1.1/byflight/?FlightDateFrom={date}&FlightDateTo={date}&TypeOfIrrop=ALL";
                 var response = await client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
