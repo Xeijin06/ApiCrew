@@ -21,6 +21,7 @@ using CrewMobileApi.Mocks;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 //TODO: Revisar y corregir la palabra Passanger a Passenger
+//TODO: Validar uso de libreria de Telemetria
 
 namespace CrewMobile.Api.Controllers
 {
@@ -600,12 +601,6 @@ namespace CrewMobile.Api.Controllers
                 SetRoll(i);
                 await FixDescriptorsAndOrderBusinessAndPreferrredCounts();
                 await MakeFinalResponse(i);
-
-
-                // Simula una operación asíncrona, por ejemplo, una llamada a una base de datos
-                // Todo: Borrar esta línea
-                //await Task.Delay(1000);
-
             }
             catch (Exception ex)
             {
@@ -1815,6 +1810,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="i">Flight index</param>
         private void SetRoll(int i)
         {
+            //TODO: Validar cambiar valores quemados a algo mas configurado en base de datos
             if (listEmployeeFlights[i].FlightCrew.CrewRoll.ToUpper().Contains("JC"))
             {
                 nextLegResponse.Roll = "JC";
@@ -1917,6 +1913,7 @@ namespace CrewMobile.Api.Controllers
             var hourDifference = nextLegResponse.Source.Date.Subtract(calledServiceDate.AddHours(offSets[i]));
             int j = 0;
             nextLegResponse.IsFinal = false;
+            //TODO: Validar cambiar los 55 a un valor configurado en base de datos
             if (hourDifference.TotalMinutes <= 55)
             {
                 nextLegResponse.IsFinal = true;
