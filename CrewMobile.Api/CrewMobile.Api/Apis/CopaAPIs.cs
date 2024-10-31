@@ -138,6 +138,7 @@ namespace CrewMobileApi.Apis
             }
         }
 
+        //TODO: Validar si el actual metodo obtiene todos los pasajeros prefer del vuelo o solo los de X cabina
         /// <summary>
         /// Get preferred list
         /// </summary>
