@@ -166,7 +166,7 @@ namespace CrewMobile.Api.Controllers
         [Route("GetFlightCrews")]
         public IActionResult GetFlightCrews()
         {
-            var crews = db.FlightCrews.FirstOrDefault();
+            var crews = db.FlightCrews; //.FirstOrDefault();
             return Ok(crews);
         }
 
