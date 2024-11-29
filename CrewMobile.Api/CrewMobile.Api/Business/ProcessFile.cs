@@ -78,7 +78,7 @@ namespace CrewMobileApi.Business
                                 DateStart = item.DateStart,
                                 DateEnd = item.DateEnd,
                                 Destination = item.Destination,
-                                FlightCrewId = item.FlightCrewId,
+                                //FlightCrewId = item.FlightCrewId,
                                 FlightNumber = item.FlightNumber,
                                 Source = item.Source,
                             });
