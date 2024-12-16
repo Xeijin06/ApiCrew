@@ -165,9 +165,79 @@ namespace CrewMobile.Api.Controllers
         [HttpGet]
         [Route("GetFlightCrews")]
         public IActionResult GetFlightCrews()
+        {          
+            var flightCrews = db.FlightCrews.ToList(); //.FirstOrDefault();
+            return Ok(flightCrews);
+        }
+
+        /// <summary>
+        /// GetFlightCrews
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpGet]
+        [Route("GetFlightCrews/{Id}")]
+        public IActionResult GetFlightCrews(int Id)
         {
-            var crews = db.FlightCrews; //.FirstOrDefault();
-            return Ok(crews);
+            var flightCrew = db.FlightCrews.Find(Id);
+            if (flightCrew == null)
+            {
+                return NotFound();
+            }
+            return Ok(flightCrew);
+        }
+
+        /// <summary>
+        /// AddFlightCrews
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpPost]
+        [Route("AddFlightCrews")]
+        public IActionResult AddFlightCrews(FlightCrew flightCrew)
+        {
+            db.FlightCrews.Add(flightCrew);
+            db.SaveChanges();
+            return Ok(flightCrew);
+        }
+
+
+        /// <summary>
+        /// UpdateFlightCrews
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpPut]
+        [Route("UpdateFlightCrews")]
+        public IActionResult UpdateFlightCrews(FlightCrew flightCrew)
+        {
+            var flightCrewOld = db.FlightCrews.Find(flightCrew.FlightCrewId);
+            if (flightCrewOld == null)
+            {
+                return NotFound();
+            }
+            //db.Update(flightCrew);
+            db.Entry(flightCrewOld).CurrentValues.SetValues(flightCrew);
+            db.SaveChanges();
+            return NoContent();
+        }
+
+        /// <summary>
+        /// DeleteFlightCrews
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpDelete]
+        [Route("DeleteFlightCrews/{Id}")]
+        public IActionResult DeleteFlightCrews(int Id)
+        {
+            var flightCrew = db.FlightCrews.Find(Id);
+            if (flightCrew != null)
+            {
+                db.FlightCrews.Remove(flightCrew);
+                db.SaveChanges();
+            }
+            return NoContent();
         }
 
         /// <summary>
