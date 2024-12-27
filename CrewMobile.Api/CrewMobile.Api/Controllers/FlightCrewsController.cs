@@ -17,6 +17,7 @@ using CrewMobileApi.Business;
 using GModels = Microsoft.Graph.Models;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 using CrewMobileApi.Mocks;
+using System.Security.Cryptography;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -157,6 +158,7 @@ namespace CrewMobile.Api.Controllers
 
         #region Endpoints
 
+        #region DB Endpoints
         /// <summary>
         /// GetFlightCrews
         /// </summary>
@@ -239,6 +241,92 @@ namespace CrewMobile.Api.Controllers
             }
             return NoContent();
         }
+
+        /// <summary>
+        /// GetFlightCrewFileLogs
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpGet]
+        [Route("GetFlightCrewFileLogs")]
+        public IActionResult GetFlightCrewFileLogs()
+        {
+            var fcFileLogs = db.ProccessFileLogs.ToList();
+            return Ok(fcFileLogs);
+        }
+
+        // TODO: Validar el nombre de la tabla ProccessFileLogs
+        
+        /// <summary>
+        /// GetFlightCrewFileLogs
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpGet]
+        [Route("GetFlightCrewFileLogs/{Id}")]
+        public IActionResult GetFlightCrewFileLogs(int Id)
+        {
+            var fcFileLog = db.ProccessFileLogs.Find(Id);
+            if (fcFileLog == null)
+            {
+                return NotFound();
+            }
+            return Ok(fcFileLog);
+        }
+
+        /// <summary>
+        /// AddFlightCrewFileLogs
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpPost]
+        [Route("AddFlightCrewFileLogs")]
+        public IActionResult AddFlightCrewFileLogs(ProccessFileLog fcFileLog)
+        {
+            db.ProccessFileLogs.Add(fcFileLog);
+            db.SaveChanges();
+            return Ok(fcFileLog);
+        }
+
+
+        /// <summary>
+        /// UpdateParameters
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpPut]
+        [Route("UpdateFlightCrewFileLogs")]
+        public IActionResult UpdateFlightCrewFileLogs(ProccessFileLog fcFileLog)
+        {
+            var fcFileLogOld = db.ProccessFileLogs.Find(fcFileLog.ProccessFileLogId);
+            if (fcFileLogOld == null)
+            {
+                return NotFound();
+            }
+            //db.Update(parameter);
+            db.Entry(fcFileLogOld).CurrentValues.SetValues(fcFileLog);
+            db.SaveChanges();
+            return NoContent();
+        }
+
+        /// <summary>
+        /// DeleteFlightCrewFileLogs
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpDelete]
+        [Route("DeleteFlightCrewFileLogs/{Id}")]
+        public IActionResult DeleteFlightCrewFileLogs(int Id)
+        {
+            var fcFileLog = db.ProccessFileLogs.Find(Id);
+            if (fcFileLog != null)
+            {
+                db.ProccessFileLogs.Remove(fcFileLog);
+                db.SaveChanges();
+            }
+            return NoContent();
+        }
+        #endregion
 
         /// <summary>
         /// Get passenger list
