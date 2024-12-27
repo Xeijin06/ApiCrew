@@ -64,9 +64,9 @@ namespace CrewMobileApi.Apis
         public CopaAPIs(IConfiguration configuration)
         {
             //TODO: Change to use configuration manager
-            urlCopa = configuration["CopaApi:URLCopa"];
+            urlCopa = configuration["CopaApi:ApiUrl"];
             urlCopaSecured = configuration["CopaApi:URLCopaSecured"];
-            subscriptionKey = configuration["CopaApi:SubscriptionKey"];
+            subscriptionKey = configuration["CopaApi:SubscriptionKeyHeader"];
             subscriptionCheckinValue = configuration["RestApiSuscriptionKeys:Checkin"];
             subscriptionFlightOperationsValue = configuration["RestApiSuscriptionKeys:FlightOperations"];
             subscriptionCheckinSeatsValue = configuration["RestApiSuscriptionKeys:CheckinSeats"];
@@ -138,6 +138,7 @@ namespace CrewMobileApi.Apis
             }
         }
 
+        //TODO: Validar si el actual metodo obtiene todos los pasajeros prefer del vuelo o solo los de X cabina
         /// <summary>
         /// Get preferred list
         /// </summary>
@@ -199,6 +200,8 @@ namespace CrewMobileApi.Apis
             }
         }
 
+
+        //TODO: Validar el uso del parametro de la cabina
         public async Task<Response> GetPassengerList(
             string flightNumber,
             DateTime departureDate,
@@ -214,7 +217,7 @@ namespace CrewMobileApi.Apis
                 client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionCheckinValue);
                 client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
                 var url = string.Format(
-                    "/checkin/passengerlist/v1.2/{0}/{1:yyyy-MM-dd}/{2}/{3}/{4}",
+                    "/checkin/passengerlist/v1.2/{0}/{1:yyyy-MM-dd}/{2}/{3}/{4}?CabinClass={5}",
                     flightNumber,
                     departureDate,
                     operatorCarrier,
@@ -254,6 +257,7 @@ namespace CrewMobileApi.Apis
             }
         }
 
+        //TODO: Validar la reactivacion o reemplazo de la obtencion de los totales
         public async Task<Response> GetCounts(
             string flightNumber,
             DateTime departureDate,
@@ -370,7 +374,7 @@ namespace CrewMobileApi.Apis
                 client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionFlightOperationsValue);
                 client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
                 var url = string.Format(
-                    "/FlightOperations/v1/Flights/flight?dateofdepartureFrom={0:yyyyMMdd}&dateofdepartureTo={1:yyyyMMdd}&flightnumber={2}",
+                    "/FlightOperations/v2/Flights/flight?dateofdepartureFrom={0:yyyyMMdd}&dateofdepartureTo={1:yyyyMMdd}&flightnumber={2}",
                     departureFrom,
                     departureTo,
                     flightNumber);
@@ -467,7 +471,7 @@ namespace CrewMobileApi.Apis
                 client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionIrregularOperations);
                 client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
                 var date = $"{DateTime.Today:yyyy-MM-dd}";
-                var url = $"/Irrops/v1.1/Irrops/FlightDateFrom/FlightDateTo?FlightDateFrom={date}&FlightDateTo={date}&TypeOfIrrop=ALL";
+                var url = $"/osl/osb/irrops/v1.1/byflight/?FlightDateFrom={date}&FlightDateTo={date}&TypeOfIrrop=ALL";
                 var response = await client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)

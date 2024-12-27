@@ -11,6 +11,8 @@ using CrewMobile.Domain.Models;
 using CrewMobileApi.Apis.Interfaces;
 using Microsoft.ApplicationInsights;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Xml.Linq;
 
 namespace CrewMobileApi.Apis
 {
@@ -47,8 +49,10 @@ namespace CrewMobileApi.Apis
         #endregion
 
         #region Methods
-        public FlightDetailSoapCom2 GetFlightInformation(string flightNumber, string date)
+        public async Task<FlightDetailSoapCom2> GetFlightInformation(string flightNumber, string date)
         {
+            //TODO: Validar necesidad de codigo viejo
+            /*
             string result = string.Empty;
             string urlAddress = flifoURL;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -139,22 +143,22 @@ namespace CrewMobileApi.Apis
             {
                 var json = JsonConvert.SerializeXmlNode(xmlResult);
                 var flightDetailSoapCom = JsonConvert.DeserializeObject<FlightDetailSoapCom>(json);
-                var ns6FlightLegInfo = new List<Ns6FlightLegInfo>();
-                ns6FlightLegInfo.Add(flightDetailSoapCom.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.Ns6FlightLegInfo);
+                var ns4FlightLegInfo = new List<Ns4FlightLegInfo>();
+                ns4FlightLegInfo.Add(flightDetailSoapCom.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo);
                 var flightDetailSoapCom2 = new FlightDetailSoapCom2
                 {
                     SoapEnvelope = new SoapEnvelope2
                     {
                         SoapBody = new SoapBody2
                         {
-                            Ns4GetFlifoResponse = new Ns4GetFlifoResponse2
+                            Ns3GetFlifoResponse = new Ns3GetFlifoResponse2
                             {
-                                Ns6OtaAirFlifoRs = new Ns6OtaAirFlifoRs2
+                                Ns4OtaAirFlifoRs = new Ns4OtaAirFlifoRs2
                                 {
-                                    Ns6FlightInfoDetails = new Ns6FlightInfoDetails2
+                                    Ns4FlightInfoDetails = new Ns4FlightInfoDetails2
                                     {
-                                        FlightNumber = flightDetailSoapCom.SoapEnvelope.SoapBody.Ns4GetFlifoResponse.Ns6OtaAirFlifoRs.Ns6FlightInfoDetails.FlightNumber,
-                                        Ns6FlightLegInfo = ns6FlightLegInfo,
+                                        FlightNumber = flightDetailSoapCom.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber,
+                                        Ns4FlightLegInfo = ns4FlightLegInfo,
                                     },
                                 },
                             },
@@ -168,6 +172,99 @@ namespace CrewMobileApi.Apis
                 try
                 {
                     var json = JsonConvert.SerializeXmlNode(xmlResult);
+                    var flightDetailSoapCom2 = JsonConvert.DeserializeObject<FlightDetailSoapCom2>(json);
+                    return flightDetailSoapCom2;
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                    return null;
+                }
+            }*/
+
+            //string result = string.Empty;
+            string urlAddress = flifoURL;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            var soapRequest = string.Format(@"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:flif=""http://www.eds.com/AirlineSOASchema/Flifo/"" xmlns:air=""http://www.opentravel.org/OTA/2003/05/AirFlifoRQ"" xmlns:com=""http://www.opentravel.org/OTA/2003/05/CommonTypes"">
+                       <soapenv:Header/>
+                       <soapenv:Body>
+                          <flif:getFlifo>
+                             <air:OTA_AirFlifoRQ EchoToken=""New Revenue Accounting"" Version=""4.0"">
+                                <air:POS>
+                                   <com:Source AirlineVendorID=""CM""/>
+                                </air:POS>
+                                <air:FlightSegment>
+                                   <air:Airline Code=""CM""/>
+                                   <air:FlightNumber>{0}</air:FlightNumber>
+                                   <air:DepartureDate>{1}</air:DepartureDate>
+                                </air:FlightSegment>
+                             </air:OTA_AirFlifoRQ>
+                          </flif:getFlifo>
+                       </soapenv:Body>
+                    </soapenv:Envelope>", flightNumber, date);
+
+            var httpClient = new HttpClient();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, urlAddress)
+            {
+                Content = new StringContent(soapRequest, Encoding.UTF8, "text/xml")
+            };
+
+            httpRequest.Headers.Add("SOAPAction", string.Format(@"""{0}""",flifoAction));
+            httpRequest.Headers.Add("Authorization", flifoAuthorization);
+            httpRequest.Headers.Add("REPLACE", flifoKey);
+
+            XDocument xmlDoc = new XDocument();
+
+            try
+            {
+                var response = await httpClient.SendAsync(httpRequest);
+                var responseContentOriginal = await response.Content.ReadAsStringAsync();
+                var responseContent = ReplaceSoapNameSpacesNodes(responseContentOriginal);
+                xmlDoc = XDocument.Parse(responseContent);
+
+                //Console.WriteLine(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return null;
+            }
+
+            // Get response and return it
+            try
+            {
+                var json = JsonConvert.SerializeXNode(xmlDoc);
+                var flightDetailSoapCom = JsonConvert.DeserializeObject<FlightDetailSoapCom>(json);
+                var ns4FlightLegInfo = new List<Ns4FlightLegInfo>();
+                ns4FlightLegInfo.Add(flightDetailSoapCom.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.Ns4FlightLegInfo);
+                var flightDetailSoapCom2 = new FlightDetailSoapCom2
+                {
+                    SoapEnvelope = new SoapEnvelope2
+                    {
+                        SoapBody = new SoapBody2
+                        {
+                            Ns3GetFlifoResponse = new Ns3GetFlifoResponse2
+                            {
+                                Ns4OtaAirFlifoRs = new Ns4OtaAirFlifoRs2
+                                {
+                                    Ns4FlightInfoDetails = new Ns4FlightInfoDetails2
+                                    {
+                                        FlightNumber = flightDetailSoapCom.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber,
+                                        Ns4FlightLegInfo = ns4FlightLegInfo,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                };
+                return flightDetailSoapCom2;
+            }
+            catch
+            {
+                try
+                {
+                    var json = JsonConvert.SerializeXNode(xmlDoc);
                     var flightDetailSoapCom2 = JsonConvert.DeserializeObject<FlightDetailSoapCom2>(json);
                     return flightDetailSoapCom2;
                 }
@@ -355,6 +452,20 @@ namespace CrewMobileApi.Apis
                 ex.ToString();
                 return null;
             }
+        }
+
+        private string ReplaceSoapNameSpacesNodes(string responseSoapOriginal)
+        {
+            string[] valuesToRemove = { "ns1:", "ns2:", "ns3:", "ns4:", "ns5:", "ns6:", "ns7:", "ns8:" };
+
+            string responseSoap = responseSoapOriginal;
+
+            foreach (var value in valuesToRemove)
+            {
+                responseSoap = responseSoap.Replace(value, string.Empty);
+            }
+
+            return responseSoap;
         }
         #endregion
     }

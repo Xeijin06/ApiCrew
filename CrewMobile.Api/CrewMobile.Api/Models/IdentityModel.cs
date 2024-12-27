@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using CrewMobile.Domain.Models;
-using CrewMobile.Common.Models;
+//TODO: Borrar using comentado si no es necesario
+//using CrewMobile.Common.Models;
 
 namespace CrewMobile.Api.Models
 {
@@ -34,8 +35,11 @@ namespace CrewMobile.Api.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Airport> Airports { get; set; }
         public DbSet<Passanger> Passangers { get; set; }
+        public DbSet<IrregularOperation> IrregularOperations { get; set; }
         public DbSet<SecuritySSR> SecuritySSRs { get; set; }
+        public DbSet<Group> Groups { get; set; }
         public DbSet<ProccessFileLog> ProccessFileLogs { get; set; }
+        public DbSet<IrregularOperationsLog> IrregularOperationsLogs { get; set; }
         public DbSet<FlighStatusMock> FlighStatusMocks { get; set; }
     }
 }

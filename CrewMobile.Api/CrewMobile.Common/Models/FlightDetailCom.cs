@@ -35,6 +35,9 @@ namespace CrewMobile.Common.Models
         [JsonProperty("economy_seats")]
         public int EconomySeats { get; set; }
 
+        [JsonProperty("fleetType")]
+        public string FleetType { get; set; }
+
         public DateTime SourceDate { get; set; }
 
         public DateTime DestinationDate { get; set; }

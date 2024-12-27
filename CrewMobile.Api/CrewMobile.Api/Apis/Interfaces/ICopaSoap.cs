@@ -6,7 +6,7 @@ namespace CrewMobileApi.Apis.Interfaces
 {
     public interface ICopaSoap
     {
-        FlightDetailSoapCom2 GetFlightInformation(string flightNumber, string date);
+        Task<FlightDetailSoapCom2> GetFlightInformation(string flightNumber, string date);
 
         string GetFlightInformation2(string flightNumber, string date);
 

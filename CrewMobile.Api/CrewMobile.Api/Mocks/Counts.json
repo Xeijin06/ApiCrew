@@ -22,21 +22,21 @@
     },
     {
       "Isfinal": true,
-      "TotalPassengers": 55,
+      "TotalPassengers": 110,
       "Counts": [
         {
           "Cabin": "C",
-          "LocalPassengers": 5,
+          "LocalPassengers": 17,
           "ThruPassengers": 1,
-          "NonRevPassengers": 0,
-          "Meals": 5
+          "NonRevPassengers": 2,
+          "Meals": 20
         },
         {
           "Cabin": "Y",
-          "LocalPassengers": 50,
+          "LocalPassengers": 68,
           "ThruPassengers": 7,
           "NonRevPassengers": 15,
-          "Meals": 50
+          "Meals": 90
         }
       ]
     }

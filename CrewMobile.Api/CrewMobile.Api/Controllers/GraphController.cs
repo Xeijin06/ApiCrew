@@ -53,14 +53,15 @@ namespace CrewMobile.Api.Controllers
         /// </summary>
         /// <returns>Json</returns>
         [Authorize]
-        [Route("GetUserInformation")]
         [HttpGet]
-        public async Task<IActionResult> GetUserAsync(JObject form)
+        [Route("GetUserInformation/{email}")]
+        public async Task<IActionResult> GetUserAsync(string email)
         {
-            dynamic jsonObject = form;
+            //dynamic jsonObject = form;
             try
             {
-                var user = await _graphService.GetUserInformationByEmailAsync(jsonObject.Email.Value);
+                //var user = await _graphService.GetUserInformationByEmailAsync(jsonObject.Email.Value);
+                var user = await _graphService.GetUserInformationByEmailAsync(email);
                 return Ok(user);
             }
             catch (Exception ex)
