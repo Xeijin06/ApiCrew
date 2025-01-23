@@ -31,7 +31,7 @@ namespace CrewMobile.Api.Controllers
         #endregion
 
         #region Endpoints
-
+        #region Parameters
         //TODO: Validar agregar Authorize
         /// <summary>
         /// Get some parametes
@@ -69,7 +69,7 @@ namespace CrewMobile.Api.Controllers
         /// GetParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetParameters")]
         public IActionResult GetParameters()
@@ -82,7 +82,7 @@ namespace CrewMobile.Api.Controllers
         /// GetParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetParameters/{Id}")]
         public IActionResult GetParameters(int Id)
@@ -99,7 +99,7 @@ namespace CrewMobile.Api.Controllers
         /// AddParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("AddParameters")]
         public IActionResult AddParameters(CMParameter parameter)
@@ -113,7 +113,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         [Route("UpdateParameters")]
         public IActionResult UpdateParameters(CMParameter parameter)
@@ -133,7 +133,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("DeleteParameters/{Id}")]
         public IActionResult DeleteParameters(int Id)
@@ -146,6 +146,90 @@ namespace CrewMobile.Api.Controllers
             }
             return NoContent();
         }
+        #endregion
+
+        #region Groups
+        /// <summary>
+        /// GetAllGroups
+        /// </summary>
+        /// <returns>Json</returns>
+        ////[Authorize]
+        [HttpGet]
+        [Route("GetAllGroups")]
+        public IActionResult GetAllGroups()
+        {
+            var groups = db.Groups.ToList();
+            return Ok(groups);
+        }
+
+        /// <summary>
+        /// GetGroups
+        /// </summary>
+        /// <returns>Json</returns>
+        ////[Authorize]
+        [HttpGet]
+        [Route("GetGroupById/{Id}")]
+        public IActionResult GetGroupById(int Id)
+        {
+            var group = db.Groups.Find(Id);
+            if (group == null)
+            {
+                return NotFound();
+            }
+            return Ok(group);
+        }
+
+        /// <summary>
+        /// AddGroup
+        /// </summary>
+        /// <returns>Json</returns>
+        ////[Authorize]
+        [HttpPost]
+        [Route("AddGroup")]
+        public IActionResult AddGroup(Domain.Models.Group group)
+        {
+            db.Groups.Add(group);
+            db.SaveChanges();
+            return Ok(group);
+        }
+
+        /// <summary>
+        /// UpdateGroup
+        /// </summary>
+        /// <returns>Json</returns>
+        ////[Authorize]
+        [HttpPut]
+        [Route("UpdateGroup")]
+        public IActionResult UpdateGroup(Domain.Models.Group group)
+        {
+            var groupOld = db.Groups.Find(group.GroupId);
+            if (groupOld == null)
+            {
+                return NotFound();
+            }
+            db.Entry(groupOld).CurrentValues.SetValues(group);
+            db.SaveChanges();
+            return NoContent();
+        }
+
+        /// <summary>
+        /// DeleteGroup
+        /// </summary>
+        /// <returns>Json</returns>
+        ////[Authorize]
+        [HttpDelete]
+        [Route("DeleteGroup/{Id}")]
+        public IActionResult DeleteGroup(int Id)
+        {
+            var group = db.Groups.Find(Id);
+            if (group != null)
+            {
+                db.Groups.Remove(group);
+                db.SaveChanges();
+            }
+            return NoContent();
+        }
+        #endregion
 
         #endregion
 

@@ -14,7 +14,7 @@ namespace CrewMobile.Common.Models
         public string Destination { get; set; }
 
         [JsonProperty(PropertyName = "FlightDate")]
-        public string DepartureDate { get; set; }
+        public DateTime DepartureDate { get; set; }
 
         [JsonProperty(PropertyName = "IrropType")]
         public string IrropDescription { get; set; }

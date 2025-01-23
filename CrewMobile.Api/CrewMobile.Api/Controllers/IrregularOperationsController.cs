@@ -44,7 +44,7 @@ namespace CrewMobile.Api.Controllers
         /// GetIrregularOperations
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetIrregularOperations")]
         public IActionResult GetIrregularOperations()
@@ -57,7 +57,7 @@ namespace CrewMobile.Api.Controllers
         /// GetIrregularOperations
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetIrregularOperations/{Id}")]
         public IActionResult GetIrregularOperations(int Id)
@@ -74,7 +74,7 @@ namespace CrewMobile.Api.Controllers
         /// AddFlightCrews
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("AddIrregularOperations")]
         public IActionResult AddIrregularOperations(Domain.Models.IrregularOperation irrOp)
@@ -89,7 +89,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateIrregularOperations
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         [Route("UpdateIrregularOperations")]
         public IActionResult UpdateIrregularOperations(Domain.Models.IrregularOperation irrOp)
@@ -109,7 +109,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteIrregularOperations
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("DeleteIrregularOperations/{Id}")]
         public IActionResult DeleteIrregularOperations(int Id)
@@ -127,7 +127,7 @@ namespace CrewMobile.Api.Controllers
         /// GetPassengers
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetPassengers")]
         public IActionResult GetPassengers()
@@ -140,7 +140,7 @@ namespace CrewMobile.Api.Controllers
         /// GetPassengers
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetPassengers/{Id}")]
         public IActionResult GetPassengers(int Id)
@@ -157,7 +157,7 @@ namespace CrewMobile.Api.Controllers
         /// AddParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("AddPassengers")]
         public IActionResult AddPassengers(Passanger passanger)
@@ -172,7 +172,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         [Route("UpdatePassengers")]
         public IActionResult UpdatePassengers(Passanger passanger)
@@ -192,7 +192,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("DeletePassangers/{Id}")]
         public IActionResult DeletePassangers(int Id)
@@ -210,7 +210,7 @@ namespace CrewMobile.Api.Controllers
         /// GetIrropsLogs
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetIrropsLogs")]
         public IActionResult GetIrropsLogs()
@@ -223,7 +223,7 @@ namespace CrewMobile.Api.Controllers
         /// GetIrropsLogs
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetIrropsLogs/{Id}")]
         public IActionResult GetIrropsLogs(int Id)
@@ -240,7 +240,7 @@ namespace CrewMobile.Api.Controllers
         /// AddIrrOpsLogs
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("AddIrrOpsLogs")]
         public IActionResult AddIrrOpsLogs(IrregularOperationsLog irrOpLog)
@@ -255,7 +255,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         [Route("UpdateIrrOpsLogs")]
         public IActionResult UpdateIrrOpsLogs(IrregularOperationsLog irrOpsLog)
@@ -275,7 +275,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("DeleteIrrOpsLog/{Id}")]
         public IActionResult DeleteIrrOpsLog(int Id)
@@ -300,7 +300,7 @@ namespace CrewMobile.Api.Controllers
         public async Task<IActionResult> LoadIrrOps()
         {
             await SaveLog("Start Proceess", true);
-            var irrOps = await GetAllIrregularOperations();
+            var irrOps = await GetAllIrregularOperationsLocal();//await GetAllIrregularOperations();
             if (irrOps == null)
             {
                 var message = "No irregular operations found";
@@ -312,8 +312,8 @@ namespace CrewMobile.Api.Controllers
             {
                 int operationId = 0;
                 var currentIrrOps = await db.IrregularOperations.
-                    Where(i => i.DepartureDate == operation.DepartureDate &&
-                               i.FlightNumber == operation.FlightNum).
+                    Where(i => i.DepartureDate.Date == operation.DepartureDate.Date &&
+                               i.FlightNumber == operation.FlightNum).Include(i => i.Passangers). //cmejiab: Adding the include passangers
                     FirstOrDefaultAsync();
                 if (currentIrrOps == null)
                 {
@@ -336,7 +336,7 @@ namespace CrewMobile.Api.Controllers
                     operationId = currentIrrOps.IrregularOperationId;
                 }
 
-                var passangerList = await GetPassangerList(operation.FlightNum, operation.DepartureDate, "CM", operation.Origin, operation.Destination);
+                var passangerList = await GetPassangerList(operation.FlightNum, operation.DepartureDate.ToString("yyyy-MM-dd"), "CM", operation.Origin, operation.Destination);
                 if (passangerList != null)
                 {
                     await InsertNewPassengers(operationId, passangerList);
@@ -375,6 +375,28 @@ namespace CrewMobile.Api.Controllers
             }
 
             var result = (FlightIrropHeader)response.Result;
+            return result;
+
+        }
+
+        private async Task<FlightIrropHeader> GetAllIrregularOperationsLocal()
+        {
+            var result = new FlightIrropHeader
+            {
+                FlightIrrops = new List<FlightIrrop>
+                {
+                    new FlightIrrop { FlightNum = "AA101", Origin = "LAX", Destination = "JFK", DepartureDate = DateTime.Parse("2025-01-15"), IrropDescription = "None", },
+                    new FlightIrrop { FlightNum = "BA202", Origin = "SFO", Destination = "LHR", DepartureDate = DateTime.Parse("2025-01-16"), IrropDescription = "Delay" },
+                    new FlightIrrop { FlightNum = "DL303", Origin = "ORD", Destination = "ATL", DepartureDate = DateTime.Parse("2025-01-17"), IrropDescription = "Cancellation" },
+                    new FlightIrrop { FlightNum = "UA404", Origin = "DEN", Destination = "IAH", DepartureDate = DateTime.Parse("2025-01-18"), IrropDescription = "None" },
+                    new FlightIrrop { FlightNum = "AF505", Origin = "CDG", Destination = "NRT", DepartureDate = DateTime.Parse("2025-01-19"), IrropDescription = "Diversion" },
+                    new FlightIrrop { FlightNum = "JL606", Origin = "HND", Destination = "LAX", DepartureDate = DateTime.Parse("2025-01-20"), IrropDescription = "Delay" },
+                    new FlightIrrop { FlightNum = "QF707", Origin = "SYD", Destination = "SFO", DepartureDate = DateTime.Parse("2025-01-21"), IrropDescription = "None" },
+                    new FlightIrrop { FlightNum = "EK808", Origin = "DXB", Destination = "JFK", DepartureDate = DateTime.Parse("2025-01-22"), IrropDescription = "Cancellation" },
+                    new FlightIrrop { FlightNum = "LH909", Origin = "FRA", Destination = "SIN", DepartureDate = DateTime.Parse("2025-01-23"), IrropDescription = "None" },
+                    new FlightIrrop { FlightNum = "CA1010", Origin = "PEK", Destination = "LHR", DepartureDate = DateTime.Parse("2025-01-24"), IrropDescription = "Diversion" }
+                }
+            };
             return result;
 
         }

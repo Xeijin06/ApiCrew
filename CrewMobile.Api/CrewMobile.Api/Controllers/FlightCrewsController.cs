@@ -163,7 +163,7 @@ namespace CrewMobile.Api.Controllers
         /// GetFlightCrews
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetFlightCrews")]
         public IActionResult GetFlightCrews()
@@ -176,7 +176,7 @@ namespace CrewMobile.Api.Controllers
         /// GetFlightCrews
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetFlightCrews/{Id}")]
         public IActionResult GetFlightCrews(int Id)
@@ -193,7 +193,7 @@ namespace CrewMobile.Api.Controllers
         /// AddFlightCrews
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("AddFlightCrews")]
         public IActionResult AddFlightCrews(FlightCrew flightCrew)
@@ -208,7 +208,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateFlightCrews
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         [Route("UpdateFlightCrews")]
         public IActionResult UpdateFlightCrews(FlightCrew flightCrew)
@@ -228,7 +228,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteFlightCrews
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("DeleteFlightCrews/{Id}")]
         public IActionResult DeleteFlightCrews(int Id)
@@ -246,7 +246,7 @@ namespace CrewMobile.Api.Controllers
         /// GetFlightCrewFileLogs
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetFlightCrewFileLogs")]
         public IActionResult GetFlightCrewFileLogs()
@@ -261,7 +261,7 @@ namespace CrewMobile.Api.Controllers
         /// GetFlightCrewFileLogs
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetFlightCrewFileLogs/{Id}")]
         public IActionResult GetFlightCrewFileLogs(int Id)
@@ -278,7 +278,7 @@ namespace CrewMobile.Api.Controllers
         /// AddFlightCrewFileLogs
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("AddFlightCrewFileLogs")]
         public IActionResult AddFlightCrewFileLogs(ProccessFileLog fcFileLog)
@@ -293,7 +293,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateParameters
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         [Route("UpdateFlightCrewFileLogs")]
         public IActionResult UpdateFlightCrewFileLogs(ProccessFileLog fcFileLog)
@@ -313,7 +313,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteFlightCrewFileLogs
         /// </summary>
         /// <returns>Json</returns>
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("DeleteFlightCrewFileLogs/{Id}")]
         public IActionResult DeleteFlightCrewFileLogs(int Id)
@@ -338,7 +338,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="destination">The destination</param>
         /// <param name="cabinClass">The cabin class</param>
         /// <returns>The passenger list</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetApiPassengerlist/{flightNumber}/{departureDate}/{operatorCarrier}/{origin}/{destination}/{cabinClass}")]
         public async Task<IActionResult> GetApiPassengerlist(
@@ -374,7 +374,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="origin">The origin</param>
         /// <param name="destination">The destination</param>
         /// <returns>The passenger SSR list</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetApiSSR/{flightNumber}/{departureDate}/{operatorCarrier}/{origin}/{destination}")]
         public async Task<IActionResult> GetApiSSR(
@@ -407,7 +407,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="origin">The origin</param>
         /// <param name="destination">The destination</param>
         /// <returns>The passenger preferred list</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetApiPrefer/{flightNumber}/{departureDate}/{operatorCarrier}/{origin}/{destination}")]
         public async Task<IActionResult> GetApiPrefer(
@@ -440,7 +440,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="origin">The origin</param>
         /// <param name="destination">The destination</param>
         /// <returns>The passenger counts</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetApiPassengerlistMeals/{flightNumber}/{departureDate}/{operatorCarrier}/{origin}/{destination}")]
         public async Task<IActionResult> GetApiPassengerlistMeals(
@@ -473,7 +473,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="origin">The origin</param>
         /// <param name="destination">The destination</param>
         /// <returns>The passenger stand by list</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetApiPassengerlistStandbyList/{flightNumber}/{departureDate}/{operatorCarrier}/{origin}/{destination}")]
         public async Task<IActionResult> GetApiPassengerlistStandbyList(
@@ -504,7 +504,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="departureTo">Departure to</param>
         /// <param name="flightNumber">Flight number</param>
         /// <returns>Flight information</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("GetApiFlightInformation/{departureFrom}/{departureTo}/{flightNumber}")]
         public async Task<IActionResult> GetApiFlightInformation(
@@ -529,7 +529,7 @@ namespace CrewMobile.Api.Controllers
         /// </summary>
         /// <param name="form">the fligth number, date, source and destination</param>
         /// <returns></returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("GetTimeLeft")]
         public async Task<IActionResult> GetTimeLeft(JObject form)
@@ -626,7 +626,7 @@ namespace CrewMobile.Api.Controllers
         /// </summary>
         /// <param name="form">the date and employee email</param>
         /// <returns>Whole the next flight information</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("GetNextLeg")]
         public async Task<IActionResult> GetNextLeg(JObject form)
@@ -774,7 +774,7 @@ namespace CrewMobile.Api.Controllers
         /// </summary>
         /// <param name="form">the fligth number, date, source and destination</param>
         /// <returns></returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("GetFlightsWithActual")]
         public async Task<IActionResult> GetFlightsWithActual(JObject form)
@@ -811,7 +811,7 @@ namespace CrewMobile.Api.Controllers
         /// </summary>
         /// <param name="form">the date and employee email</param>
         /// <returns>Whole the next flight information after cancel previous</returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("GetNextLegAfterCancelled")]
         public async Task<IActionResult> GetNextLegAfterCancelled(JObject form)

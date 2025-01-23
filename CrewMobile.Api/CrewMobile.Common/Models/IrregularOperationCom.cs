@@ -19,6 +19,6 @@ namespace CrewMobile.Common.Models
         public string Description { get; set; }
 
         [Display(Name = "Departure Date")]
-        public string DepartureDate { get; set; }
+        public DateTime DepartureDate { get; set; }
     }
 }
