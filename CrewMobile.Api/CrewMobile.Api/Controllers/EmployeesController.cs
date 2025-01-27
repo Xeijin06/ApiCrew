@@ -1,5 +1,6 @@
 ﻿using CrewMobile.Api.Models;
 using CrewMobileApi.Apis.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrewMobile.Api.Controllers
@@ -33,7 +34,7 @@ namespace CrewMobile.Api.Controllers
         /// GetAllEmployees
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetAllEmployees")]
         public IActionResult GetAllEmployees()
@@ -46,7 +47,7 @@ namespace CrewMobile.Api.Controllers
         /// GetEmployees
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetEmployeeById/{Id}")]
         public IActionResult GetEmployeeById(int Id)
@@ -63,7 +64,7 @@ namespace CrewMobile.Api.Controllers
         /// AddEmployee
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddEmployee")]
         public IActionResult AddEmployee(Domain.Models.Employee employee)
@@ -77,7 +78,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateEmployee
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateEmployee")]
         public IActionResult UpdateEmployee(Domain.Models.Employee employee)
@@ -96,7 +97,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteEmployee
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteEmployee/{Id}")]
         public IActionResult DeleteEmployee(int Id)

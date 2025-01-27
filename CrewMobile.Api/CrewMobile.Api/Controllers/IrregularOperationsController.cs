@@ -44,7 +44,7 @@ namespace CrewMobile.Api.Controllers
         /// GetIrregularOperations
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetIrregularOperations")]
         public IActionResult GetIrregularOperations()
@@ -57,7 +57,7 @@ namespace CrewMobile.Api.Controllers
         /// GetIrregularOperations
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetIrregularOperations/{Id}")]
         public IActionResult GetIrregularOperations(int Id)
@@ -74,7 +74,7 @@ namespace CrewMobile.Api.Controllers
         /// AddFlightCrews
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddIrregularOperations")]
         public IActionResult AddIrregularOperations(Domain.Models.IrregularOperation irrOp)
@@ -89,7 +89,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateIrregularOperations
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateIrregularOperations")]
         public IActionResult UpdateIrregularOperations(Domain.Models.IrregularOperation irrOp)
@@ -109,7 +109,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteIrregularOperations
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteIrregularOperations/{Id}")]
         public IActionResult DeleteIrregularOperations(int Id)
@@ -127,7 +127,7 @@ namespace CrewMobile.Api.Controllers
         /// GetPassengers
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetPassengers")]
         public IActionResult GetPassengers()
@@ -140,7 +140,7 @@ namespace CrewMobile.Api.Controllers
         /// GetPassengers
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetPassengers/{Id}")]
         public IActionResult GetPassengers(int Id)
@@ -157,7 +157,7 @@ namespace CrewMobile.Api.Controllers
         /// AddParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddPassengers")]
         public IActionResult AddPassengers(Passanger passanger)
@@ -172,7 +172,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdatePassengers")]
         public IActionResult UpdatePassengers(Passanger passanger)
@@ -192,7 +192,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeletePassangers/{Id}")]
         public IActionResult DeletePassangers(int Id)
@@ -210,7 +210,7 @@ namespace CrewMobile.Api.Controllers
         /// GetIrropsLogs
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetIrropsLogs")]
         public IActionResult GetIrropsLogs()
@@ -223,7 +223,7 @@ namespace CrewMobile.Api.Controllers
         /// GetIrropsLogs
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetIrropsLogs/{Id}")]
         public IActionResult GetIrropsLogs(int Id)
@@ -240,7 +240,7 @@ namespace CrewMobile.Api.Controllers
         /// AddIrrOpsLogs
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddIrrOpsLogs")]
         public IActionResult AddIrrOpsLogs(IrregularOperationsLog irrOpLog)
@@ -255,7 +255,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateIrrOpsLogs")]
         public IActionResult UpdateIrrOpsLogs(IrregularOperationsLog irrOpsLog)
@@ -275,7 +275,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteIrrOpsLog/{Id}")]
         public IActionResult DeleteIrrOpsLog(int Id)

@@ -1,5 +1,6 @@
 ﻿using CrewMobile.Api.Models;
 using CrewMobileApi.Apis.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrewMobile.Api.Controllers
@@ -33,7 +34,7 @@ namespace CrewMobile.Api.Controllers
         /// GetAllFlighStatusMocks
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetAllFlighStatusMocks")]
         public IActionResult GetAllFlighStatusMocks()
@@ -46,7 +47,7 @@ namespace CrewMobile.Api.Controllers
         /// GetFlighStatusMocks
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetFlighStatusMockById/{Id}")]
         public IActionResult GetFlighStatusMockById(int Id)
@@ -63,7 +64,7 @@ namespace CrewMobile.Api.Controllers
         /// AddFlighStatusMock
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddFlighStatusMock")]
         public IActionResult AddFlighStatusMock(Domain.Models.FlighStatusMock flighStatusMock)
@@ -77,7 +78,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateFlighStatusMock
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateFlighStatusMock")]
         public IActionResult UpdateFlighStatusMock(Domain.Models.FlighStatusMock flighStatusMock)
@@ -96,7 +97,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteFlighStatusMock
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteFlighStatusMock/{Id}")]
         public IActionResult DeleteFlighStatusMock(int Id)

@@ -1,5 +1,6 @@
 ﻿using CrewMobile.Api.Models;
 using CrewMobileApi.Apis.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrewMobile.Api.Controllers
@@ -33,7 +34,7 @@ namespace CrewMobile.Api.Controllers
         /// GetAllSecuritySSRs
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetAllSecuritySSRs")]
         public IActionResult GetAllSecuritySSRs()
@@ -46,7 +47,7 @@ namespace CrewMobile.Api.Controllers
         /// GetSecuritySSRs
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetSecuritySSRById/{Id}")]
         public IActionResult GetSecuritySSRById(int Id)
@@ -63,7 +64,7 @@ namespace CrewMobile.Api.Controllers
         /// AddSecuritySSR
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddSecuritySSR")]
         public IActionResult AddSecuritySSR(Domain.Models.SecuritySSR securitySSR)
@@ -77,7 +78,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateSecuritySSR
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateSecuritySSR")]
         public IActionResult UpdateSecuritySSR(Domain.Models.SecuritySSR securitySSR)
@@ -96,7 +97,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteSecuritySSR
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteSecuritySSR/{Id}")]
         public IActionResult DeleteSecuritySSR(int Id)

@@ -69,7 +69,7 @@ namespace CrewMobile.Api.Controllers
         /// GetParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetParameters")]
         public IActionResult GetParameters()
@@ -82,7 +82,7 @@ namespace CrewMobile.Api.Controllers
         /// GetParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetParameters/{Id}")]
         public IActionResult GetParameters(int Id)
@@ -99,7 +99,7 @@ namespace CrewMobile.Api.Controllers
         /// AddParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddParameters")]
         public IActionResult AddParameters(CMParameter parameter)
@@ -113,7 +113,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateParameters")]
         public IActionResult UpdateParameters(CMParameter parameter)
@@ -133,7 +133,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteParameters
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteParameters/{Id}")]
         public IActionResult DeleteParameters(int Id)
@@ -153,7 +153,7 @@ namespace CrewMobile.Api.Controllers
         /// GetAllGroups
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetAllGroups")]
         public IActionResult GetAllGroups()
@@ -166,7 +166,7 @@ namespace CrewMobile.Api.Controllers
         /// GetGroups
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetGroupById/{Id}")]
         public IActionResult GetGroupById(int Id)
@@ -183,7 +183,7 @@ namespace CrewMobile.Api.Controllers
         /// AddGroup
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddGroup")]
         public IActionResult AddGroup(Domain.Models.Group group)
@@ -197,7 +197,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateGroup
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateGroup")]
         public IActionResult UpdateGroup(Domain.Models.Group group)
@@ -216,7 +216,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteGroup
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteGroup/{Id}")]
         public IActionResult DeleteGroup(int Id)

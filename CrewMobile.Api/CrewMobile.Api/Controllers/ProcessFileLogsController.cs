@@ -1,5 +1,6 @@
 ﻿using CrewMobile.Api.Models;
 using CrewMobileApi.Apis.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrewMobile.Api.Controllers
@@ -33,7 +34,7 @@ namespace CrewMobile.Api.Controllers
         /// GetAllProcessFileLogs
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetAllProcessFileLogs")]
         public IActionResult GetAllProcessFileLogs()
@@ -46,7 +47,7 @@ namespace CrewMobile.Api.Controllers
         /// GetProcessFileLogs
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetProcessFileLogById/{Id}")]
         public IActionResult GetProcessFileLogById(int Id)
@@ -63,7 +64,7 @@ namespace CrewMobile.Api.Controllers
         /// AddProcessFileLog
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddProcessFileLog")]
         public IActionResult AddProcessFileLog(Domain.Models.ProccessFileLog processFileLog)
@@ -77,7 +78,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateProcessFileLog
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateProcessFileLog")]
         public IActionResult UpdateProcessFileLog(Domain.Models.ProccessFileLog processFileLog)
@@ -96,7 +97,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteProcessFileLog
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteProcessFileLog/{Id}")]
         public IActionResult DeleteProcessFileLog(int Id)

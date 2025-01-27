@@ -1,5 +1,6 @@
 ﻿using CrewMobile.Api.Models;
 using CrewMobileApi.Apis.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrewMobile.Api.Controllers
@@ -33,7 +34,7 @@ namespace CrewMobile.Api.Controllers
         /// GetAllAirports
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetAllAirports")]
         public IActionResult GetAllAirports()
@@ -46,7 +47,7 @@ namespace CrewMobile.Api.Controllers
         /// GetAirports
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetAirportById/{Id}")]
         public IActionResult GetAirportById(int Id)
@@ -63,7 +64,7 @@ namespace CrewMobile.Api.Controllers
         /// AddAirport
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddAirport")]
         public IActionResult AddAirport(Domain.Models.Airport airport)
@@ -77,7 +78,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateAirport
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateAirport")]
         public IActionResult UpdateAirport(Domain.Models.Airport airport)
@@ -96,7 +97,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteAirport
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteAirport/{Id}")]
         public IActionResult DeleteAirport(int Id)

@@ -1,5 +1,6 @@
 ﻿using CrewMobile.Api.Models;
 using CrewMobileApi.Apis.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrewMobile.Api.Controllers
@@ -33,7 +34,7 @@ namespace CrewMobile.Api.Controllers
         /// GetAllDescriptors
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetAllDescriptors")]
         public IActionResult GetAllDescriptors()
@@ -46,7 +47,7 @@ namespace CrewMobile.Api.Controllers
         /// GetDescriptors
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetDescriptorById/{Id}")]
         public IActionResult GetDescriptorById(int Id)
@@ -63,7 +64,7 @@ namespace CrewMobile.Api.Controllers
         /// AddDescriptor
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("AddDescriptor")]
         public IActionResult AddDescriptor(Domain.Models.Descriptor descriptor)
@@ -77,7 +78,7 @@ namespace CrewMobile.Api.Controllers
         /// UpdateDescriptor
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("UpdateDescriptor")]
         public IActionResult UpdateDescriptor(Domain.Models.Descriptor descriptor)
@@ -96,7 +97,7 @@ namespace CrewMobile.Api.Controllers
         /// DeleteDescriptor
         /// </summary>
         /// <returns>Json</returns>
-        ////[Authorize]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteDescriptor/{Id}")]
         public IActionResult DeleteDescriptor(int Id)

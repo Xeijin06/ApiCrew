@@ -52,7 +52,7 @@ namespace CrewMobile.Api.Controllers
         /// Get User Information from Graph
         /// </summary>
         /// <returns>Json</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetUserInformation/{email}")]
         public async Task<IActionResult> GetUserAsync(string email)
