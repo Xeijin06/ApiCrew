@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CrewMobile.Api.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
