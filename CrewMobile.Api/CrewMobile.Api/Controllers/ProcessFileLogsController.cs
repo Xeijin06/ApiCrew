@@ -8,11 +8,14 @@ namespace CrewMobile.Api.Controllers
     /// <summary>
     /// Controller to provide information to App
     /// </summary>
+    /// 
+
+    //TODO: Validar el set de endpoints de BD a utilizar del logueo de archivos
 
     [Route("api/[controller]")]
     [ApiController]
     public class ProcessFileLogsController : ControllerBase
-    {
+    {       
         #region Attributes
 
         private ICopaAPIs copaApis;
