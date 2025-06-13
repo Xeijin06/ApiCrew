@@ -1,0 +1,44 @@
+{
+  "FlightCount": [
+    {
+      "Isfinal": false,
+      "TotalPassengers": 55,
+      "Counts": [
+        {
+          "Cabin": "C",
+          "LocalPassengers": 5,
+          "ThruPassengers": 1,
+          "NonRevPassengers": 0,
+          "Meals": 5
+        },
+        {
+          "Cabin": "Y",
+          "LocalPassengers": 50,
+          "ThruPassengers": 7,
+          "NonRevPassengers": 15,
+          "Meals": 50
+        }
+      ]
+    },
+    {
+      "Isfinal": true,
+      "TotalPassengers": 110,
+      "Counts": [
+        {
+          "Cabin": "C",
+          "LocalPassengers": 17,
+          "ThruPassengers": 1,
+          "NonRevPassengers": 2,
+          "Meals": 20
+        },
+        {
+          "Cabin": "Y",
+          "LocalPassengers": 68,
+          "ThruPassengers": 7,
+          "NonRevPassengers": 15,
+          "Meals": 90
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,439 @@
+{
+  "MarketingAirline": {
+    "Airline": "CM",
+    "FlightNumber": "226"
+  },
+  "OperatingAirline": {
+    "Airline": "CM",
+    "FlightNumber": "226"
+  },
+  "OriginDescription": "Panama City, PA (PTY)",
+  "DestinationDescription": "Orlando, US (MCO)",
+  "EstimatedDepartureDateTime": "2024-09-24T20:49:00",
+  "PassengerList": [
+    {
+      "Surname": "ACOSTA",
+      "GivenName": "MIRIAMEDITH",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "21E",
+      "SSRCodes": [
+        {
+          "Code": "BLND",
+          "Description": "Assistance for Visually impaired passenger"
+        },
+        {
+          "Code": "WAEP",
+          "Description": "Weapon"
+        },
+        {
+          "Code": "BLND",
+          "Description": "Assistance for Visually impaired passenger"
+        },
+        {
+          "Code": "WAEP",
+          "Description": "Weapon"
+        },
+        {
+          "Code": "BLND",
+          "Description": "Assistance for Visually impaired passenger"
+        },
+        {
+          "Code": "WAEP",
+          "Description": "Weapon"
+        },
+        {
+          "Code": "BLND",
+          "Description": "Assistance for Visually impaired passenger"
+        },
+        {
+          "Code": "WAEP",
+          "Description": "Weapon"
+        },
+        {
+          "Code": "BLND",
+          "Description": "Assistance for Visually impaired passenger"
+        },
+        {
+          "Code": "WAEP",
+          "Description": "Weapon"
+        },
+        {
+          "Code": "BLND",
+          "Description": "Assistance for Visually impaired passenger"
+        },
+        {
+          "Code": "WAEP",
+          "Description": "Weapon"
+        }
+      ]
+    },
+    {
+      "Surname": "AGUIRRE",
+      "GivenName": "JULIOCESAR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "26A",
+      "SSRCodes": [
+        {
+          "Code": "WCHR",
+          "Description": "Wheelchair"
+        }
+      ]
+    },
+    {
+      "Surname": "ALGARTE",
+      "GivenName": "MIGUELANGELMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "21C",
+      "SSRCodes": [
+        {
+          "Code": "WCHR",
+          "Description": "Wheelchair"
+        }
+      ]
+    },
+    {
+      "Surname": "ALONSO",
+      "GivenName": "NOELIA",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "C",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "C",
+      "Seat": "01F",
+      "SSRCodes": [
+        {
+          "Code": "GFML",
+          "Description": "Gluten Meal"
+        },
+        {
+          "Code": "WCHR",
+          "Description": "Wheelchair"
+        }
+      ]
+    },
+    {
+      "Surname": "BARONI",
+      "GivenName": "DIEGOFERNANDO",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "25C",
+      "SSRCodes": [
+        {
+          "Code": "DEAF",
+          "Description": "Assistance for hearing impaired passenger"
+        }
+      ]
+    },
+    {
+      "Surname": "BARRETO",
+      "GivenName": "ANDREAVERONICA",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "V",
+      "Seat": "25F",
+      "SSRCodes": [
+        {
+          "Code": "FPML",
+          "Description": "Fruit Meal"
+        },
+        {
+          "Code": "WAEP",
+          "Description": "Weapon"
+        }
+      ]
+    },
+    {
+      "Surname": "BETANCOURT",
+      "GivenName": "JORGEORLANDO",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "U",
+      "Seat": "20A",
+      "SSRCodes": [
+        {
+          "Code": "KSML",
+          "Description": "Kosher Meal"
+        }
+      ]
+    },
+    {
+      "Surname": "CASTETS",
+      "GivenName": "FERNANDOMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "C",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "D",
+      "Seat": "02A",
+      "SSRCodes": [
+        {
+          "Code": "VGML",
+          "Description": "Vegetarian Meal"
+        }
+      ]
+    },
+    {
+      "Surname": "ALONSO",
+      "GivenName": "CELIOMARCIORECIPUTEMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "24A",
+      "SSRCodes": [
+        {
+          "Code": "VGML",
+          "Description": "Vegetarian Meal"
+        },
+        {
+          "Code": "WAEP",
+          "Description": "Weapon"
+        }
+      ]
+    },
+    {
+      "Surname": "ANTUNES",
+      "GivenName": "IONEMRS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "26F",
+      "SSRCodes": [
+        {
+          "Code": "WCHR",
+          "Description": "Wheelchair"
+        }
+      ]
+    },
+    {
+      "Surname": "ARAUJO",
+      "GivenName": "JESSICAMRS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "W",
+      "Seat": "21E",
+      "SSRCodes": [
+        {
+          "Code": "BLND",
+          "Description": "Assistance for Visually impaired passenger"
+        },
+        {
+          "Code": "WCHR",
+          "Description": "Wheelchair"
+        },
+        {
+          "Code": "VGML",
+          "Description": "Vegetarian Meal"
+        }
+      ]
+    },
+    {
+      "Surname": "OZORES",
+      "GivenName": "JUANMARTINMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "Q",
+      "Seat": "05A",
+      "SSRCodes": [
+        {
+          "Code": "VGML",
+          "Description": "Vegetarian Meal"
+        }
+      ]
+    },
+    {
+      "Surname": "BARRERA",
+      "GivenName": "OSCAREDGARMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "19C",
+      "SSRCodes": [
+        {
+          "Code": "WCHR",
+          "Description": "Wheelchair"
+        },
+        {
+          "Code": "VGML",
+          "Description": "Vegetarian Meal"
+        },
+        {
+          "Code": "DEPA",
+          "Description": "Deportee"
+        }
+      ]
+    },
+    {
+      "Surname": "BORTOLETTODUCATI",
+      "GivenName": "SIDNEI",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "33C",
+      "SSRCodes": [
+        {
+          "Code": "WCHR",
+          "Description": "Wheelchair"
+        },
+        {
+          "Code": "VGML",
+          "Description": "Vegetarian Meal"
+        }
+      ]
+    },
+    {
+      "Surname": "CEJAS",
+      "GivenName": "JAVIERERNESTO",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "E",
+      "Seat": "32D",
+      "SSRCodes": [
+        {
+          "Code": "CHLD",
+          "Description": "Child"
+        }
+      ]
+    },
+    {
+      "Surname": "DASILVA",
+      "GivenName": "JULIANI",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "U",
+      "Seat": "27F",
+      "SSRCodes": [
+        {
+          "Code": "VGML",
+          "Description": "Vegetarian Meal"
+        }
+      ]
+    },
+    {
+      "Surname": "ESVELDJR",
+      "GivenName": "PETERWILLIAMMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "32C",
+      "SSRCodes": [
+        {
+          "Code": "VGML",
+          "Description": "Vegetarian Meal"
+        }
+      ]
+    },
+    {
+      "Surname": "FREITAS",
+      "GivenName": "RUBEMMR",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "U",
+      "Seat": "23A",
+      "SSRCodes": [
+        {
+          "Code": "FPML",
+          "Description": "Fruit Meal"
+        }
+      ]
+    },
+    {
+      "Surname": "PEREIRA",
+      "GivenName": "IZABELAPARECIDAMRS",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "W",
+      "Seat": "10C",
+      "SSRCodes": [
+        {
+          "Code": "WCHR",
+          "Description": "Wheelchair"
+        },
+        {
+          "Code": "DEPU",
+          "Description": "Deportee"
+        }
+      ]
+    },
+    {
+      "Surname": "TARAJIA",
+      "GivenName": "IRFAN",
+      "FinalPassengerDestination": "MCO",
+      "CabinClass": "Y",
+      "IsFullFare": true,
+      "IsDiscountedFare": false,
+      "LegPosition": 2,
+      "BookingClass": "S",
+      "Seat": "05C",
+      "SSRCodes": [
+        {
+          "Code": "VGML",
+          "Description": "Vegetarian Meal"
+        },
+        {
+          "Code": "DEPA",
+          "Description": "Deportee"
+        }
+      ]
+    }
+  ]
+}
