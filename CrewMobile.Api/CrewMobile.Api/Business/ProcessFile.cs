@@ -37,68 +37,6 @@ namespace CrewMobileApi.Business
         }
         #endregion
 
-        /* Codigo Viejo
-        public async Task<int> Process(StreamWriter streamWriter)
-        {
-            this.streamWriter = streamWriter;
-            int counter = 0;
-            string line;
-
-            try
-            {
-                if (!File.Exists(Path))
-                {
-                    throw new FileNotFoundException();
-                }
-
-                await DeleteOldRecords();
-
-                StreamReader file = new StreamReader(Path);
-
-                while ((line = file.ReadLine()) != null)
-                {
-                    counter++;
-
-                    if (counter % 100 == 0)
-                    {
-                        this.streamWriter.WriteLine(string.Format("{0} - Proceced {1}...", DateTime.Now, counter));
-                        this.streamWriter.Flush();
-                    }
-
-                    if (line.Length > 61)//validate if has crew
-                    {
-                        List<FlightCrew> objFlight = DeserializationList(line);
-                        DeletePreviousData(objFlight[0]);
-                        foreach (var item in objFlight)
-                        {
-                            db.FlightCrews.Add(new FlightCrew
-                            {
-                                Company = item.Company,
-                                CrewId = item.FlightCrewId,
-                                CrewName = item.CrewName,
-                                CrewRoll = item.CrewRoll,
-                                DateStart = item.DateStart,
-                                DateEnd = item.DateEnd,
-                                Destination = item.Destination,
-                                //FlightCrewId = item.FlightCrewId,
-                                FlightNumber = item.FlightNumber,
-                                Source = item.Source,
-                            });
-                        }
-                    }
-                }
-
-                file.Close();
-                await db.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                await SaveLog(string.Format("Error: {0}", ex.Message), false);
-            }
-
-            return counter;
-        }*/
-
         public async Task<int> Process(StreamWriter streamWriter)
         {
             this.streamWriter = streamWriter;
@@ -112,13 +50,13 @@ namespace CrewMobileApi.Business
 
                 await DeleteOldRecords().ConfigureAwait(false);
 
-                var flightCrewsToAdd = new List<FlightCrew>(1000);
-                var flightsToDelete = new HashSet<(int FlightNumber, DateTime DateStart)>();
-
+                var flightCrewsToAdd = new List<FlightCrew>(5000); // Incrementar el tamaño del lote
                 using (var file = new StreamReader(Path))
                 {
+                    var buffer = new List<string>(5000); // Leer líneas en lotes para reducir E/S
                     while ((line = await file.ReadLineAsync().ConfigureAwait(false)) != null)
                     {
+                        buffer.Add(line);
                         counter++;
 
                         if (counter % 100 == 0)
@@ -127,37 +65,25 @@ namespace CrewMobileApi.Business
                             this.streamWriter.Flush();
                         }
 
-                        if (line.Length > 61)
+                        if (buffer.Count >= 5000) // Procesar líneas en lotes
                         {
-                            var objFlight = DeserializationList(line);
-
-                            var key = (objFlight[0].FlightNumber, objFlight[0].DateStart);
-                            flightsToDelete.Add(key);
-
-                            foreach (var fc in objFlight)
-                            {
-                                fc.FlightCrewId = 0;
-                            }
-
-                            flightCrewsToAdd.AddRange(objFlight);
-
-                            if (flightCrewsToAdd.Count >= 1000)
-                            {
-                                await BatchDeletePreviousData(flightsToDelete).ConfigureAwait(false);
-                                db.FlightCrews.AddRange(flightCrewsToAdd);
-                                await db.SaveChangesAsync().ConfigureAwait(false);
-                                flightCrewsToAdd.Clear();
-                                flightsToDelete.Clear();
-                            }
+                            await ProcessBatch(buffer, flightCrewsToAdd).ConfigureAwait(false);
+                            buffer.Clear();
                         }
                     }
-                }
 
-                if (flightCrewsToAdd.Count > 0)
-                {
-                    await BatchDeletePreviousData(flightsToDelete).ConfigureAwait(false);
-                    db.FlightCrews.AddRange(flightCrewsToAdd);
-                    await db.SaveChangesAsync().ConfigureAwait(false);
+                    // Procesar cualquier línea restante
+                    if (buffer.Count > 0)
+                    {
+                        await ProcessBatch(buffer, flightCrewsToAdd).ConfigureAwait(false);
+                    }
+
+                    // Guardar cualquier registro restante en la base de datos
+                    if (flightCrewsToAdd.Count > 0)
+                    {
+                        db.FlightCrews.AddRange(flightCrewsToAdd);
+                        await db.SaveChangesAsync().ConfigureAwait(false);
+                    }
                 }
             }
             catch (Exception ex)
@@ -168,39 +94,38 @@ namespace CrewMobileApi.Business
             return counter;
         }
 
-        // Optimized batch delete using ExecuteDeleteAsync (EF Core 7+)
-        /// <summary>
-        /// Delete all rows if has pre existence of my flight in my database
-        /// </summary>
-        private async Task BatchDeletePreviousData(HashSet<(int FlightNumber, DateTime DateStart)> flights)
+        private async Task ProcessBatch(List<string> buffer, List<FlightCrew> flightCrewsToAdd)
         {
-            if (flights.Count == 0) return;
+            foreach (var line in buffer)
+            {
+                if (line.Length > 61)
+                {
+                    var objFlight = DeserializationList(line);
 
-            var flightNumbers = flights.Select(f => f.FlightNumber).Distinct().ToList();
-            var dateStarts = flights.Select(f => f.DateStart).Distinct().ToList();
+                    foreach (var fc in objFlight)
+                    {
+                        fc.FlightCrewId = 0;
+                    }
 
-            var crewsToDelete = await db.FlightCrews
-                .Where(f => flightNumbers.Contains(f.FlightNumber) && dateStarts.Contains(f.DateStart))
-                .ToListAsync();
+                    flightCrewsToAdd.AddRange(objFlight);
 
-            var keys = flights.ToHashSet();
-            var filteredCrews = crewsToDelete
-                .Where(f => keys.Contains((f.FlightNumber, f.DateStart)))
-                .ToList();
-
-            db.FlightCrews.RemoveRange(filteredCrews);
-            await db.SaveChangesAsync();
+                    if (flightCrewsToAdd.Count >= 5000) // Guardar en lotes más grandes
+                    {
+                        db.FlightCrews.AddRange(flightCrewsToAdd);
+                        await db.SaveChangesAsync().ConfigureAwait(false);
+                        flightCrewsToAdd.Clear();
+                    }
+                }
+            }
         }
+
 
         /// <summary>
         /// Delete old records
         /// </summary>
         private async Task DeleteOldRecords()
         {
-            var date = DateTime.Today.AddHours(-5);
-            var oldRecords = db.FlightCrews.Where(fc => fc.DateStart < date);
-            db.FlightCrews.RemoveRange(oldRecords);
-            await db.SaveChangesAsync();
+            await db.Database.ExecuteSqlRawAsync("TRUNCATE TABLE FlightCrews");
         }
 
         /// <summary>
