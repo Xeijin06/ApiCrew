@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CrewMobile.Api.Models;
 using CrewMobile.Common.Models;
 using CrewMobile.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrewMobileApi.Business
 {
@@ -45,67 +46,86 @@ namespace CrewMobileApi.Business
             try
             {
                 if (!File.Exists(Path))
-                {
                     throw new FileNotFoundException();
-                }
 
-                await DeleteOldRecords();
+                await DeleteOldRecords().ConfigureAwait(false);
 
-                StreamReader file = new StreamReader(Path);
-
-                while ((line = file.ReadLine()) != null)
+                var flightCrewsToAdd = new List<FlightCrew>(5000); // Incrementar el tamaño del lote
+                using (var file = new StreamReader(Path))
                 {
-                    counter++;
-
-                    if (counter % 100 == 0)
+                    var buffer = new List<string>(5000); // Leer líneas en lotes para reducir E/S
+                    while ((line = await file.ReadLineAsync().ConfigureAwait(false)) != null)
                     {
-                        this.streamWriter.WriteLine(string.Format("{0} - Proceced {1}...", DateTime.Now, counter));
-                        this.streamWriter.Flush();
-                    }
+                        buffer.Add(line);
+                        counter++;
 
-                    if (line.Length > 61)//validate if has crew
-                    {
-                        List<FlightCrew> objFlight = DeserializationList(line);
-                        DeletePreviousData(objFlight[0]);
-                        foreach (var item in objFlight)
+                        if (counter % 100 == 0)
                         {
-                            db.FlightCrews.Add(new FlightCrew
-                            {
-                                Company = item.Company,
-                                CrewId = item.FlightCrewId,
-                                CrewName = item.CrewName,
-                                CrewRoll = item.CrewRoll,
-                                DateStart = item.DateStart,
-                                DateEnd = item.DateEnd,
-                                Destination = item.Destination,
-                                //FlightCrewId = item.FlightCrewId,
-                                FlightNumber = item.FlightNumber,
-                                Source = item.Source,
-                            });
+                            this.streamWriter.WriteLine($"{DateTime.Now} - Processed {counter}...");
+                            this.streamWriter.Flush();
+                        }
+
+                        if (buffer.Count >= 5000) // Procesar líneas en lotes
+                        {
+                            await ProcessBatch(buffer, flightCrewsToAdd).ConfigureAwait(false);
+                            buffer.Clear();
                         }
                     }
-                }
 
-                file.Close();
-                await db.SaveChangesAsync();
+                    // Procesar cualquier línea restante
+                    if (buffer.Count > 0)
+                    {
+                        await ProcessBatch(buffer, flightCrewsToAdd).ConfigureAwait(false);
+                    }
+
+                    // Guardar cualquier registro restante en la base de datos
+                    if (flightCrewsToAdd.Count > 0)
+                    {
+                        db.FlightCrews.AddRange(flightCrewsToAdd);
+                        await db.SaveChangesAsync().ConfigureAwait(false);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                await SaveLog(string.Format("Error: {0}", ex.Message), false);
+                await SaveLog($"Error: {ex.Message}", false).ConfigureAwait(false);
             }
 
             return counter;
         }
+
+        private async Task ProcessBatch(List<string> buffer, List<FlightCrew> flightCrewsToAdd)
+        {
+            foreach (var line in buffer)
+            {
+                if (line.Length > 61)
+                {
+                    var objFlight = DeserializationList(line);
+
+                    foreach (var fc in objFlight)
+                    {
+                        fc.FlightCrewId = 0;
+                    }
+
+                    flightCrewsToAdd.AddRange(objFlight);
+
+                    if (flightCrewsToAdd.Count >= 5000) // Guardar en lotes más grandes
+                    {
+                        db.FlightCrews.AddRange(flightCrewsToAdd);
+                        await db.SaveChangesAsync().ConfigureAwait(false);
+                        flightCrewsToAdd.Clear();
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Delete old records
         /// </summary>
         private async Task DeleteOldRecords()
         {
-            var date = DateTime.Today.AddHours(-5);
-            var oldRecords = db.FlightCrews.Where(fc => fc.DateStart < date);
-            db.FlightCrews.RemoveRange(oldRecords);
-            await db.SaveChangesAsync();
+            await db.Database.ExecuteSqlRawAsync("TRUNCATE TABLE FlightCrews");
         }
 
         /// <summary>
@@ -126,9 +146,7 @@ namespace CrewMobileApi.Business
         /// </summary>
         /// <param name="line"></param>
         /// <returns>IEnumerable FlightCrew </returns>
-
-
-        //TODO: Agregar Summary
+        
         private List<FlightCrew> DeserializationList(string line)
         {
             List<FlightCrew> listFly = new List<FlightCrew>();
