@@ -22,7 +22,7 @@ namespace CrewMobileApi.Business
         /// The stream writer in file log for FTP process
         /// </summary>
         private StreamWriter streamWriter;
-        
+
         /// <summary>
         /// File Path for FTP process
         /// </summary>
@@ -102,11 +102,6 @@ namespace CrewMobileApi.Business
                 {
                     var objFlight = DeserializationList(line);
 
-                    foreach (var fc in objFlight)
-                    {
-                        fc.FlightCrewId = 0;
-                    }
-
                     flightCrewsToAdd.AddRange(objFlight);
 
                     if (flightCrewsToAdd.Count >= 5000) // Guardar en lotes más grandes
@@ -146,7 +141,7 @@ namespace CrewMobileApi.Business
         /// </summary>
         /// <param name="line"></param>
         /// <returns>IEnumerable FlightCrew </returns>
-        
+
         private List<FlightCrew> DeserializationList(string line)
         {
             List<FlightCrew> listFly = new List<FlightCrew>();
@@ -213,7 +208,6 @@ namespace CrewMobileApi.Business
                         Source = obj.Source,
                         Destination = obj.Destination,
                         CrewRoll = obj.CrewRoll,
-                        FlightCrewId = obj.FlightCrewId,
                         CrewName = obj.CrewName,
                         CrewId = obj.FlightCrewId
                     });
