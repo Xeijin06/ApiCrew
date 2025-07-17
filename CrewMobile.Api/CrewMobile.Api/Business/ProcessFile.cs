@@ -195,7 +195,7 @@ namespace CrewMobileApi.Business
                 {
                     obj.CrewRoll = line.Substring(temp, FileModel.JobLength).Trim();
                     temp += FileModel.JobLength;
-                    obj.FlightCrewId = int.Parse(line.Substring(temp, FileModel.EmpIdLength).Trim());
+                    obj.CrewId = int.Parse(line.Substring(temp, FileModel.EmpIdLength).Trim());
                     temp += FileModel.EmpIdLength;
                     obj.CrewName = line.Substring(temp, FileModel.NameLength).Trim();
                     temp += FileModel.NameLength;
@@ -209,7 +209,7 @@ namespace CrewMobileApi.Business
                         Destination = obj.Destination,
                         CrewRoll = obj.CrewRoll,
                         CrewName = obj.CrewName,
-                        CrewId = obj.FlightCrewId
+                        CrewId = obj.CrewId
                     });
                 }
             }
