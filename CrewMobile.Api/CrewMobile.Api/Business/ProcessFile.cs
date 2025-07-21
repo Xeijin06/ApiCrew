@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CrewMobile.Api.Models;
 using CrewMobile.Common.Models;
 using CrewMobile.Domain.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrewMobileApi.Business
@@ -50,7 +52,7 @@ namespace CrewMobileApi.Business
 
                 await DeleteOldRecords().ConfigureAwait(false);
 
-                var flightCrewsToAdd = new List<FlightCrew>(5000); // Incrementar el tamaño del lote
+                var flightCrewsToAdd = new List<FlightCrewCom>(5000); // Incrementar el tamaño del lote
                 using (var file = new StreamReader(Path))
                 {
                     var buffer = new List<string>(5000); // Leer líneas en lotes para reducir E/S
@@ -81,8 +83,7 @@ namespace CrewMobileApi.Business
                     // Guardar cualquier registro restante en la base de datos
                     if (flightCrewsToAdd.Count > 0)
                     {
-                        db.FlightCrews.AddRange(flightCrewsToAdd);
-                        await db.SaveChangesAsync().ConfigureAwait(false);
+                        await BulkInsertFlightCrewsAsync(flightCrewsToAdd);
                     }
                 }
             }
@@ -94,7 +95,7 @@ namespace CrewMobileApi.Business
             return counter;
         }
 
-        private async Task ProcessBatch(List<string> buffer, List<FlightCrew> flightCrewsToAdd)
+        private async Task ProcessBatch(List<string> buffer, List<FlightCrewCom> flightCrewsToAdd)
         {
             foreach (var line in buffer)
             {
@@ -106,10 +107,78 @@ namespace CrewMobileApi.Business
 
                     if (flightCrewsToAdd.Count >= 5000) // Guardar en lotes más grandes
                     {
-                        db.FlightCrews.AddRange(flightCrewsToAdd);
-                        await db.SaveChangesAsync().ConfigureAwait(false);
+                        await BulkInsertFlightCrewsAsync(flightCrewsToAdd);
                         flightCrewsToAdd.Clear();
                     }
+                }
+            }
+        }
+
+        public static string GetConnectionString()
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            return configuration.GetConnectionString("DefaultConnection");
+        }
+
+        public DataTable ToDataTable(List<FlightCrewCom> crews)
+        {
+            var table = new DataTable();
+            table.Columns.Add("FlightNumber", typeof(int));
+            table.Columns.Add("Company", typeof(string));
+            table.Columns.Add("DateStart", typeof(DateTime));
+            table.Columns.Add("DateEnd", typeof(DateTime));
+            table.Columns.Add("Source", typeof(string));
+            table.Columns.Add("Destination", typeof(string));
+            table.Columns.Add("CrewRoll", typeof(string));
+            table.Columns.Add("CrewId", typeof(int));
+            table.Columns.Add("CrewName", typeof(string));
+
+            foreach (var crew in crews)
+            {
+                table.Rows.Add(
+                    crew.FlightNumber,
+                    crew.Company,
+                    crew.DateStart,
+                    crew.DateEnd,
+                    crew.Source,
+                    crew.Destination,
+                    crew.CrewRoll,
+                    crew.CrewId,
+                    crew.CrewName
+                );
+            }
+            return table;
+        }
+
+        public async Task BulkInsertFlightCrewsAsync(List<FlightCrewCom> crews)
+        {
+            string connectionString = GetConnectionString();
+            var dataTable = ToDataTable(crews);
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var bulkCopy = new SqlBulkCopy(connection))
+                {
+                    bulkCopy.DestinationTableName = "FlightCrews"; // Nombre de tu tabla en SQL Server
+
+                    // Mapea las columnas si los nombres no coinciden exactamente
+                    bulkCopy.ColumnMappings.Add("FlightNumber", "FlightNumber");
+                    bulkCopy.ColumnMappings.Add("Company", "Company");
+                    bulkCopy.ColumnMappings.Add("DateStart", "DateStart");
+                    bulkCopy.ColumnMappings.Add("DateEnd", "DateEnd");
+                    bulkCopy.ColumnMappings.Add("Source", "Source");
+                    bulkCopy.ColumnMappings.Add("Destination", "Destination");
+                    bulkCopy.ColumnMappings.Add("CrewRoll", "CrewRoll");
+                    bulkCopy.ColumnMappings.Add("CrewId", "CrewId");
+                    bulkCopy.ColumnMappings.Add("CrewName", "CrewName");
+
+                    await bulkCopy.WriteToServerAsync(dataTable);
                 }
             }
         }
