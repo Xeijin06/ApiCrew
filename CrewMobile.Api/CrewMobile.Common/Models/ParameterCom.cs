@@ -33,5 +33,8 @@ namespace CrewMobile.Common.Models
 
         [Display(Name = "Show Full Fare")]
         public bool ShowFullFare { get; set; }
+
+        [Display(Name = "Name")]
+        public string ParameterName { get; set; }
     }
 }
