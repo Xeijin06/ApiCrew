@@ -6,5 +6,8 @@ namespace CrewMobile.Common.Models
     {
         [Display(Name = "Group Id")]
         public Guid GroupGuid { get; set; }
+
+        [Display(Name = "Group Nmae")]
+        public string? GroupName { get; set; }
     }
 }
