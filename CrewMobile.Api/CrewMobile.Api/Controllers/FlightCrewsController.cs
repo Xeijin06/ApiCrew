@@ -18,6 +18,8 @@ using GModels = Microsoft.Graph.Models;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 using CrewMobileApi.Mocks;
 using System.Security.Cryptography;
+using CrewMobile.Api.Services.Interface;
+using Microsoft.Extensions.Options;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -140,10 +142,19 @@ namespace CrewMobile.Api.Controllers
         /// The stream writer in file log for FTP process
         /// </summary>
         private StreamWriter streamWriter;
+
+        /// <summary>
+        /// The Blob Storage Service instance
+        /// </summary>
+        private readonly IBlobStorageService _blobStorageService;
+        /// <summary>
+        /// The Blob Storage Options
+        /// </summary>
+        IOptions<AzureStorageOptions> _storageOptions;
         #endregion
 
         #region Constructors
-        public FlightCrewsController(IConfiguration _configuration, GraphService _graphService, ApplicationDbContext context, ICopaAPIs _copaApi, ICopaSoap _copaSoap)
+        public FlightCrewsController(IConfiguration _configuration, GraphService _graphService, ApplicationDbContext context, ICopaAPIs _copaApi, ICopaSoap _copaSoap, IBlobStorageService blobStorageService, IOptions<AzureStorageOptions> storageOptions)
         {
             db = context;
             copaApi = _copaApi;
@@ -153,6 +164,8 @@ namespace CrewMobile.Api.Controllers
 
             azureDomain = configuration["AzureAd:Domain"];
             copaAPITimeOut = int.Parse(configuration["CopaAPI:TimeOut"]);
+            _blobStorageService = blobStorageService;
+            _storageOptions = storageOptions;
         }
         #endregion
 
@@ -2240,25 +2253,35 @@ namespace CrewMobile.Api.Controllers
             var port = int.Parse(configuration["SFTP:Port"]);
             var remoteFileName = configuration["SFTP:File"];
             var random = new Random();
-            var localDestinationFilename = Path.Combine(Directory.GetCurrentDirectory(),
-                "Content", "Files", $"crewmobile{DateTime.Now.Hour}{random.Next(0, 99)}.txt");
+            Uri localDestinationFilename = null;
             var username = configuration["SFTP:User"];
             var password = configuration["SFTP:Password"];
-
+            string fileName = string.Empty;
             try
             {
                 using (var sftp = new SftpClient(host, port, username, password))
                 {
                     sftp.Connect();
                     await this.SaveLog("FTP Connected", true, false);
-
-                    using (var file = System.IO.File.OpenWrite(localDestinationFilename))
+                    using (var memoryStream = new MemoryStream())
                     {
-                        sftp.DownloadFile(remoteFileName, file);
+                        sftp.DownloadFile(remoteFileName, memoryStream);
                         await this.SaveLog("File get", true, false);
-                        //TODO: To uncomment in production mode
-                        //sftp.DeleteFile(remoteFileName);
-                        //await this.SaveLog("file remote delete", true, false);
+
+                        // Resetear la posición del stream para la lectura
+                        memoryStream.Position = 0;
+
+                        // Subir directamente a Azure Blob Storage
+                        fileName = $"crewmobile{DateTime.Now.Month}{DateTime.Now.Hour}{random.Next(0, 99)}.txt";
+                        localDestinationFilename = await _blobStorageService.UploadAsync(
+                            memoryStream,
+                            fileName,
+                            null,
+                            null,
+                            CancellationToken.None
+                        );
+
+                        await this.SaveLog($"File uploaded to Azure Blob: {localDestinationFilename}", true, false);
                     }
 
                     sftp.Disconnect();
@@ -2271,8 +2294,8 @@ namespace CrewMobile.Api.Controllers
             }
 
             await this.SaveLog(string.Format("Starts process file: {0}", localDestinationFilename), true, false);
-            var processFile = new ProcessFile(localDestinationFilename, db);
-            var rowsProcessed = await processFile.Process(this.streamWriter);
+            var processFile = new ProcessFile(db, _storageOptions.Value); 
+            var rowsProcessed = await processFile.Process(this.streamWriter, fileName);
             await this.SaveLog(string.Format("Ends process file with {0} lines.", rowsProcessed), true, true);
             this.streamWriter.Close();
         }
