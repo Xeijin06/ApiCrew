@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Azure.Storage.Blobs;
 using CrewMobile.Api.Models;
 using CrewMobile.Common.Models;
 using CrewMobile.Domain.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace CrewMobileApi.Business
 {
@@ -26,37 +22,43 @@ namespace CrewMobileApi.Business
         private StreamWriter streamWriter;
 
         /// <summary>
-        /// File Path for FTP process
+        /// The Blob Storage Options
         /// </summary>
-        private string Path { get; set; }
+        private readonly AzureStorageOptions _storageOptions;
         #endregion
 
         #region Constructors
-        public ProcessFile(string path, ApplicationDbContext db)
+        public ProcessFile(ApplicationDbContext db, AzureStorageOptions options)
         {
             this.db = db;
-            Path = path;
+            _storageOptions = options;
         }
         #endregion
 
-        public async Task<int> Process(StreamWriter streamWriter)
+        public async Task<int> Process(StreamWriter streamWriter, string fileName, CancellationToken ct = default)
         {
             this.streamWriter = streamWriter;
             int counter = 0;
-            string line;
+            string? line;
 
             try
             {
-                if (!File.Exists(Path))
-                    throw new FileNotFoundException();
+
+                var blobClient = new BlobClient(_storageOptions.ConnectionString, _storageOptions.DefaultContainer, fileName);
+
+                if (!await blobClient.ExistsAsync(ct).ConfigureAwait(false))
+                    throw new FileNotFoundException($"No se encontró el blob storage: {fileName}");
 
                 await DeleteOldRecords().ConfigureAwait(false);
 
-                var flightCrewsToAdd = new List<FlightCrewCom>(5000); // Incrementar el tamaño del lote
-                using (var file = new StreamReader(Path))
+                var flightCrewsToAdd = new List<FlightCrewCom>(5000);
+
+                await using (var downloadStream = await blobClient.OpenReadAsync(cancellationToken: ct).ConfigureAwait(false))
+                using (var reader = new StreamReader(downloadStream))
                 {
-                    var buffer = new List<string>(5000); // Leer líneas en lotes para reducir E/S
-                    while ((line = await file.ReadLineAsync().ConfigureAwait(false)) != null)
+                    var buffer = new List<string>(5000);
+
+                    while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
                     {
                         buffer.Add(line);
                         counter++;
@@ -67,23 +69,29 @@ namespace CrewMobileApi.Business
                             this.streamWriter.Flush();
                         }
 
-                        if (buffer.Count >= 5000) // Procesar líneas en lotes
+                        if (buffer.Count >= 5000)
                         {
                             await ProcessBatch(buffer, flightCrewsToAdd).ConfigureAwait(false);
                             buffer.Clear();
+
+                            if (flightCrewsToAdd.Count >= 5000)
+                            {
+                                await BulkInsertFlightCrewsAsync(flightCrewsToAdd).ConfigureAwait(false);
+                                flightCrewsToAdd.Clear();
+                            }
                         }
                     }
 
-                    // Procesar cualquier línea restante
                     if (buffer.Count > 0)
                     {
                         await ProcessBatch(buffer, flightCrewsToAdd).ConfigureAwait(false);
+                        buffer.Clear();
                     }
 
-                    // Guardar cualquier registro restante en la base de datos
                     if (flightCrewsToAdd.Count > 0)
                     {
-                        await BulkInsertFlightCrewsAsync(flightCrewsToAdd);
+                        await BulkInsertFlightCrewsAsync(flightCrewsToAdd).ConfigureAwait(false);
+                        flightCrewsToAdd.Clear();
                     }
                 }
             }
@@ -121,7 +129,7 @@ namespace CrewMobileApi.Business
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            return configuration.GetConnectionString("DefaultConnection");
+            return configuration.GetConnectionString("LocalConnection");
         }
 
         public DataTable ToDataTable(List<FlightCrewCom> crews)

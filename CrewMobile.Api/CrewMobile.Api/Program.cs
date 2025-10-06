@@ -8,6 +8,9 @@ using CrewMobile.Api.Models;
 using CrewMobileApi.Apis.Interfaces;
 using CrewMobileApi.Apis;
 using CrewMobileApi.Services;
+using CrewMobile.Api.Services.Interface;
+using CrewMobile.Api.Services;
+using CrewMobile.Common.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +48,9 @@ builder.Services.AddControllers(
 // Register ICopaAPIs and ICopaSoap services
 builder.Services.AddScoped<ICopaAPIs, CopaAPIs>();
 builder.Services.AddScoped<ICopaSoap, CopaSoap>();
+
+builder.Services.Configure<AzureStorageOptions>(builder.Configuration.GetSection("AzureStorage"));
+builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
 
 // Register Graph Service
 // Validar si se debe registrar como Singleton o Transient
