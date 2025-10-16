@@ -1,25 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
-using Microsoft.EntityFrameworkCore;
-using CrewMobileApi.Apis.Interfaces;
-using CrewMobileApi.Apis;
-using CrewMobile.Api.Models;
-using CrewMobile.Domain.Models;
-using CrewMobile.Common.Models;
-using Microsoft.Identity.Client;
-using System.IO;
-using Renci.SshNet;
-using CrewMobileApi.Services;
-using CrewMobileApi.Business;
-using GModels = Microsoft.Graph.Models;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
-using CrewMobileApi.Mocks;
-using System.Security.Cryptography;
+﻿using CrewMobile.Api.Models;
 using CrewMobile.Api.Services.Interface;
+using CrewMobile.Common.Models;
+using CrewMobile.Domain.Models;
+using CrewMobileApi.Apis.Interfaces;
+using CrewMobileApi.Business;
+using CrewMobileApi.Mocks;
+using CrewMobileApi.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
+using Renci.SshNet;
+using GModels = Microsoft.Graph.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -138,10 +131,6 @@ namespace CrewMobile.Api.Controllers
         /// </summary>
         private NextLegResponse nextLegResponse;
 
-        /// <summary>
-        /// The stream writer in file log for FTP process
-        /// </summary>
-        private StreamWriter streamWriter;
 
         /// <summary>
         /// The Blob Storage Service instance
@@ -151,10 +140,14 @@ namespace CrewMobile.Api.Controllers
         /// The Blob Storage Options
         /// </summary>
         IOptions<AzureStorageOptions> _storageOptions;
+        /// <summary>
+        /// The Log Storage Service instance
+        /// </summary>
+        private readonly ILogStorageAccountService _logStorageService;
         #endregion
 
         #region Constructors
-        public FlightCrewsController(IConfiguration _configuration, GraphService _graphService, ApplicationDbContext context, ICopaAPIs _copaApi, ICopaSoap _copaSoap, IBlobStorageService blobStorageService, IOptions<AzureStorageOptions> storageOptions)
+        public FlightCrewsController(IConfiguration _configuration, GraphService _graphService, ApplicationDbContext context, ICopaAPIs _copaApi, ICopaSoap _copaSoap, IBlobStorageService blobStorageService, IOptions<AzureStorageOptions> storageOptions, ILogStorageAccountService logStorageService)
         {
             db = context;
             copaApi = _copaApi;
@@ -166,6 +159,7 @@ namespace CrewMobile.Api.Controllers
             copaAPITimeOut = int.Parse(configuration["CopaAPI:TimeOut"]);
             _blobStorageService = blobStorageService;
             _storageOptions = storageOptions;
+            _logStorageService = logStorageService;
         }
         #endregion
 
@@ -2245,9 +2239,7 @@ namespace CrewMobile.Api.Controllers
         /// <returns>None</returns>
         private async Task ProcessFile()
         {
-            var localLog = Path.Combine(Directory.GetCurrentDirectory(), "Content",
-                                "Files", $"log{DateTime.Now:yyyyMMddHHmm}.txt");
-            this.streamWriter = System.IO.File.CreateText(localLog);
+            _logStorageService.ClearLogs();
             await this.SaveLog("Start Proceess", true, true);
             var host = configuration["SFTP:Site"];
             var port = int.Parse(configuration["SFTP:Port"]);
@@ -2295,10 +2287,47 @@ namespace CrewMobile.Api.Controllers
 
             await this.SaveLog(string.Format("Starts process file: {0}", localDestinationFilename), true, false);
             var processFile = new ProcessFile(db, _storageOptions.Value); 
-            var rowsProcessed = await processFile.Process(this.streamWriter, fileName);
+            var rowsProcessed = await processFile.Process(_logStorageService, fileName);
             await this.SaveLog(string.Format("Ends process file with {0} lines.", rowsProcessed), true, true);
-            this.streamWriter.Close();
+            await CleanBlobstorage();
+            await SaveLogBlobstorage();
+            
         }
+
+        /// <summary>
+        /// Save Log Blobstorage
+        /// </summary>
+        /// <returns>None</returns>
+        private async Task SaveLogBlobstorage()
+        {
+            var contentLog = await _logStorageService.ExportToTextFormatAsync();
+            await _blobStorageService.UploadAsync(
+                            contentLog,
+                            $"log{DateTime.Now:yyyyMMddHHmm}.txt",
+                            configuration["AzureStorage:LogContainer"],
+                            null,
+                            CancellationToken.None
+                        );
+        }
+
+        /// <summary>
+        /// Clean Blobstorage
+        /// </summary>
+        /// <returns>None</returns>
+        private async Task CleanBlobstorage()
+        {
+            /*Eliminar Archivos de AIMS*/
+            var container = configuration["AzureStorage:DefaultContainer"];
+            int dayDelete = int.Parse(configuration["AzureStorage:DayDeleteFile"] ?? "15");
+            await _blobStorageService.DeleteOldFilesAsync(_logStorageService, container, dayDelete);
+
+            /*Eliminar Archivos de Logs*/
+            container = configuration["AzureStorage:LogContainer"];
+            dayDelete = int.Parse(configuration["AzureStorage:DayDeleteFileLog"] ?? "30");
+            await _blobStorageService.DeleteOldFilesAsync(_logStorageService, container, dayDelete);
+        }
+
+
 
         /// <summary>
         /// Save Log on file and DB
@@ -2309,8 +2338,7 @@ namespace CrewMobile.Api.Controllers
         /// <returns>None</returns>
         private async Task SaveLog(string message, bool wasSucces, bool toDB)
         {
-            this.streamWriter.WriteLine(string.Format("{0} - {1}", DateTime.Now, message));
-            this.streamWriter.Flush();
+            _logStorageService.Log(Models.LogLevel.Information, message);
             if (toDB)
             {
                 var proccessFileLog2 = new ProccessFileLog
@@ -2326,17 +2354,6 @@ namespace CrewMobile.Api.Controllers
             }
         }
 
-        // TODO: Validar la necesidad de este codigo.
-        /// <summary>
-        /// Save file log
-        /// </summary>
-        /// <param name="message">The message</param>
-        /// <returns>None</returns>
-        private void SaveLog(string message)
-        {
-            this.streamWriter.WriteLine(message);
-            this.streamWriter.Flush();
-        }
 
         /// <summary>
         /// Get user from graph

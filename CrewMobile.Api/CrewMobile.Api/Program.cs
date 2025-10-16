@@ -51,6 +51,7 @@ builder.Services.AddScoped<ICopaSoap, CopaSoap>();
 
 builder.Services.Configure<AzureStorageOptions>(builder.Configuration.GetSection("AzureStorage"));
 builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
+builder.Services.AddSingleton<ILogStorageAccountService, LogStorageAccountService>();
 
 // Register Graph Service
 // Validar si se debe registrar como Singleton o Transient
