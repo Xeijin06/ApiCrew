@@ -300,7 +300,7 @@ namespace CrewMobile.Api.Controllers
         public async Task<IActionResult> LoadIrrOps()
         {
             await SaveLog("Start Proceess", true);
-            var irrOps = await GetAllIrregularOperationsLocal();//await GetAllIrregularOperations();
+            var irrOps =  await GetAllIrregularOperations();
             if (irrOps == null)
             {
                 var message = "No irregular operations found";

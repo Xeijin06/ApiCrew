@@ -12,11 +12,23 @@ namespace CrewMobile.Api.Services
     {
         private readonly BlobServiceClient _blobServiceClient;
         private readonly AzureStorageOptions _options;
-
+        private readonly TimeZoneInfo _timeZone;
         public BlobStorageService(IOptions<AzureStorageOptions> options)
         {
             _options = options.Value;
             _blobServiceClient = new BlobServiceClient(_options.ConnectionString);
+            try
+            {
+                _timeZone = TimeZoneInfo.FindSystemTimeZoneById(_options.TimeZoneId);
+            }
+            catch (TimeZoneNotFoundException)
+            {
+                _timeZone = TimeZoneInfo.CreateCustomTimeZone(
+                "CustomTimeZone",
+                TimeSpan.FromHours(-5),
+                "Custom Time Zone",
+                "Custom Time Zone");
+            }
         }
 
         public async Task<Uri> UploadAsync<T>(
@@ -54,6 +66,58 @@ namespace CrewMobile.Api.Services
             }, ct);
 
             return blob.Uri;
+        }
+
+        public async Task DeleteOldFilesAsync(ILogStorageAccountService logStorageAccount, string? containerName = null, int? retentionDays = null, CancellationToken ct = default)
+        {
+            try
+            {
+                string targetContainer = string.IsNullOrWhiteSpace(containerName) ? _options.DefaultContainer : containerName;
+                int daysToKeep = retentionDays ?? _options.DayDeleteFile;
+
+                if (daysToKeep <= 0)
+                {
+                    logStorageAccount.Log(Models.LogLevel.Information, "Retention days must be greater than 0");
+                }
+
+                //var cutoffDate = DateTimeOffset.UtcNow.AddDays(-daysToKeep);
+                var cutoffDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _timeZone).AddDays(-daysToKeep);
+                var container = _blobServiceClient.GetBlobContainerClient(targetContainer);
+
+                if (!await container.ExistsAsync(ct))
+                {
+                    logStorageAccount.Log(Models.LogLevel.Information, "The container does not exist, there is nothing to delete");
+                }
+
+                var deletedCount = 0;
+                var blobsToDelete = new List<BlobItem>();
+
+                // Obtener todos los blobs del contenedor
+                await foreach (var blob in container.GetBlobsAsync(cancellationToken: ct))
+                {
+                    if (blob.Properties.CreatedOn.HasValue && blob.Properties.CreatedOn.Value < cutoffDate)
+                    {
+                        blobsToDelete.Add(blob);
+                    }
+                }
+
+                const int batchSize = 100;
+                for (int i = 0; i < blobsToDelete.Count; i += batchSize)
+                {
+                    var batch = blobsToDelete.Skip(i).Take(batchSize);
+                    var deleteTasks = batch.Select(blob =>
+                        container.GetBlobClient(blob.Name).DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots, cancellationToken: ct));
+
+                    var results = await Task.WhenAll(deleteTasks);
+                    deletedCount += results.Count(r => r.Value);
+                }
+                logStorageAccount.Log(Models.LogLevel.Information, $"Number of files deleted from the container {container}: {deletedCount.ToString()}");
+
+            }
+            catch (Exception ex)
+            {
+                logStorageAccount.Log(Models.LogLevel.Information, $"Error deleting old files: {ex.Message}");
+            }
         }
 
         private static Stream ToStream<T>(T content)

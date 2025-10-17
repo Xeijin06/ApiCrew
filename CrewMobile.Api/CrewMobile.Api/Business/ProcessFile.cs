@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using CrewMobile.Api.Models;
+using CrewMobile.Api.Services.Interface;
 using CrewMobile.Common.Models;
 using CrewMobile.Domain.Models;
 using Microsoft.Data.SqlClient;
@@ -17,11 +18,6 @@ namespace CrewMobileApi.Business
         private ApplicationDbContext db;
 
         /// <summary>
-        /// The stream writer in file log for FTP process
-        /// </summary>
-        private StreamWriter streamWriter;
-
-        /// <summary>
         /// The Blob Storage Options
         /// </summary>
         private readonly AzureStorageOptions _storageOptions;
@@ -35,9 +31,8 @@ namespace CrewMobileApi.Business
         }
         #endregion
 
-        public async Task<int> Process(StreamWriter streamWriter, string fileName, CancellationToken ct = default)
+        public async Task<int> Process(ILogStorageAccountService logStorageAccount, string fileName, CancellationToken ct = default)
         {
-            this.streamWriter = streamWriter;
             int counter = 0;
             string? line;
 
@@ -65,8 +60,7 @@ namespace CrewMobileApi.Business
 
                         if (counter % 100 == 0)
                         {
-                            this.streamWriter.WriteLine($"{DateTime.Now} - Processed {counter}...");
-                            this.streamWriter.Flush();
+                            logStorageAccount.Log(CrewMobile.Api.Models.LogLevel.Information,  $"Processed {counter}...");
                         }
 
                         if (buffer.Count >= 5000)
