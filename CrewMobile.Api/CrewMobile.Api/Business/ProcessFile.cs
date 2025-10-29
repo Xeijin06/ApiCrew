@@ -123,7 +123,7 @@ namespace CrewMobileApi.Business
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            return configuration.GetConnectionString("LocalConnection");
+            return configuration.GetConnectionString("DefaultConnection");
         }
 
         public DataTable ToDataTable(List<FlightCrewCom> crews)
