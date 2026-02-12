@@ -59,7 +59,8 @@ builder.Services.AddSingleton<ILogStorageAccountService, LogStorageAccountServic
 builder.Services.AddHttpClient<GraphService>();
 
 // Load configuration from appsettings.json
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+// Se elimina para evitar que se cargue nuevamente la configuración, ya que WebApplication.CreateBuilder(args) ya lo hace automáticamente
+// builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 // Configure DbContext with connection string from appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
