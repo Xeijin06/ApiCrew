@@ -1618,7 +1618,8 @@ namespace CrewMobile.Api.Controllers
             }
 
             int j = 0;
-            if (nextLegResponse.IsFinal)
+            //if (nextLegResponse.IsFinal)
+            if(IsFinalList(i))
             {
                 j = 1;
             }
@@ -2070,13 +2071,14 @@ namespace CrewMobile.Api.Controllers
         /// <param name="i">Flight index</param>
         private void SetCounters(int i)
         {
-            var hourDifference = nextLegResponse.Source.Date.Subtract(calledServiceDate.AddHours(offSets[i]));
+            //var hourDifference = nextLegResponse.Source.Date.Subtract(calledServiceDate.AddHours(offSets[i]));
             int j = 0;
-            nextLegResponse.IsFinal = false;
+            //nextLegResponse.IsFinal = false;
             //TODO: Validar cambiar los 55 a un valor configurado en base de datos
-            if (hourDifference.TotalMinutes <= 55)
+            //if (hourDifference.TotalMinutes <= 55)
+            if(IsFinalList(i))
             {
-                nextLegResponse.IsFinal = true;
+                //nextLegResponse.IsFinal = true;
                 j = 1;
                 if (listEmployeeFlights[i].FlightCountHeader != null && listEmployeeFlights[i].FlightCountHeader.FlightCount.Count == 1)
                 {
@@ -2223,7 +2225,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="airportCode">Airport IATA Code</param>
         /// <returns>The hour difference</returns>
         private int GetAirportTimeZone(string airportCode)
-        {
+         {
             int offset = 0;
             var airport = airports.Where(a => a.AirportCode == airportCode).FirstOrDefault();
             if (airport != null)
@@ -2393,6 +2395,18 @@ namespace CrewMobile.Api.Controllers
             {
                 return null;
             }
+        }
+
+        private bool IsFinalList(int i)
+        {
+            var hourDifference = nextLegResponse.Source.Date.Subtract(calledServiceDate.AddHours(offSets[i]));
+            nextLegResponse.IsFinal = false;
+            //TODO: Validar cambiar los 55 a un valor configurado en base de datos
+            if (hourDifference.TotalMinutes <= 55)
+            {
+                nextLegResponse.IsFinal = true;
+            }
+            return nextLegResponse.IsFinal;
         }
 
         #endregion
