@@ -1,12 +1,16 @@
 ﻿using CrewMobile.Api.Models;
+using CrewMobile.Common.Models;
+using CrewMobileApi.Apis;
 using CrewMobileApi.Apis.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace CrewMobile.Api.Controllers
 {
     //Todo: Validar la utilidad de este Controller
+    //TODO: Revisar la necesidad del tratamiento SOAP (Modelos y Apis)
 
     [Route("api/[controller]")]
     [ApiController]
@@ -14,7 +18,8 @@ namespace CrewMobile.Api.Controllers
     {
         #region Attributes
 
-        private ICopaSoap copaSoap;
+        //private ICopaSoap copaSoap;
+        private ICopaAPIs copaAPIs;
 
         private ApplicationDbContext db;
 
@@ -22,9 +27,15 @@ namespace CrewMobile.Api.Controllers
 
         #region Constructors
         
-        public TimeZonesController(ApplicationDbContext context, ICopaSoap _copaSoap)
+        /*public TimeZonesController(ApplicationDbContext context, ICopaSoap _copaSoap)
         {
             copaSoap = _copaSoap;
+            db = context;
+        }*/
+
+        public TimeZonesController(ApplicationDbContext context, ICopaAPIs _copaApis)
+        {
+            copaAPIs = _copaApis;
             db = context;
         }
 
@@ -42,19 +53,22 @@ namespace CrewMobile.Api.Controllers
         public async Task<IActionResult> Post()
         {
             var airports = await db.Airports.ToListAsync();
-            var timeZones = copaSoap.GetListTimeZone(airports);
+            //var timeZones = copaSoap.GetListTimeZone(airports);
+            var resultTimeZones = copaAPIs.GetListTimeZone(airports).Result;
+            var timeZones = JsonConvert.DeserializeObject<TimeZoneResponse>(resultTimeZones.Result.ToString());
+            //Soap.GetListTimeZone(airports);
             foreach (var airport in airports)
             {
-                var timeZone = timeZones.SoapEnvEnvelope.SoapEnvBody.Ns0CopaTimeZoneInformationRs.Ns0TimeZones.Locations.Where(t => t.LocationCode == airport.AirportCode).FirstOrDefault();
-                if (timeZone != null)
+                var timeZonesItems = timeZones.Result.TimeZoneInformation.Where(t => t.LocationCode == airport.AirportCode).FirstOrDefault(); //.SoapEnvEnvelope.SoapEnvBody.Ns0CopaTimeZoneInformationRs.Ns0TimeZones.Locations.Where(t => t.LocationCode == airport.AirportCode).FirstOrDefault();
+                if ((timeZonesItems != null) && (timeZones != null))
                 {
-                    var position = timeZone.Ns1TimeZone.Offset.IndexOf(':');
-                    if (position != -1)
+                    var timeZone = timeZonesItems.TimeZone.FirstOrDefault(); //.Ns1TimeZone.Offset.IndexOf(':');
+                    if (timeZone != null)
                     {
-                        var offSetString = timeZone.Ns1TimeZone.Offset.Substring(0, position);
+                        var offSetString = timeZone.Offset.Split(":").FirstOrDefault();
                         var offSet = int.Parse(offSetString);
                         airport.GTMOffset = offSet;
-                        airport.TimeZone = timeZone.Ns1TimeZone.Ns1TimeZoneId;
+                        airport.TimeZone = timeZone.IdTimeZone;
                         db.Entry(airport).State = EntityState.Modified;
                     }
 

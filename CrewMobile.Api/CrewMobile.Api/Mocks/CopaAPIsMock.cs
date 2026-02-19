@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CrewMobileApi.Apis.Interfaces;
 using CrewMobile.Common.Models;
 using Newtonsoft.Json;
+using CrewMobile.Domain.Models;
 
 namespace CrewMobileApi.Mocks
 {
@@ -118,6 +119,16 @@ namespace CrewMobileApi.Mocks
             {
                 IsSuccess = true,
                 Result = json
+            };
+        }
+
+        //TODO: Definir respueesta Mockeada
+        public async Task<Response> GetListTimeZone(List<Airport> airports)
+        {
+            return new Response
+            {
+                IsSuccess = true,
+                Result = null //json
             };
         }
     }
