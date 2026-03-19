@@ -21,13 +21,20 @@ namespace CrewMobileApi.Business
         /// The Blob Storage Options
         /// </summary>
         private readonly AzureStorageOptions _storageOptions;
+
+        /// <summary>
+        /// The connection string
+        /// </summary>
+        private readonly string _connectionString;
+
         #endregion
 
         #region Constructors
-        public ProcessFile(ApplicationDbContext db, AzureStorageOptions options)
+        public ProcessFile(ApplicationDbContext db, AzureStorageOptions options, string connectionString)
         {
             this.db = db;
             _storageOptions = options;
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
         #endregion
 
@@ -116,16 +123,6 @@ namespace CrewMobileApi.Business
             }
         }
 
-        public static string GetConnectionString()
-        {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            return configuration.GetConnectionString("DefaultConnection");
-        }
-
         public DataTable ToDataTable(List<FlightCrewCom> crews)
         {
             var table = new DataTable();
@@ -158,10 +155,9 @@ namespace CrewMobileApi.Business
 
         public async Task BulkInsertFlightCrewsAsync(List<FlightCrewCom> crews)
         {
-            string connectionString = GetConnectionString();
             var dataTable = ToDataTable(crews);
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
 
