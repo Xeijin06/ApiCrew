@@ -42,6 +42,11 @@ namespace CrewMobile.Api.Controllers
         private ApplicationDbContext db;
 
         /// <summary>
+        /// The data base connection string
+        /// </summary>
+        private string _connectionString;
+
+        /// <summary>
         /// The API paramenters
         /// </summary>
         private CMParameter parameters;
@@ -154,6 +159,8 @@ namespace CrewMobile.Api.Controllers
             copaSoap = _copaSoap;
             configuration = _configuration;
             graphService = _graphService;
+
+            _connectionString = configuration["ConnectionStrings:DefaultConnection"];
 
             azureDomain = configuration["AzureAd:Domain"];
             copaAPITimeOut = int.Parse(configuration["CopaAPI:TimeOut"]);
@@ -2288,7 +2295,7 @@ namespace CrewMobile.Api.Controllers
             }
 
             await this.SaveLog(string.Format("Starts process file: {0}", localDestinationFilename), true, false);
-            var processFile = new ProcessFile(db, _storageOptions.Value); 
+            var processFile = new ProcessFile(db, _storageOptions.Value, _connectionString); 
             var rowsProcessed = await processFile.Process(_logStorageService, fileName);
             await this.SaveLog(string.Format("Ends process file with {0} lines.", rowsProcessed), true, true);
             await CleanBlobstorage();
