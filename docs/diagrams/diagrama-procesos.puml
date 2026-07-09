@@ -1,0 +1,93 @@
+@startuml diagrama-procesos
+
+title CrewMobile API - Diagrama de Procesos
+
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontSize 11
+skinparam sequenceMessageAlign center
+
+actor "Crew Mobile\nApp" as app
+participant "Azure AD\n(OAuth 2.0)" as aad
+participant "CrewMobile\nAPI" as api
+participant "Microsoft\nGraph" as graph
+participant "Copa Airlines\nREST API" as copaRest
+participant "Copa Airlines\nSOAP (FLIFO)" as copaSoap
+database "Azure SQL\nDatabase" as db
+participant "Azure Blob\nStorage" as blob
+
+== Autenticación ==
+app -> aad : Solicitar Token JWT\n(ClientId + Scope)
+aad --> app : Token JWT
+
+== GetNextLeg (Flujo Principal) ==
+app -> api : POST /api/FlightCrews/GetNextLeg\nAuthorization: Bearer {token}\n{ "Email": "user@copa.com" }
+api -> aad : Validar Token JWT
+aad --> api : Token válido
+
+alt MockedEmployees = false
+	api -> graph : GET /users?$filter=mail eq '{email}'\n(Client Credentials)
+	graph --> api : User { employeeId: "1234" }
+else MockedEmployees = true
+	api -> db : SELECT FROM Employees\nWHERE Email = '{email}'
+	db --> api : Employee { Code: 1234 }
+end
+
+api -> db : SELECT FROM FlightCrews\nWHERE CrewId = 1234\nAND DateStart >= UTC_NOW
+db --> api : Lista de vuelos
+
+api -> copaSoap : GetFlightInformation\n(FLIFO - SOAP)
+copaSoap --> api : FlightDetail\n(Status, Gates, Legs)
+
+par Llamadas en paralelo
+	api -> copaRest : GetPassengerList
+	copaRest --> api : PassengerListHeader
+and
+	api -> copaRest : GetPrefer
+	copaRest --> api : PreferredList
+and
+	api -> copaRest : GetSSR
+	copaRest --> api : SSRList
+and
+	api -> copaRest : GetCounts
+	copaRest --> api : FlightCounts
+and
+	api -> copaRest : GetSeats
+	copaRest --> api : SeatsHeader
+end
+
+api --> app : 200 OK\nNextLegResponse\n(pasajeros, conteos,\nasientos, next leg)
+
+== ProcessFile (Carga de Agenda) ==
+[-> api : POST /api/FlightCrews\n(sin autenticación)
+api -> api : Conectar SFTP\ny descargar archivos
+api -> db : INSERT/UPDATE FlightCrews
+api -> blob : Upload archivo procesado
+api -> db : INSERT ProccessFileLog
+api -> blob : DeleteOldFiles\n(retención)
+api --> [: 200 OK
+
+== LoadIrrOps (Operaciones Irregulares) ==
+[-> api : POST /api/IrregularOperations/LoadIrrOps
+api -> db : INSERT IrregularOperationsLog\n("Start Process")
+api -> copaRest : GetIrregularOperations
+copaRest --> api : FlightIrropHeader
+
+loop Para cada operación irregular
+	api -> db : Buscar/Crear IrregularOperation
+	api -> copaRest : GetPassengerList\n(flight, date, origin, dest)
+	copaRest --> api : PassengerList
+	api -> db : INSERT Passangers
+end
+
+api -> db : INSERT IrregularOperationsLog\n("End Process OK")
+api --> [: 200 OK
+
+== Carga de TimeZones ==
+[-> api : POST /api/TimeZones
+api -> db : SELECT FROM Airports
+api -> copaRest : GetListTimeZone(airports)
+copaRest --> api : TimeZoneResponse
+api -> db : UPDATE Airports\n(GTMOffset, TimeZone)
+api --> [: 200 OK
+
+@enduml

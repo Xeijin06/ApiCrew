@@ -1,0 +1,51 @@
+@startuml diagrama-general
+
+title CrewMobile API - Diagrama General de Arquitectura
+
+skinparam backgroundColor #FEFEFE
+skinparam componentStyle rectangle
+skinparam defaultFontSize 12
+
+actor "Crew Mobile\nApp" as app #LightBlue
+actor "Procesos\nAutomáticos" as jobs #LightGreen
+
+cloud "Azure Active Directory" as aad #Azure {
+	component "OAuth 2.0 / JWT" as oauth
+	component "Microsoft Graph API" as graph
+}
+
+package "Azure App Service" as appservice #LightYellow {
+	component "CrewMobile.Api\n(.NET 8 Web API)" as api
+}
+
+cloud "Copa Airlines APIs" as copa #Orange {
+	component "REST API\n(Check-in, Passengers,\nSSR, Seats, IrrOps)" as copaRest
+	component "SOAP API\n(FLIFO - Flight Info)" as copaSoap
+}
+
+database "Azure SQL Database" as sqldb #LightCyan {
+	component "ApplicationDbContext\n(EF Core 8)" as db
+}
+
+cloud "Azure Blob Storage" as blob #LightGreen {
+	component "Logs & Files\nContainer" as blobContainer
+}
+
+node "SFTP Server" as sftp #LightGray {
+	component "Crew Schedule\nFiles" as ftpFiles
+}
+
+' Relationships
+app --> oauth : 1. Obtiene Token JWT
+app --> api : 2. Requests con\nBearer Token
+jobs --> api : Procesos batch\n(sin auth)
+
+api --> oauth : Valida Token
+api --> graph : Consulta usuarios\n(Client Credentials)
+api --> copaRest : Consulta datos\nde vuelos
+api --> copaSoap : Consulta FLIFO\n(info de vuelos)
+api --> db : CRUD Entidades\n(EF Core)
+api --> blobContainer : Upload/Delete\narchivos
+api --> ftpFiles : Descarga archivos\nde tripulación\n(SSH.NET)
+
+@enduml
