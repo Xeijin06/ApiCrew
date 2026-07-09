@@ -1,51 +1,20 @@
-# CrewMobile API - Documentación Técnica
+# Introduction 
+TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
 
-## Información General
+# Getting Started
+TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
+1.	Installation process
+2.	Software dependencies
+3.	Latest releases
+4.	API references
 
-| Campo | Valor |
-|-------|-------|
-| **Nombre** | CrewMobile API |
-| **Framework** | .NET 8 (ASP.NET Core Web API) |
-| **Autenticación** | Azure AD con JWT Bearer (Microsoft Identity Web) |
-| **Base de datos** | SQL Server (Entity Framework Core 8) |
-| **Formato de respuesta** | JSON (Newtonsoft.Json) |
-| **Documentación interactiva** | Swagger/OpenAPI (solo en Development) |
-| **Repositorio** | `https://copavsts.visualstudio.com/CrewMobileSolutions/_git/CrewMobile_Api` |
-| **Rama principal** | `develop` |
+# Build and Test
+TODO: Describe and show how to build your code and run the tests. 
 
----
+# Contribute
+TODO: Explain how other users and developers can contribute to make your code better. 
 
-## Índice General
-
-| Documento | Descripción |
-|-----------|-------------|
-| [Arquitectura](./docs/arquitectura.md) | Arquitectura de la solución, proyectos y capas |
-| [Autenticación y Seguridad](./docs/autenticacion.md) | Configuración de Azure AD, JWT Bearer |
-| [Endpoints - Airports](./docs/endpoints-airports.md) | CRUD de aeropuertos |
-| [Endpoints - Employees](./docs/endpoints-employees.md) | CRUD de empleados |
-| [Endpoints - FlightCrews](./docs/endpoints-flightcrews.md) | Operaciones de tripulación y vuelos |
-| [Endpoints - Parameters](./docs/endpoints-parameters.md) | Parámetros de configuración y grupos |
-| [Endpoints - Descriptors](./docs/endpoints-descriptors.md) | CRUD de descriptores |
-| [Endpoints - IrregularOperations](./docs/endpoints-irregularoperations.md) | Operaciones irregulares, pasajeros y logs |
-| [Endpoints - SecuritySSRs](./docs/endpoints-securityssrs.md) | CRUD de códigos SSR de seguridad |
-| [Endpoints - FlighStatusMocks](./docs/endpoints-flighstatusmocks.md) | CRUD de mocks de estado de vuelo |
-| [Endpoints - ProcessFileLogs](./docs/endpoints-processfilelogs.md) | CRUD de logs de procesamiento de archivos |
-| [Endpoints - TimeZones](./docs/endpoints-timezones.md) | Carga de zonas horarias de aeropuertos |
-| [Endpoints - Graph](./docs/endpoints-graph.md) | Integración con Microsoft Graph |
-| [Modelos de Datos](./docs/modelos.md) | Entidades de dominio y DTOs |
-| [Servicios](./docs/servicios.md) | Servicios internos (Graph, BlobStorage, Logs) |
-| [Integraciones Externas](./docs/integraciones.md) | APIs de Copa Airlines y SOAP |
-| [Configuración](./docs/configuracion.md) | appsettings, cadenas de conexión y variables |
-
----
-
-## Diagramas (PlantUML)
-
-| Diagrama | Descripción |
-|----------|-------------|
-| [Diagrama General](./docs/diagrams/diagrama-general.puml) | Arquitectura general: componentes externos, servicios y flujos de comunicación |
-| [Diagrama de Componentes](./docs/diagrams/diagrama-componentes.puml) | Componentes internos: controladores, servicios, APIs, modelos y dependencias |
-| [Diagrama de Procesos](./docs/diagrams/diagrama-procesos.puml) | Secuencia de los procesos principales (GetNextLeg, ProcessFile, LoadIrrOps, TimeZones) |
-| [Flujo - GetNextLeg](./docs/diagrams/diagrama-flujo-getnextleg.puml) | Flujo de actividad del endpoint principal GetNextLeg |
-| [Flujo - LoadIrrOps](./docs/diagrams/diagrama-flujo-loadirrops.puml) | Flujo de actividad de la carga de operaciones irregulares |
-| [Flujo - ProcessFile](./docs/diagrams/diagrama-flujo-processfile.puml) | Flujo de actividad de la importación de archivos FTP de tripulación |
+If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
+- [ASP.NET Core](https://github.com/aspnet/Home)
+- [Visual Studio Code](https://github.com/Microsoft/vscode)
+- [Chakra Core](https://github.com/Microsoft/ChakraCore)
