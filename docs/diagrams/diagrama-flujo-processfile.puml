@@ -1,0 +1,61 @@
+@startuml diagrama-flujo-processfile
+
+title CrewMobile API - Flujo: ProcessFile (Carga de Agenda de Tripulación)
+
+skinparam backgroundColor #FEFEFE
+skinparam activityBackgroundColor #LightYellow
+skinparam defaultFontSize 11
+
+|#LightGreen|Proceso Automático|
+start
+:POST /api/FlightCrews
+(sin autenticación);
+
+|#LightYellow|FlightCrewsController|
+:Iniciar ProcessFile();
+
+|#LightGray|SFTP Server|
+:Conectar al servidor SFTP
+(SSH.NET);
+:Descargar archivos de
+agenda de tripulación;
+
+|#LightYellow|FlightCrewsController|
+
+|#Wheat|ProcessFile (Business)|
+:Parsear archivo de
+agenda de tripulación;
+
+while (Para cada registro\nen el archivo) is (siguiente)
+	:Extraer datos de vuelo:
+	FlightNumber, DateStart, DateEnd,
+	Source, Destination, CrewId,
+	CrewRoll, CrewName, Company;
+
+	|#LightCyan|ApplicationDbContext|
+	:Insertar/Actualizar
+	registro FlightCrew en BD;
+endwhile (fin)
+
+|#LightYellow|FlightCrewsController|
+
+|#LightGreen|Azure Blob Storage|
+:Subir archivo procesado
+al Blob Storage (logs);
+
+|#LightCyan|ApplicationDbContext|
+:Registrar ProccessFileLog
+en BD (fecha, éxito, pasos);
+
+|#LightYellow|FlightCrewsController|
+
+|#LightGreen|Azure Blob Storage|
+:Eliminar archivos antiguos
+según política de retención
+(DeleteOldFilesAsync);
+
+|#LightGreen|Proceso Automático|
+:Recibe 200 OK - "Ok";
+stop
+
+@enduml

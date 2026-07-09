@@ -1,0 +1,61 @@
+@startuml diagrama-flujo-loadirrops
+
+title CrewMobile API - Flujo: LoadIrrOps (Carga de Operaciones Irregulares)
+
+skinparam backgroundColor #FEFEFE
+skinparam activityBackgroundColor #LightYellow
+skinparam defaultFontSize 11
+
+|#LightGreen|Proceso Automático|
+start
+:POST /api/IrregularOperations/LoadIrrOps;
+
+|#LightYellow|IrregularOperationsController|
+:SaveLog("Start Process", true);
+
+|#Orange|Copa Airlines API|
+:GetIrregularOperations()
+Consultar operaciones irregulares;
+
+|#LightYellow|IrregularOperationsController|
+if (IrrOps encontradas?) then (No)
+	:SaveLog("No irregular operations found");
+	:Retorna 400
+	"No irregular operations found";
+	stop
+else (Sí)
+endif
+
+while (Para cada operación irregular) is (siguiente)
+	if (Existe en BD?) then (No)
+		:Crear nuevo registro
+		IrregularOperation en BD;
+		:Obtener operationId
+		del nuevo registro;
+	else (Sí)
+		:Eliminar pasajeros
+		anteriores (DeleteOldPassengers);
+		:Usar operationId existente;
+	endif
+
+	|#Orange|Copa Airlines API|
+	:GetPassengerList(flightNum,
+	departureDate, "CM",
+	origin, destination);
+
+	|#LightYellow|IrregularOperationsController|
+	if (Lista de pasajeros obtenida?) then (Sí)
+		:InsertNewPassengers
+		(operationId, passengerList);
+	else (No)
+		note right: Se omite la inserción
+	endif
+endwhile (fin)
+
+:SaveLog("End Process OK", true);
+
+|#LightGreen|Proceso Automático|
+:Recibe 200 OK - "Ok";
+stop
+
+@enduml
