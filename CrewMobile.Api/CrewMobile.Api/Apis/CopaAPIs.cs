@@ -376,13 +376,21 @@ namespace CrewMobileApi.Apis
             string flightNumber)
         {
             try
-            {
+            {//TODO: Restaurar lineas que hacen referencia a las variables de url y subscripcion
                 var client = new HttpClient();
-                client.BaseAddress = new Uri(urlCopa);
-                client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionFlightOperationsValue);
+                //client.BaseAddress = new Uri(urlCopa);
+                client.BaseAddress = new Uri("REPLACE");
+                client.DefaultRequestHeaders.Add("REPLACE", "REPLACE");
+                //client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionFlightOperationsValue);
                 client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
-                var url = string.Format(
+                /*var url = string.Format(
                     "/FlightOperations/v2/Flights/flight?dateofdepartureFrom={0:yyyyMMdd}&dateofdepartureTo={1:yyyyMMdd}&flightnumber={2}",
+                    departureFrom,
+                    departureTo,
+                    flightNumber);
+                */
+                var url = string.Format(
+                    "/osl/osb/flightSchedule/v1.0/byflightdaterange?FlightDateFrom={0}&FlightDateTo={1}&FlightNumber={2}",
                     departureFrom,
                     departureTo,
                     flightNumber);
@@ -514,7 +522,7 @@ namespace CrewMobileApi.Apis
         public async Task<Response> GetListTimeZone(List<Airport> airports)
         {
             try
-            {
+            {//TODO: Restaurar lineas que hacen referencia a las variables de url y subscripcion
                 var client = new HttpClient();
                 //client.BaseAddress = new Uri(urlCopa);
                 client.BaseAddress = new Uri("REPLACE");
