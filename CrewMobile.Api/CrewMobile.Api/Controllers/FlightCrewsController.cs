@@ -1735,13 +1735,13 @@ namespace CrewMobile.Api.Controllers
                     passanger.FinalPassengerDestination += ", NA";
                 }
 
-                var passengerIrregularOperation = await db.Passangers.Where(p => p.ConfirmationID == passanger.ConfirmationID).FirstOrDefaultAsync();
+                var passengerIrregularOperation = await db.Passangers.Include(p => p.IrregularOperation).Where(p => p.ConfirmationID == passanger.ConfirmationID).FirstOrDefaultAsync();
                 //if (passanger.Surname.ToUpper().Trim() == "CRUZGUTIERREZ")
                 //{
                 //    var sddd = "dssdds";
                 //    var s = passanger.ConfirmationID;
                 //}
-                if (passengerIrregularOperation != null)
+                if (passengerIrregularOperation != null && passengerIrregularOperation.IrregularOperation != null)
                 {
                     var currentflighNumber = int.Parse(listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber);
                     var irropFligthNumber = int.Parse(passengerIrregularOperation.IrregularOperation.FlightNumber);
