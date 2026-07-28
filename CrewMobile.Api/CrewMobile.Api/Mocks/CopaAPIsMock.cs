@@ -16,6 +16,11 @@ namespace CrewMobileApi.Mocks
             throw new NotImplementedException();
         }
 
+        public Task<Response> GetApiAirportsInformation()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response> GetCounts(
             string flightNumber,
             DateTime departureDate,
