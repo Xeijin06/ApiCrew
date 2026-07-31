@@ -48,6 +48,8 @@ namespace CrewMobileApi.Apis.Interfaces
             DateTime departureTo,
             string flightNumber);
 
+        Task<Response> GetApiAirportsInformation();
+
         Task<Response> GetSeats(
             string flightNumber,
             DateTime departureDate,
