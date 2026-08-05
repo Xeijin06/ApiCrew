@@ -370,6 +370,53 @@ namespace CrewMobileApi.Apis
             }
         }
 
+        public async Task<Response> GetApiFlightList(
+            DateTime departureFrom,
+            DateTime departureTo)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(urlCopa);
+                client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionFlightOperationsValue);
+                client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
+                var url = string.Format(
+                    "/FlightOperations/v2/Flights/flight?dateofdepartureFrom={0:yyyyMMdd}&dateofdepartureTo={1:yyyyMMdd}",
+                    departureFrom,
+                    departureTo);
+
+                var response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorString = await response.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ErrorApiCom>(errorString);
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Result = error,
+                    };
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<FlightListHeaderCom>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = model,
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
         public async Task<Response> GetApiFlightInformation(
             DateTime departureFrom,
             DateTime departureTo,

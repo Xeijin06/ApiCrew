@@ -4,6 +4,7 @@ using CrewMobileApi.Apis.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web.Resource;
 using Newtonsoft.Json;
 
 namespace CrewMobile.Api.Controllers
@@ -139,27 +140,25 @@ namespace CrewMobile.Api.Controllers
         /// aeropuertos nuevos (enriquecidos con el catálogo de aeropuertos) y
         /// refrescar su TimeZone/GTMOffset.
         /// </summary>
-        /// <param name="departureFrom">Inicio del rango de fechas de vuelo.</param>
-        /// <param name="departureTo">Fin del rango de fechas de vuelo.</param>
-        /// <param name="flightNumber">Número de vuelo (opcional, según lo requiera el API).</param>
+        /// <param name="request">Parámetros de la petición (rango de fechas y número de vuelo).</param>
         /// <returns>Json</returns>
         [Authorize]
         [RequiredScopeOrAppPermission(AcceptedAppPermission = new[] { "azureFunction.Execute" })]
         [HttpPost]
         [Route("RefreshAirports")]
-        public async Task<IActionResult> RefreshAirports(
-            DateTime departureFrom,
-            DateTime departureTo,
-            string flightNumber = "")
+        public async Task<IActionResult> RefreshAirports([FromBody] RefreshAirportsRequest request)
         {
             // 1. Listado de vuelos
-            var flightsResult = await copaApis.GetApiFlightInformation(departureFrom, departureTo, flightNumber);
+            var flightsResult = await copaApis.GetApiFlightList(
+                request.DepartureDate,
+                request.ArrivalDate);
+
             if (!flightsResult.IsSuccess)
             {
                 return BadRequest(flightsResult.Result?.ToString() ?? flightsResult.Message);
             }
 
-            var flightHeader = flightsResult.Result as FlightDetailHeaderCom;
+            var flightHeader = flightsResult.Result as FlightListHeaderCom;
             if (flightHeader?.Flights == null || flightHeader.Flights.Count == 0)
             {
                 return Ok(new { Added = 0, Updated = 0, Message = "No flights returned by the API." });

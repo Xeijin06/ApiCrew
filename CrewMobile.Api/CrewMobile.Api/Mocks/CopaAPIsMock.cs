@@ -11,11 +11,19 @@ namespace CrewMobileApi.Mocks
     public class CopaAPIsMock : ICopaAPIs
     {
         public const string VARPATH = @"C:\GitRepo\CrewMobile_API\CrewMobile.Api\CrewMobile.Api\Mocks\";
+
+        //TODO: Generar archivos json de datos mockeados
         public Task<Response> GetApiFlightInformation(DateTime departureFrom, DateTime departureTo, string flightNumber)
         {
             throw new NotImplementedException();
         }
+        //TODO: Generar archivos json de datos mockeados
+        public Task<Response> GetApiFlightList(DateTime departureFrom, DateTime departureTo)
+        {
+            throw new NotImplementedException();
+        }
 
+        //TODO: Generar archivos json de datos mockeados
         public Task<Response> GetApiAirportsInformation()
         {
             throw new NotImplementedException();
@@ -127,7 +135,7 @@ namespace CrewMobileApi.Mocks
             };
         }
 
-        //TODO: Definir respueesta Mockeada
+        //TODO: Generar archivos json de datos mockeados
         public async Task<Response> GetListTimeZone(List<Airport> airports)
         {
             return new Response
