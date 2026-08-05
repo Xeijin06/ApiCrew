@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using CrewMobileApi.Apis.Interfaces;
-using CrewMobile.Api.Models;
+﻿using CrewMobile.Api.Models;
+using CrewMobile.Common.Models;
 using CrewMobile.Domain.Models;
 using CrewMobileApi.Apis;
-using CrewMobile.Common.Models;
+using CrewMobileApi.Apis.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web.Resource;
 
 
 namespace CrewMobile.Api.Controllers
@@ -295,6 +296,8 @@ namespace CrewMobile.Api.Controllers
         /// Process IrrOps
         /// </summary>
         /// <returns></returns>
+        [Authorize]
+        [RequiredScopeOrAppPermission(AcceptedAppPermission = new[] { "azureFunction.Execute" })]
         [HttpPost]
         [Route("LoadIrrOps")]
         public async Task<IActionResult> LoadIrrOps()
