@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using Renci.SshNet;
 using GModels = Microsoft.Graph.Models;
+using Microsoft.Identity.Web.Resource;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -512,6 +513,30 @@ namespace CrewMobile.Api.Controllers
         }
 
         /// <summary>
+        /// Get flight list
+        /// </summary>
+        /// <param name="departureFrom">Departure from</param>
+        /// <param name="departureTo">Departure to</param>
+        /// <returns>Flight List</returns>
+        [Authorize]
+        [HttpGet]
+        [Route("GetApiFlightList/{departureFrom}/{departureTo}")]
+        public async Task<IActionResult> GetApiFlightList(
+            DateTime departureFrom,
+            DateTime departureTo)
+        {
+            var result = await copaApi.GetApiFlightList(
+                departureFrom,
+                departureTo);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Result.ToString());
+            }
+
+            return Ok(result.Result);
+        }
+
+        /// <summary>
         /// Get flight information
         /// </summary>
         /// <param name="departureFrom">Departure from</param>
@@ -983,9 +1008,12 @@ namespace CrewMobile.Api.Controllers
         /// <summary>
         /// Call the process file FTP to get flight atendance agenda
         /// </summary>
-        /// <returns>None</returns>       
+        /// <returns>None</returns>
+        [Authorize]
+        [RequiredScopeOrAppPermission(AcceptedAppPermission = new[] { "azureFunction.Execute" })]
         [HttpPost]
-        public async Task<IActionResult> Post()
+        [Route("LoadFlightCrewsFile")]
+        public async Task<IActionResult> LoadFlightCrewsFile()
         {
             await this.ProcessFile();
             return Ok("Ok");

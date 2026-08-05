@@ -144,6 +144,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="flightNumber">Número de vuelo (opcional, según lo requiera el API).</param>
         /// <returns>Json</returns>
         [Authorize]
+        [RequiredScopeOrAppPermission(AcceptedAppPermission = new[] { "azureFunction.Execute" })]
         [HttpPost]
         [Route("RefreshAirports")]
         public async Task<IActionResult> RefreshAirports(
