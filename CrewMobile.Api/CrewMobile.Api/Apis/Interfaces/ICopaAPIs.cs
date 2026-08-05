@@ -43,6 +43,10 @@ namespace CrewMobileApi.Apis.Interfaces
             string origin,
             string destination);
 
+        Task<Response> GetApiFlightList(
+            DateTime departureFrom,
+            DateTime departureTo);
+
         Task<Response> GetApiFlightInformation(
             DateTime departureFrom,
             DateTime departureTo,
