@@ -8,12 +8,12 @@ namespace CrewMobile.Common.Models
     public class RefreshAirportsRequest
     {
         /// <summary>Inicio del rango de fechas de vuelo.</summary>
-        public DateTime DepartureDate { get; set; }
+        public DateTime DateFrom { get; set; }
 
         /// <summary>Fin del rango de fechas de vuelo.</summary>
-        public DateTime ArrivalDate { get; set; }
+        public DateTime DateTo { get; set; }
 
         /// <summary>Número de vuelo (opcional, según lo requiera el API).</summary>
-        public string FlightNumber { get; set; } = string.Empty;
+        //public string FlightNumber { get; set; } = string.Empty;
     }
 }
