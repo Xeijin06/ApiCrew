@@ -136,22 +136,48 @@ namespace CrewMobile.Api.Controllers
         }
 
         /// <summary>
-        /// Revisa el API de listado de vuelos y el de TimeZone para registrar
-        /// aeropuertos nuevos (enriquecidos con el catálogo de aeropuertos) y
-        /// refrescar su TimeZone/GTMOffset.
+        /// Endpoint HTTP que sincroniza el catálogo de aeropuertos. Delega la lógica
+        /// de negocio en <see cref="RefreshAirportsInternal"/>, el cual registra los
+        /// aeropuertos nuevos (a partir del listado de vuelos y el catálogo maestro)
+        /// y refresca su TimeZone/GTMOffset.
+        /// Requiere autorización y el scope/permiso de aplicación "azureFunction.Execute".
         /// </summary>
-        /// <param name="request">Parámetros de la petición (rango de fechas y número de vuelo).</param>
-        /// <returns>Json</returns>
+        /// <param name="request">Parámetros de la petición (rango de fechas DateFrom/DateTo).</param>
+        /// <returns>
+        /// 200 (OK) con el resumen de la sincronización (aeropuertos añadidos y códigos);
+        /// 400 (BadRequest) con el mensaje de error si alguna de las llamadas al API falla.
+        /// </returns>
         [Authorize]
         [RequiredScopeOrAppPermission(AcceptedAppPermission = new[] { "azureFunction.Execute" })]
         [HttpPost]
         [Route("RefreshAirports")]
         public async Task<IActionResult> RefreshAirports([FromBody] RefreshAirportsRequest request)
         {
+            return await RefreshAirportsInternal(request);
+        }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Lógica de sincronización de aeropuertos. Consulta el API de listado de vuelos
+        /// para obtener los códigos involucrados, los enriquece con el catálogo maestro
+        /// de aeropuertos, inserta los que no existen en la base de datos y refresca el
+        /// TimeZone/GTMOffset de todos consultando el API de TimeZone.
+        /// Las operaciones de escritura se ejecutan dentro de una transacción con la
+        /// estrategia de reintentos de EF Core (requerido por EnableRetryOnFailure en Azure SQL).
+        /// </summary>
+        /// <param name="request">Parámetros de la petición (rango de fechas DateFrom/DateTo).</param>
+        /// <returns>
+        /// 200 (OK) con el número de aeropuertos añadidos y sus códigos, o un mensaje
+        /// indicando que el API no devolvió vuelos; 400 (BadRequest) si falla la consulta
+        /// al API de vuelos o al catálogo de aeropuertos.
+        /// </returns>
+        private async Task<IActionResult> RefreshAirportsInternal(RefreshAirportsRequest request)
+        {
             // 1. Listado de vuelos
             var flightsResult = await copaApis.GetApiFlightList(
-                request.DepartureDate,
-                request.ArrivalDate);
+                request.DateFrom,
+                request.DateTo);
 
             if (!flightsResult.IsSuccess)
             {
@@ -256,9 +282,7 @@ namespace CrewMobile.Api.Controllers
                 Message = "Airports synchronized successfully."
             });
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Genera una abreviatura a partir del nombre de la ciudad del aeropuerto.
         /// Reglas: normaliza los guiones a espacios, corta en la primera stopword
