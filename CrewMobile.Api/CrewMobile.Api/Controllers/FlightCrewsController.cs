@@ -705,14 +705,34 @@ namespace CrewMobile.Api.Controllers
                 }
                 else
                 {
-                    var user = await GetUser(email);
+                    var authHeader = Request.Headers["Authorization"].FirstOrDefault();
+
+                    if (string.IsNullOrWhiteSpace(authHeader) ||
+                        !authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return Unauthorized("No se encontró un token Bearer en el header Authorization.");
+                    }
+
+                    var accessToken = authHeader.Substring("Bearer ".Length).Trim();
+
+                    var user = await GetUser(accessToken); //(email);
 
                     if (user == null)
                     {
                         return BadRequest("002. The employee information can't be recovered.");
                     }
 
-                    var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+                    //var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+
+                    var userinfo = user["value"] is JArray values
+                                ? values.FirstOrDefault()?.ToObject<GModels.User>()
+                                : user.ToObject<GModels.User>();
+
+                    if (userinfo == null || string.IsNullOrWhiteSpace(userinfo.EmployeeId) ||
+                        !int.TryParse(userinfo.EmployeeId, out employeeId))
+                    {
+                        return BadRequest("002. The employee information can't be recovered.");
+                    }
 
                     employeeId = int.Parse(userinfo.EmployeeId);
                 }
@@ -886,7 +906,17 @@ namespace CrewMobile.Api.Controllers
             }
             else
             {
-                var user = await GetUser(email);
+                var authHeader = Request.Headers["Authorization"].FirstOrDefault();
+
+                if (string.IsNullOrWhiteSpace(authHeader) ||
+                    !authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                {
+                    return Unauthorized("No se encontró un token Bearer en el header Authorization.");
+                }
+
+                var accessToken = authHeader.Substring("Bearer ".Length).Trim();
+
+                var user = await GetUser(accessToken); //(email);
 
                 if (user == null)
                 {
@@ -2398,11 +2428,11 @@ namespace CrewMobile.Api.Controllers
         /// <param name="email">The user email</param>
         /// <returns>Graph user</returns>
         /// TODO: Revisar la logica de este metodo
-        private async Task<JObject> GetUser(string email)
+        private async Task<JObject> GetUser(string accessToken) //(string email)
         {
             try
             {
-                var user = await graphService.GetUserInformationByEmailAsync(email);
+                var user = await graphService.GetMyUserInformationAsync(accessToken);  //.GetUserInformationByEmailAsync(email);
                 return user;
             }
             catch (Exception ex)
