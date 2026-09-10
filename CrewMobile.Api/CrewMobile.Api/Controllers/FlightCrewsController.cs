@@ -668,22 +668,22 @@ namespace CrewMobile.Api.Controllers
         [Authorize]
         [HttpPost]
         [Route("GetNextLeg")]
-        public async Task<IActionResult> GetNextLeg(JObject form)
+        public async Task<IActionResult> GetNextLeg(JObject? form)
         {
             string email = "";
             int employeeId = 0;
-            dynamic jsonObject = form;
+            //dynamic jsonObject = form;
 
             try
             {
-                try
+                /*try
                 {
                     email = jsonObject.Email.Value;
                 }
                 catch (Exception ex)
                 {
                     return BadRequest("001. Incorrect call." + ex.ToString());
-                }
+                }*/
 
                 var dateString = DateTime.Now.ToUniversalTime().ToString();
 
@@ -873,11 +873,11 @@ namespace CrewMobile.Api.Controllers
         [Authorize]
         [HttpPost]
         [Route("GetNextLegAfterCancelled")]
-        public async Task<IActionResult> GetNextLegAfterCancelled(JObject form)
+        public async Task<IActionResult> GetNextLegAfterCancelled(JObject? form)
         {
             string email = "";
             int employeeId = 0;
-            dynamic jsonObject = form;
+            /*dynamic jsonObject = form;
 
             try
             {
@@ -886,9 +886,12 @@ namespace CrewMobile.Api.Controllers
             catch (Exception ex)
             {
                 return BadRequest("001. Incorrect call." + ex.ToString());
-            }
+            }*/
 
             var dateString = DateTime.Now.ToUniversalTime().ToString();
+
+            nextLegResponse = new NextLegResponse();
+            nextLegResponse.ServiceStatus = new ServiceStatus();
 
             listEmployeeFlights = new List<PreNextLegResponseCom>();
             parameters = await db.Parameters.FirstOrDefaultAsync();
@@ -923,7 +926,17 @@ namespace CrewMobile.Api.Controllers
                     return BadRequest("002. The employee information can't be recovered.");
                 }
 
-                var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+                //var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+
+                var userinfo = user["value"] is JArray values
+                            ? values.FirstOrDefault()?.ToObject<GModels.User>()
+                            : user.ToObject<GModels.User>();
+
+                if (userinfo == null || string.IsNullOrWhiteSpace(userinfo.EmployeeId) ||
+                    !int.TryParse(userinfo.EmployeeId, out employeeId))
+                {
+                    return BadRequest("002. The employee information can't be recovered.");
+                }
 
                 employeeId = int.Parse(userinfo.EmployeeId);
             }
