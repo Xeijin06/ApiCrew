@@ -1,7 +1,11 @@
 ﻿using CrewMobile.Api.Models;
+using CrewMobile.Common.Models;
 using CrewMobileApi.Apis.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web.Resource;
+using Newtonsoft.Json;
 
 namespace CrewMobile.Api.Controllers
 {
@@ -109,6 +113,237 @@ namespace CrewMobile.Api.Controllers
                 db.SaveChanges();
             }
             return NoContent();
+        }
+        #endregion
+
+        #region Api Endpoints
+        /// <summary>
+        /// Consulta el API de catálogo de aeropuertos (GetApiAirportsInformation).
+        /// </summary>
+        /// <returns>Json</returns>
+        [Authorize]
+        [HttpGet]
+        [Route("GetApiAirportsInformation")]
+        public async Task<IActionResult> GetApiAirportsInformation()
+        {
+            var result = await copaApis.GetApiAirportsInformation();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Result?.ToString() ?? result.Message);
+            }
+
+            return Ok(result.Result);
+        }
+
+        /// <summary>
+        /// Endpoint HTTP que sincroniza el catálogo de aeropuertos. Delega la lógica
+        /// de negocio en <see cref="RefreshAirportsInternal"/>, el cual registra los
+        /// aeropuertos nuevos (a partir del listado de vuelos y el catálogo maestro)
+        /// y refresca su TimeZone/GTMOffset.
+        /// Requiere autorización y el scope/permiso de aplicación "azureFunction.Execute".
+        /// </summary>
+        /// <param name="request">Parámetros de la petición (rango de fechas DateFrom/DateTo).</param>
+        /// <returns>
+        /// 200 (OK) con el resumen de la sincronización (aeropuertos añadidos y códigos);
+        /// 400 (BadRequest) con el mensaje de error si alguna de las llamadas al API falla.
+        /// </returns>
+        [Authorize]
+        [RequiredScopeOrAppPermission(AcceptedAppPermission = new[] { "azureFunction.Execute" })]
+        [HttpPost]
+        [Route("RefreshAirports")]
+        public async Task<IActionResult> RefreshAirports([FromBody] RefreshAirportsRequest request)
+        {
+            return await RefreshAirportsInternal(request);
+        }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Lógica de sincronización de aeropuertos. Consulta el API de listado de vuelos
+        /// para obtener los códigos involucrados, los enriquece con el catálogo maestro
+        /// de aeropuertos, inserta los que no existen en la base de datos y refresca el
+        /// TimeZone/GTMOffset de todos consultando el API de TimeZone.
+        /// Las operaciones de escritura se ejecutan dentro de una transacción con la
+        /// estrategia de reintentos de EF Core (requerido por EnableRetryOnFailure en Azure SQL).
+        /// </summary>
+        /// <param name="request">Parámetros de la petición (rango de fechas DateFrom/DateTo).</param>
+        /// <returns>
+        /// 200 (OK) con el número de aeropuertos añadidos y sus códigos, o un mensaje
+        /// indicando que el API no devolvió vuelos; 400 (BadRequest) si falla la consulta
+        /// al API de vuelos o al catálogo de aeropuertos.
+        /// </returns>
+        private async Task<IActionResult> RefreshAirportsInternal(RefreshAirportsRequest request)
+        {
+            // 1. Listado de vuelos
+            var flightsResult = await copaApis.GetApiFlightList(
+                request.DateFrom,
+                request.DateTo);
+
+            if (!flightsResult.IsSuccess)
+            {
+                return BadRequest(flightsResult.Result?.ToString() ?? flightsResult.Message);
+            }
+
+            var flightHeader = flightsResult.Result as FlightListHeaderCom;
+            if (flightHeader?.Flights == null || flightHeader.Flights.Count == 0)
+            {
+                return Ok(new { Added = 0, Updated = 0, Message = "No flights returned by the API." });
+            }
+
+            var codesFromFlights = flightHeader.Flights
+                .SelectMany(f => new[] { f.OriginAirport, f.DestinationAirport })
+                .Where(code => !string.IsNullOrWhiteSpace(code))
+                .Select(code => code.Trim().ToUpperInvariant())
+                .Distinct()
+                .ToList();
+
+            // 2. Catálogo maestro de aeropuertos (datos reales)
+            var airportsInfoResult = await copaApis.GetApiAirportsInformation();
+            if (!airportsInfoResult.IsSuccess)
+            {
+                return BadRequest(airportsInfoResult.Result?.ToString() ?? airportsInfoResult.Message);
+            }
+
+            var catalog = (airportsInfoResult.Result as AirportsResponse)?.Airports ?? new List<AirportInfo>();
+            var catalogByCode = catalog
+                .Where(a => !string.IsNullOrWhiteSpace(a.IataCode))
+                .GroupBy(a => a.IataCode.Trim().ToUpperInvariant())
+                .ToDictionary(g => g.Key, g => g.First(), StringComparer.OrdinalIgnoreCase);
+
+            // 3. Determinar nuevos (una sola consulta a Azure SQL)
+            var existingCodes = await db.Airports.Select(a => a.AirportCode).ToListAsync();
+            var existingSet = new HashSet<string>(existingCodes, StringComparer.OrdinalIgnoreCase);
+
+            var newAirports = codesFromFlights
+                .Where(code => !existingSet.Contains(code))
+                .Select(code =>
+                {
+                    catalogByCode.TryGetValue(code, out var info);
+                    return new Domain.Models.Airport
+                    {
+                        AirportCode = code,
+                        AirportName = info?.CityOfAirport ?? code,
+                        AirportAbbreviation = info?.CityOfAirport is { } city
+                            ? GetAbbreviation(city)
+                            : code,
+                        CountryCode = info?.CountryCode ?? "NA",
+                        TimeZone = string.Empty,
+                        GTMOffset = 0
+                    };
+                })
+                .ToList();
+
+            // 4. Estrategia de ejecución + transacción (requerido con EnableRetryOnFailure en Azure SQL)
+            var strategy = db.Database.CreateExecutionStrategy();
+            await strategy.ExecuteAsync(async () =>
+            {
+                await using var transaction = await db.Database.BeginTransactionAsync();
+
+                if (newAirports.Count > 0)
+                {
+                    await db.Airports.AddRangeAsync(newAirports);
+                    await db.SaveChangesAsync();
+                }
+
+                var allAirports = await db.Airports.ToListAsync();
+                var tzResult = await copaApis.GetListTimeZone(allAirports);
+                var tzResponse = JsonConvert.DeserializeObject<TimeZoneResponse>(tzResult.Result.ToString());
+
+                if (tzResponse?.Result?.TimeZoneInformation != null)
+                {
+                    foreach (var airport in allAirports)
+                    {
+                        var info = tzResponse.Result.TimeZoneInformation
+                            .FirstOrDefault(t => t.LocationCode == airport.AirportCode);
+                        var timeZone = info?.TimeZone.FirstOrDefault();
+                        if (timeZone == null)
+                        {
+                            continue;
+                        }
+
+                        var offsetString = timeZone.Offset.Split(':').FirstOrDefault();
+                        if (int.TryParse(offsetString, out var offset))
+                        {
+                            airport.GTMOffset = offset;
+                            airport.TimeZone = timeZone.IdTimeZone;
+                            db.Entry(airport).State = EntityState.Modified;
+                        }
+                    }
+                }
+
+                await db.SaveChangesAsync();
+                await transaction.CommitAsync();
+            });
+
+            return Ok(new
+            {
+                Added = newAirports.Count,
+                NewAirportCodes = newAirports.Select(a => a.AirportCode),
+                Message = "Airports synchronized successfully."
+            });
+        }
+
+        /// <summary>
+        /// Genera una abreviatura a partir del nombre de la ciudad del aeropuerto.
+        /// Reglas: normaliza los guiones a espacios, corta en la primera stopword
+        /// (conectores como de/la/del o sufijos geográficos como Island) y abrevia
+        /// todas las palabras menos la última a su inicial seguida de punto y espacio.
+        /// Ej: "Buenos Aires" => "B. Aires", "San Pedro Sula" => "S. P. Sula",
+        /// "San Andres Island" => "S. Andres", "Port-Au-Prince" => "P. Prince",
+        /// "Comayagua - Tegucigalpa" => "C. Tegucigalpa", "Santa Cruz de la Sierra" => "S. Cruz".
+        /// </summary>
+        /// <param name="cityOfAirport">Nombre de la ciudad del aeropuerto.</param>
+        /// <returns>Abreviatura generada.</returns>
+        private static string GetAbbreviation(string cityOfAirport)
+        {
+            if (string.IsNullOrWhiteSpace(cityOfAirport))
+            {
+                return string.Empty;
+            }
+
+            // Normalizar: tratar guiones como separadores de palabra
+            cityOfAirport = cityOfAirport.Replace('-', ' ');
+
+            // Palabras que cortan el nombre significativo (conectores + sufijos geográficos)
+            var stopWords = new HashSet<string>(
+                new[]
+                {
+                    "de", "del", "la", "las", "los", "el", "y", "e", "da", "do", "dos",
+                    "au", "aux", "island", "islands", "isla", "islas", "city", "int", "international"
+                },
+                StringComparer.OrdinalIgnoreCase);
+
+            var words = cityOfAirport
+                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
+
+            // Cortar en la primera stopword
+            var meaningful = new List<string>();
+            foreach (var word in words)
+            {
+                if (stopWords.Contains(word))
+                {
+                    break;
+                }
+                meaningful.Add(word);
+            }
+
+            if (meaningful.Count == 0)
+            {
+                return cityOfAirport;
+            }
+
+            if (meaningful.Count == 1)
+            {
+                return meaningful[0];
+            }
+
+            // Abreviar todas menos la última
+            var abbreviated = meaningful
+                .Take(meaningful.Count - 1)
+                .Select(w => $"{char.ToUpperInvariant(w[0])}.");
+
+            return string.Join(" ", abbreviated) + " " + meaningful[^1];
         }
         #endregion
     }

@@ -1,0 +1,115 @@
+@startuml diagrama-componentes
+
+title CrewMobile API - Diagrama de Componentes
+
+skinparam backgroundColor #FEFEFE
+skinparam componentStyle rectangle
+skinparam packageStyle frame
+skinparam defaultFontSize 11
+
+package "CrewMobile.Api" as apiProject #LightYellow {
+
+	package "Controllers" as controllers #LightBlue {
+		component "FlightCrewsController" as fcCtrl <<principal>>
+		component "AirportsController" as airCtrl
+		component "EmployeesController" as empCtrl
+		component "ParametersController" as paramCtrl
+		component "DescriptorsController" as descCtrl
+		component "IrregularOperationsController" as irropCtrl
+		component "SecuritySSRsController" as ssrCtrl
+		component "FlighStatusMocksController" as mockCtrl
+		component "ProcessFileLogsController" as logCtrl
+		component "TimeZonesController" as tzCtrl
+		component "GraphController" as graphCtrl
+	}
+
+	package "APIs (Clientes Externos)" as apis #Orange {
+		interface "ICopaAPIs" as iCopaApi
+		interface "ICopaSoap" as iCopaSoap
+		component "CopaAPIs" as copaApi
+		component "CopaSoap" as copaSoap
+		iCopaApi <|.. copaApi
+		iCopaSoap <|.. copaSoap
+	}
+
+	package "Services" as services #LightGreen {
+		interface "IBlobStorageService" as iBlobSvc
+		interface "ILogStorageAccountService" as iLogSvc
+		component "GraphService" as graphSvc
+		component "BlobStorageService" as blobSvc
+		component "LogStorageAccountService" as logSvc
+		iBlobSvc <|.. blobSvc
+		iLogSvc <|.. logSvc
+	}
+
+	package "Business" as business #Wheat {
+		component "ProcessFile" as processFile
+	}
+
+	package "Models" as models #LightCyan {
+		component "ApplicationDbContext" as dbCtx
+		component "NextLegResponse" as nextLeg
+		component "ServiceStatus" as svcStatus
+		component "FlightResponse" as flightResp
+	}
+
+	package "Mocks" as mocks #LightGray {
+		component "MockHelper" as mockHelper
+		component "CopaAPIsMock" as copaApiMock
+		component "CopaSoapMock" as copaSoapMock
+	}
+}
+
+package "CrewMobile.Domain" as domainProject #LightPink {
+	component "Airport" as mAirport
+	component "Employee" as mEmployee
+	component "FlightCrew" as mFlightCrew
+	component "CMParameter" as mParameter
+	component "IrregularOperation" as mIrrOp
+	component "Passanger" as mPassanger
+	component "Descriptor" as mDescriptor
+	component "SecuritySSR" as mSecSSR
+	component "Group" as mGroup
+	component "ProccessFileLog" as mFileLog
+	component "FlighStatusMock" as mFSMock
+}
+
+package "CrewMobile.Common" as commonProject #Lavender {
+	component "DTOs / Models Base\n(AirportCom, FlightCrewCom,\nParameterCom, etc.)" as dtos
+	component "Response" as response
+}
+
+' Dependencies
+fcCtrl --> iCopaApi
+fcCtrl --> iCopaSoap
+fcCtrl --> graphSvc
+fcCtrl --> dbCtx
+fcCtrl --> iBlobSvc
+fcCtrl --> iLogSvc
+fcCtrl --> processFile
+fcCtrl --> mockHelper
+
+airCtrl --> dbCtx
+airCtrl --> iCopaApi
+empCtrl --> dbCtx
+paramCtrl --> dbCtx
+descCtrl --> dbCtx
+irropCtrl --> dbCtx
+irropCtrl --> iCopaApi
+ssrCtrl --> dbCtx
+mockCtrl --> dbCtx
+logCtrl --> dbCtx
+tzCtrl --> dbCtx
+tzCtrl --> iCopaApi
+graphCtrl --> graphSvc
+
+dbCtx --> mFlightCrew
+dbCtx --> mAirport
+dbCtx --> mEmployee
+dbCtx --> mParameter
+
+domainProject --> commonProject
+apiProject --> domainProject
+apiProject --> commonProject
+
+@enduml

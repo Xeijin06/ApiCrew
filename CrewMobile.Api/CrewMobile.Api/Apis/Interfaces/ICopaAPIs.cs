@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CrewMobile.Common.Models;
+using CrewMobile.Domain.Models;
 
 namespace CrewMobileApi.Apis.Interfaces
 {
@@ -42,10 +43,16 @@ namespace CrewMobileApi.Apis.Interfaces
             string origin,
             string destination);
 
+        Task<Response> GetApiFlightList(
+            DateTime departureFrom,
+            DateTime departureTo);
+
         Task<Response> GetApiFlightInformation(
             DateTime departureFrom,
             DateTime departureTo,
             string flightNumber);
+
+        Task<Response> GetApiAirportsInformation();
 
         Task<Response> GetSeats(
             string flightNumber,
@@ -55,5 +62,7 @@ namespace CrewMobileApi.Apis.Interfaces
             string destination);
 
         Task <Response> GetIrregularOperations();
+
+        Task<Response> GetListTimeZone(List<Airport> airports);
     }
 }

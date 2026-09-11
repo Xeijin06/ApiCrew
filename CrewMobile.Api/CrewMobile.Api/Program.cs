@@ -8,6 +8,9 @@ using CrewMobile.Api.Models;
 using CrewMobileApi.Apis.Interfaces;
 using CrewMobileApi.Apis;
 using CrewMobileApi.Services;
+using CrewMobile.Api.Services.Interface;
+using CrewMobile.Api.Services;
+using CrewMobile.Common.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,18 +49,27 @@ builder.Services.AddControllers(
 builder.Services.AddScoped<ICopaAPIs, CopaAPIs>();
 builder.Services.AddScoped<ICopaSoap, CopaSoap>();
 
+builder.Services.Configure<AzureStorageOptions>(builder.Configuration.GetSection("AzureStorage"));
+builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
+builder.Services.AddSingleton<ILogStorageAccountService, LogStorageAccountService>();
+
 // Register Graph Service
 // Validar si se debe registrar como Singleton o Transient
 //builder.Services.AddSingleton<GraphService>();
 builder.Services.AddHttpClient<GraphService>();
 
 // Load configuration from appsettings.json
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+// Se elimina para evitar que se cargue nuevamente la configuración, ya que WebApplication.CreateBuilder(args) ya lo hace automáticamente
+// builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 // Configure DbContext with connection string from appsettings.json
-var connectionString = builder.Configuration.GetConnectionString("LocalConnection");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, sqlOptions =>
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(10),
+            errorNumbersToAdd: null)));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

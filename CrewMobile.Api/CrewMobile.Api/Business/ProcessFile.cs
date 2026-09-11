@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Azure.Storage.Blobs;
 using CrewMobile.Api.Models;
+using CrewMobile.Api.Services.Interface;
 using CrewMobile.Common.Models;
 using CrewMobile.Domain.Models;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace CrewMobileApi.Business
 {
@@ -18,94 +18,176 @@ namespace CrewMobileApi.Business
         private ApplicationDbContext db;
 
         /// <summary>
-        /// The stream writer in file log for FTP process
+        /// The Blob Storage Options
         /// </summary>
-        private StreamWriter streamWriter;
-        
+        private readonly AzureStorageOptions _storageOptions;
+
         /// <summary>
-        /// File Path for FTP process
+        /// The connection string
         /// </summary>
-        private string Path { get; set; }
+        private readonly string _connectionString;
+
         #endregion
 
         #region Constructors
-        public ProcessFile(string path, ApplicationDbContext db)
+        public ProcessFile(ApplicationDbContext db, AzureStorageOptions options, string connectionString)
         {
             this.db = db;
-            Path = path;
+            _storageOptions = options;
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
         #endregion
 
-        public async Task<int> Process(StreamWriter streamWriter)
+        public async Task<int> Process(ILogStorageAccountService logStorageAccount, string fileName, CancellationToken ct = default)
         {
-            this.streamWriter = streamWriter;
             int counter = 0;
-            string line;
+            string? line;
 
             try
             {
-                if (!File.Exists(Path))
+
+                var blobClient = new BlobClient(_storageOptions.ConnectionString, _storageOptions.DefaultContainer, fileName);
+
+                if (!await blobClient.ExistsAsync(ct).ConfigureAwait(false))
+                    throw new FileNotFoundException($"No se encontró el blob storage: {fileName}");
+
+                await DeleteOldRecords().ConfigureAwait(false);
+
+                var flightCrewsToAdd = new List<FlightCrewCom>(5000);
+
+                await using (var downloadStream = await blobClient.OpenReadAsync(cancellationToken: ct).ConfigureAwait(false))
+                using (var reader = new StreamReader(downloadStream))
                 {
-                    throw new FileNotFoundException();
-                }
+                    var buffer = new List<string>(5000);
 
-                await DeleteOldRecords();
-
-                StreamReader file = new StreamReader(Path);
-
-                while ((line = file.ReadLine()) != null)
-                {
-                    counter++;
-
-                    if (counter % 100 == 0)
+                    while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
                     {
-                        this.streamWriter.WriteLine(string.Format("{0} - Proceced {1}...", DateTime.Now, counter));
-                        this.streamWriter.Flush();
-                    }
+                        buffer.Add(line);
+                        counter++;
 
-                    if (line.Length > 61)//validate if has crew
-                    {
-                        List<FlightCrew> objFlight = DeserializationList(line);
-                        DeletePreviousData(objFlight[0]);
-                        foreach (var item in objFlight)
+                        if (counter % 100 == 0)
                         {
-                            db.FlightCrews.Add(new FlightCrew
+                            logStorageAccount.Log(CrewMobile.Api.Models.LogLevel.Information,  $"Processed {counter}...");
+                        }
+
+                        if (buffer.Count >= 5000)
+                        {
+                            await ProcessBatch(buffer, flightCrewsToAdd).ConfigureAwait(false);
+                            buffer.Clear();
+
+                            if (flightCrewsToAdd.Count >= 5000)
                             {
-                                Company = item.Company,
-                                CrewId = item.FlightCrewId,
-                                CrewName = item.CrewName,
-                                CrewRoll = item.CrewRoll,
-                                DateStart = item.DateStart,
-                                DateEnd = item.DateEnd,
-                                Destination = item.Destination,
-                                //FlightCrewId = item.FlightCrewId,
-                                FlightNumber = item.FlightNumber,
-                                Source = item.Source,
-                            });
+                                await BulkInsertFlightCrewsAsync(flightCrewsToAdd).ConfigureAwait(false);
+                                flightCrewsToAdd.Clear();
+                            }
                         }
                     }
-                }
 
-                file.Close();
-                await db.SaveChangesAsync();
+                    if (buffer.Count > 0)
+                    {
+                        await ProcessBatch(buffer, flightCrewsToAdd).ConfigureAwait(false);
+                        buffer.Clear();
+                    }
+
+                    if (flightCrewsToAdd.Count > 0)
+                    {
+                        await BulkInsertFlightCrewsAsync(flightCrewsToAdd).ConfigureAwait(false);
+                        flightCrewsToAdd.Clear();
+                    }
+                }
             }
             catch (Exception ex)
             {
-                await SaveLog(string.Format("Error: {0}", ex.Message), false);
+                await SaveLog($"Error: {ex.Message}", false).ConfigureAwait(false);
             }
 
             return counter;
         }
+
+        private async Task ProcessBatch(List<string> buffer, List<FlightCrewCom> flightCrewsToAdd)
+        {
+            foreach (var line in buffer)
+            {
+                if (line.Length > 61)
+                {
+                    var objFlight = DeserializationList(line);
+
+                    flightCrewsToAdd.AddRange(objFlight);
+
+                    if (flightCrewsToAdd.Count >= 5000) // Guardar en lotes más grandes
+                    {
+                        await BulkInsertFlightCrewsAsync(flightCrewsToAdd);
+                        flightCrewsToAdd.Clear();
+                    }
+                }
+            }
+        }
+
+        public DataTable ToDataTable(List<FlightCrewCom> crews)
+        {
+            var table = new DataTable();
+            table.Columns.Add("FlightNumber", typeof(int));
+            table.Columns.Add("Company", typeof(string));
+            table.Columns.Add("DateStart", typeof(DateTime));
+            table.Columns.Add("DateEnd", typeof(DateTime));
+            table.Columns.Add("Source", typeof(string));
+            table.Columns.Add("Destination", typeof(string));
+            table.Columns.Add("CrewRoll", typeof(string));
+            table.Columns.Add("CrewId", typeof(int));
+            table.Columns.Add("CrewName", typeof(string));
+
+            foreach (var crew in crews)
+            {
+                table.Rows.Add(
+                    crew.FlightNumber,
+                    crew.Company,
+                    crew.DateStart,
+                    crew.DateEnd,
+                    crew.Source,
+                    crew.Destination,
+                    crew.CrewRoll,
+                    crew.CrewId,
+                    crew.CrewName
+                );
+            }
+            return table;
+        }
+
+        public async Task BulkInsertFlightCrewsAsync(List<FlightCrewCom> crews)
+        {
+            var dataTable = ToDataTable(crews);
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var bulkCopy = new SqlBulkCopy(connection))
+                {
+                    bulkCopy.DestinationTableName = "FlightCrews"; // Nombre de tu tabla en SQL Server
+
+                    // Mapea las columnas si los nombres no coinciden exactamente
+                    bulkCopy.ColumnMappings.Add("FlightNumber", "FlightNumber");
+                    bulkCopy.ColumnMappings.Add("Company", "Company");
+                    bulkCopy.ColumnMappings.Add("DateStart", "DateStart");
+                    bulkCopy.ColumnMappings.Add("DateEnd", "DateEnd");
+                    bulkCopy.ColumnMappings.Add("Source", "Source");
+                    bulkCopy.ColumnMappings.Add("Destination", "Destination");
+                    bulkCopy.ColumnMappings.Add("CrewRoll", "CrewRoll");
+                    bulkCopy.ColumnMappings.Add("CrewId", "CrewId");
+                    bulkCopy.ColumnMappings.Add("CrewName", "CrewName");
+
+                    await bulkCopy.WriteToServerAsync(dataTable);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Delete old records
         /// </summary>
         private async Task DeleteOldRecords()
         {
-            var date = DateTime.Today.AddHours(-5);
-            var oldRecords = db.FlightCrews.Where(fc => fc.DateStart < date);
-            db.FlightCrews.RemoveRange(oldRecords);
-            await db.SaveChangesAsync();
+            await db.Database.ExecuteSqlRawAsync("TRUNCATE TABLE FlightCrews");
         }
 
         /// <summary>
@@ -127,8 +209,6 @@ namespace CrewMobileApi.Business
         /// <param name="line"></param>
         /// <returns>IEnumerable FlightCrew </returns>
 
-
-        //TODO: Agregar Summary
         private List<FlightCrew> DeserializationList(string line)
         {
             List<FlightCrew> listFly = new List<FlightCrew>();
@@ -182,7 +262,7 @@ namespace CrewMobileApi.Business
                 {
                     obj.CrewRoll = line.Substring(temp, FileModel.JobLength).Trim();
                     temp += FileModel.JobLength;
-                    obj.FlightCrewId = int.Parse(line.Substring(temp, FileModel.EmpIdLength).Trim());
+                    obj.CrewId = int.Parse(line.Substring(temp, FileModel.EmpIdLength).Trim());
                     temp += FileModel.EmpIdLength;
                     obj.CrewName = line.Substring(temp, FileModel.NameLength).Trim();
                     temp += FileModel.NameLength;
@@ -195,8 +275,8 @@ namespace CrewMobileApi.Business
                         Source = obj.Source,
                         Destination = obj.Destination,
                         CrewRoll = obj.CrewRoll,
-                        FlightCrewId = obj.FlightCrewId,
-                        CrewName = obj.CrewName
+                        CrewName = "", //obj.CrewName,
+                        CrewId = obj.CrewId
                     });
                 }
             }

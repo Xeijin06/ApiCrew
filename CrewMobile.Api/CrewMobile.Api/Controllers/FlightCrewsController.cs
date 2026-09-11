@@ -1,23 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
-using Microsoft.EntityFrameworkCore;
-using CrewMobileApi.Apis.Interfaces;
-using CrewMobileApi.Apis;
-using CrewMobile.Api.Models;
-using CrewMobile.Domain.Models;
+﻿using CrewMobile.Api.Models;
+using CrewMobile.Api.Services.Interface;
 using CrewMobile.Common.Models;
-using Microsoft.Identity.Client;
-using System.IO;
-using Renci.SshNet;
-using CrewMobileApi.Services;
+using CrewMobile.Domain.Models;
+using CrewMobileApi.Apis.Interfaces;
 using CrewMobileApi.Business;
-using GModels = Microsoft.Graph.Models;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 using CrewMobileApi.Mocks;
-using System.Security.Cryptography;
+using CrewMobileApi.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
+using Renci.SshNet;
+using GModels = Microsoft.Graph.Models;
+using Microsoft.Identity.Web.Resource;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,6 +41,11 @@ namespace CrewMobile.Api.Controllers
         /// The data base context
         /// </summary>
         private ApplicationDbContext db;
+
+        /// <summary>
+        /// The data base connection string
+        /// </summary>
+        private string _connectionString;
 
         /// <summary>
         /// The API paramenters
@@ -136,14 +137,23 @@ namespace CrewMobile.Api.Controllers
         /// </summary>
         private NextLegResponse nextLegResponse;
 
+
         /// <summary>
-        /// The stream writer in file log for FTP process
+        /// The Blob Storage Service instance
         /// </summary>
-        private StreamWriter streamWriter;
+        private readonly IBlobStorageService _blobStorageService;
+        /// <summary>
+        /// The Blob Storage Options
+        /// </summary>
+        IOptions<AzureStorageOptions> _storageOptions;
+        /// <summary>
+        /// The Log Storage Service instance
+        /// </summary>
+        private readonly ILogStorageAccountService _logStorageService;
         #endregion
 
         #region Constructors
-        public FlightCrewsController(IConfiguration _configuration, GraphService _graphService, ApplicationDbContext context, ICopaAPIs _copaApi, ICopaSoap _copaSoap)
+        public FlightCrewsController(IConfiguration _configuration, GraphService _graphService, ApplicationDbContext context, ICopaAPIs _copaApi, ICopaSoap _copaSoap, IBlobStorageService blobStorageService, IOptions<AzureStorageOptions> storageOptions, ILogStorageAccountService logStorageService)
         {
             db = context;
             copaApi = _copaApi;
@@ -151,8 +161,13 @@ namespace CrewMobile.Api.Controllers
             configuration = _configuration;
             graphService = _graphService;
 
+            _connectionString = configuration["ConnectionStrings:DefaultConnection"];
+
             azureDomain = configuration["AzureAd:Domain"];
             copaAPITimeOut = int.Parse(configuration["CopaAPI:TimeOut"]);
+            _blobStorageService = blobStorageService;
+            _storageOptions = storageOptions;
+            _logStorageService = logStorageService;
         }
         #endregion
 
@@ -498,6 +513,30 @@ namespace CrewMobile.Api.Controllers
         }
 
         /// <summary>
+        /// Get flight list
+        /// </summary>
+        /// <param name="departureFrom">Departure from</param>
+        /// <param name="departureTo">Departure to</param>
+        /// <returns>Flight List</returns>
+        [Authorize]
+        [HttpGet]
+        [Route("GetApiFlightList/{departureFrom}/{departureTo}")]
+        public async Task<IActionResult> GetApiFlightList(
+            DateTime departureFrom,
+            DateTime departureTo)
+        {
+            var result = await copaApi.GetApiFlightList(
+                departureFrom,
+                departureTo);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Result.ToString());
+            }
+
+            return Ok(result.Result);
+        }
+
+        /// <summary>
         /// Get flight information
         /// </summary>
         /// <param name="departureFrom">Departure from</param>
@@ -629,22 +668,22 @@ namespace CrewMobile.Api.Controllers
         [Authorize]
         [HttpPost]
         [Route("GetNextLeg")]
-        public async Task<IActionResult> GetNextLeg(JObject form)
+        public async Task<IActionResult> GetNextLeg(JObject? form)
         {
             string email = "";
             int employeeId = 0;
-            dynamic jsonObject = form;
+            //dynamic jsonObject = form;
 
             try
             {
-                try
+                /*try
                 {
                     email = jsonObject.Email.Value;
                 }
                 catch (Exception ex)
                 {
                     return BadRequest("001. Incorrect call." + ex.ToString());
-                }
+                }*/
 
                 var dateString = DateTime.Now.ToUniversalTime().ToString();
 
@@ -666,14 +705,34 @@ namespace CrewMobile.Api.Controllers
                 }
                 else
                 {
-                    var user = await GetUser(email);
+                    var authHeader = Request.Headers["Authorization"].FirstOrDefault();
+
+                    if (string.IsNullOrWhiteSpace(authHeader) ||
+                        !authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return Unauthorized("No se encontró un token Bearer en el header Authorization.");
+                    }
+
+                    var accessToken = authHeader.Substring("Bearer ".Length).Trim();
+
+                    var user = await GetUser(accessToken); //(email);
 
                     if (user == null)
                     {
                         return BadRequest("002. The employee information can't be recovered.");
                     }
 
-                    var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+                    //var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+
+                    var userinfo = user["value"] is JArray values
+                                ? values.FirstOrDefault()?.ToObject<GModels.User>()
+                                : user.ToObject<GModels.User>();
+
+                    if (userinfo == null || string.IsNullOrWhiteSpace(userinfo.EmployeeId) ||
+                        !int.TryParse(userinfo.EmployeeId, out employeeId))
+                    {
+                        return BadRequest("002. The employee information can't be recovered.");
+                    }
 
                     employeeId = int.Parse(userinfo.EmployeeId);
                 }
@@ -814,11 +873,11 @@ namespace CrewMobile.Api.Controllers
         [Authorize]
         [HttpPost]
         [Route("GetNextLegAfterCancelled")]
-        public async Task<IActionResult> GetNextLegAfterCancelled(JObject form)
+        public async Task<IActionResult> GetNextLegAfterCancelled(JObject? form)
         {
             string email = "";
             int employeeId = 0;
-            dynamic jsonObject = form;
+            /*dynamic jsonObject = form;
 
             try
             {
@@ -827,9 +886,12 @@ namespace CrewMobile.Api.Controllers
             catch (Exception ex)
             {
                 return BadRequest("001. Incorrect call." + ex.ToString());
-            }
+            }*/
 
             var dateString = DateTime.Now.ToUniversalTime().ToString();
+
+            nextLegResponse = new NextLegResponse();
+            nextLegResponse.ServiceStatus = new ServiceStatus();
 
             listEmployeeFlights = new List<PreNextLegResponseCom>();
             parameters = await db.Parameters.FirstOrDefaultAsync();
@@ -847,14 +909,34 @@ namespace CrewMobile.Api.Controllers
             }
             else
             {
-                var user = await GetUser(email);
+                var authHeader = Request.Headers["Authorization"].FirstOrDefault();
+
+                if (string.IsNullOrWhiteSpace(authHeader) ||
+                    !authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                {
+                    return Unauthorized("No se encontró un token Bearer en el header Authorization.");
+                }
+
+                var accessToken = authHeader.Substring("Bearer ".Length).Trim();
+
+                var user = await GetUser(accessToken); //(email);
 
                 if (user == null)
                 {
                     return BadRequest("002. The employee information can't be recovered.");
                 }
 
-                var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+                //var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+
+                var userinfo = user["value"] is JArray values
+                            ? values.FirstOrDefault()?.ToObject<GModels.User>()
+                            : user.ToObject<GModels.User>();
+
+                if (userinfo == null || string.IsNullOrWhiteSpace(userinfo.EmployeeId) ||
+                    !int.TryParse(userinfo.EmployeeId, out employeeId))
+                {
+                    return BadRequest("002. The employee information can't be recovered.");
+                }
 
                 employeeId = int.Parse(userinfo.EmployeeId);
             }
@@ -969,9 +1051,12 @@ namespace CrewMobile.Api.Controllers
         /// <summary>
         /// Call the process file FTP to get flight atendance agenda
         /// </summary>
-        /// <returns>None</returns>       
+        /// <returns>None</returns>
+        [Authorize]
+        [RequiredScopeOrAppPermission(AcceptedAppPermission = new[] { "azureFunction.Execute" })]
         [HttpPost]
-        public async Task<IActionResult> Post()
+        [Route("LoadFlightCrewsFile")]
+        public async Task<IActionResult> LoadFlightCrewsFile()
         {
             await this.ProcessFile();
             return Ok("Ok");
@@ -1611,7 +1696,8 @@ namespace CrewMobile.Api.Controllers
             }
 
             int j = 0;
-            if (nextLegResponse.IsFinal)
+            //if (nextLegResponse.IsFinal)
+            if(IsFinalList(i))
             {
                 j = 1;
             }
@@ -1720,13 +1806,13 @@ namespace CrewMobile.Api.Controllers
                     passanger.FinalPassengerDestination += ", NA";
                 }
 
-                var passengerIrregularOperation = await db.Passangers.Where(p => p.ConfirmationID == passanger.ConfirmationID).FirstOrDefaultAsync();
+                var passengerIrregularOperation = await db.Passangers.Include(p => p.IrregularOperation).Where(p => p.ConfirmationID == passanger.ConfirmationID).FirstOrDefaultAsync();
                 //if (passanger.Surname.ToUpper().Trim() == "CRUZGUTIERREZ")
                 //{
                 //    var sddd = "dssdds";
                 //    var s = passanger.ConfirmationID;
                 //}
-                if (passengerIrregularOperation != null)
+                if (passengerIrregularOperation != null && passengerIrregularOperation.IrregularOperation != null)
                 {
                     var currentflighNumber = int.Parse(listEmployeeFlights[i].FlightDetail.SoapEnvelope.SoapBody.Ns3GetFlifoResponse.Ns4OtaAirFlifoRs.Ns4FlightInfoDetails.FlightNumber);
                     var irropFligthNumber = int.Parse(passengerIrregularOperation.IrregularOperation.FlightNumber);
@@ -2063,13 +2149,14 @@ namespace CrewMobile.Api.Controllers
         /// <param name="i">Flight index</param>
         private void SetCounters(int i)
         {
-            var hourDifference = nextLegResponse.Source.Date.Subtract(calledServiceDate.AddHours(offSets[i]));
+            //var hourDifference = nextLegResponse.Source.Date.Subtract(calledServiceDate.AddHours(offSets[i]));
             int j = 0;
-            nextLegResponse.IsFinal = false;
+            //nextLegResponse.IsFinal = false;
             //TODO: Validar cambiar los 55 a un valor configurado en base de datos
-            if (hourDifference.TotalMinutes <= 55)
+            //if (hourDifference.TotalMinutes <= 55)
+            if(IsFinalList(i))
             {
-                nextLegResponse.IsFinal = true;
+                //nextLegResponse.IsFinal = true;
                 j = 1;
                 if (listEmployeeFlights[i].FlightCountHeader != null && listEmployeeFlights[i].FlightCountHeader.FlightCount.Count == 1)
                 {
@@ -2216,7 +2303,7 @@ namespace CrewMobile.Api.Controllers
         /// <param name="airportCode">Airport IATA Code</param>
         /// <returns>The hour difference</returns>
         private int GetAirportTimeZone(string airportCode)
-        {
+         {
             int offset = 0;
             var airport = airports.Where(a => a.AirportCode == airportCode).FirstOrDefault();
             if (airport != null)
@@ -2232,33 +2319,41 @@ namespace CrewMobile.Api.Controllers
         /// <returns>None</returns>
         private async Task ProcessFile()
         {
-            var localLog = Path.Combine(Directory.GetCurrentDirectory(), "Content",
-                                "Files", $"log{DateTime.Now:yyyyMMddHHmm}.txt");
-            this.streamWriter = System.IO.File.CreateText(localLog);
+            _logStorageService.ClearLogs();
             await this.SaveLog("Start Proceess", true, true);
             var host = configuration["SFTP:Site"];
             var port = int.Parse(configuration["SFTP:Port"]);
             var remoteFileName = configuration["SFTP:File"];
             var random = new Random();
-            var localDestinationFilename = Path.Combine(Directory.GetCurrentDirectory(),
-                "Content", "Files", $"crewmobile{DateTime.Now.Hour}{random.Next(0, 99)}.txt");
+            Uri localDestinationFilename = null;
             var username = configuration["SFTP:User"];
             var password = configuration["SFTP:Password"];
-
+            string fileName = string.Empty;
             try
             {
                 using (var sftp = new SftpClient(host, port, username, password))
                 {
                     sftp.Connect();
                     await this.SaveLog("FTP Connected", true, false);
-
-                    using (var file = System.IO.File.OpenWrite(localDestinationFilename))
+                    using (var memoryStream = new MemoryStream())
                     {
-                        sftp.DownloadFile(remoteFileName, file);
+                        sftp.DownloadFile(remoteFileName, memoryStream);
                         await this.SaveLog("File get", true, false);
-                        //TODO: To uncomment in production mode
-                        //sftp.DeleteFile(remoteFileName);
-                        //await this.SaveLog("file remote delete", true, false);
+
+                        // Resetear la posición del stream para la lectura
+                        memoryStream.Position = 0;
+
+                        // Subir directamente a Azure Blob Storage
+                        fileName = $"crewmobile{DateTime.Now.Month}{DateTime.Now.Hour}{random.Next(0, 99)}.txt";
+                        localDestinationFilename = await _blobStorageService.UploadAsync(
+                            memoryStream,
+                            fileName,
+                            null,
+                            null,
+                            CancellationToken.None
+                        );
+
+                        await this.SaveLog($"File uploaded to Azure Blob: {localDestinationFilename}", true, false);
                     }
 
                     sftp.Disconnect();
@@ -2271,11 +2366,48 @@ namespace CrewMobile.Api.Controllers
             }
 
             await this.SaveLog(string.Format("Starts process file: {0}", localDestinationFilename), true, false);
-            var processFile = new ProcessFile(localDestinationFilename, db);
-            var rowsProcessed = await processFile.Process(this.streamWriter);
+            var processFile = new ProcessFile(db, _storageOptions.Value, _connectionString); 
+            var rowsProcessed = await processFile.Process(_logStorageService, fileName);
             await this.SaveLog(string.Format("Ends process file with {0} lines.", rowsProcessed), true, true);
-            this.streamWriter.Close();
+            await CleanBlobstorage();
+            await SaveLogBlobstorage();
+            
         }
+
+        /// <summary>
+        /// Save Log Blobstorage
+        /// </summary>
+        /// <returns>None</returns>
+        private async Task SaveLogBlobstorage()
+        {
+            var contentLog = await _logStorageService.ExportToTextFormatAsync();
+            await _blobStorageService.UploadAsync(
+                            contentLog,
+                            $"log{DateTime.Now:yyyyMMddHHmm}.txt",
+                            configuration["AzureStorage:LogContainer"],
+                            null,
+                            CancellationToken.None
+                        );
+        }
+
+        /// <summary>
+        /// Clean Blobstorage
+        /// </summary>
+        /// <returns>None</returns>
+        private async Task CleanBlobstorage()
+        {
+            /*Eliminar Archivos de AIMS*/
+            var container = configuration["AzureStorage:DefaultContainer"];
+            int dayDelete = int.Parse(configuration["AzureStorage:DayDeleteFile"] ?? "15");
+            await _blobStorageService.DeleteOldFilesAsync(_logStorageService, container, dayDelete);
+
+            /*Eliminar Archivos de Logs*/
+            container = configuration["AzureStorage:LogContainer"];
+            dayDelete = int.Parse(configuration["AzureStorage:DayDeleteFileLog"] ?? "30");
+            await _blobStorageService.DeleteOldFilesAsync(_logStorageService, container, dayDelete);
+        }
+
+
 
         /// <summary>
         /// Save Log on file and DB
@@ -2286,8 +2418,7 @@ namespace CrewMobile.Api.Controllers
         /// <returns>None</returns>
         private async Task SaveLog(string message, bool wasSucces, bool toDB)
         {
-            this.streamWriter.WriteLine(string.Format("{0} - {1}", DateTime.Now, message));
-            this.streamWriter.Flush();
+            _logStorageService.Log(Models.LogLevel.Information, message);
             if (toDB)
             {
                 var proccessFileLog2 = new ProccessFileLog
@@ -2303,17 +2434,6 @@ namespace CrewMobile.Api.Controllers
             }
         }
 
-        // TODO: Validar la necesidad de este codigo.
-        /// <summary>
-        /// Save file log
-        /// </summary>
-        /// <param name="message">The message</param>
-        /// <returns>None</returns>
-        private void SaveLog(string message)
-        {
-            this.streamWriter.WriteLine(message);
-            this.streamWriter.Flush();
-        }
 
         /// <summary>
         /// Get user from graph
@@ -2321,11 +2441,11 @@ namespace CrewMobile.Api.Controllers
         /// <param name="email">The user email</param>
         /// <returns>Graph user</returns>
         /// TODO: Revisar la logica de este metodo
-        private async Task<JObject> GetUser(string email)
+        private async Task<JObject> GetUser(string accessToken) //(string email)
         {
             try
             {
-                var user = await graphService.GetUserInformationByEmailAsync(email);
+                var user = await graphService.GetMyUserInformationAsync(accessToken);  //.GetUserInformationByEmailAsync(email);
                 return user;
             }
             catch (Exception ex)
@@ -2353,6 +2473,18 @@ namespace CrewMobile.Api.Controllers
             {
                 return null;
             }
+        }
+
+        private bool IsFinalList(int i)
+        {
+            var hourDifference = nextLegResponse.Source.Date.Subtract(calledServiceDate.AddHours(offSets[i]));
+            nextLegResponse.IsFinal = false;
+            //TODO: Validar cambiar los 55 a un valor configurado en base de datos
+            if (hourDifference.TotalMinutes <= 55)
+            {
+                nextLegResponse.IsFinal = true;
+            }
+            return nextLegResponse.IsFinal;
         }
 
         #endregion

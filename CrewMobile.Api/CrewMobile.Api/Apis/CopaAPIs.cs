@@ -5,10 +5,12 @@ using CrewMobile.Common.Models;
 using CrewMobileApi.Apis.Interfaces;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
+using CrewMobile.Domain.Models;
 
 namespace CrewMobileApi.Apis
 {
-    public class CopaAPIs : ICopaAPIs
+    public class CopaAPIs : 
+        ICopaAPIs
     {
         #region Attributes
         /// <summary>
@@ -47,6 +49,11 @@ namespace CrewMobileApi.Apis
         private string subscriptionCheckinSeatsValue;
 
         /// <summary>
+        /// Subscription flight operations value
+        /// </summary>
+        private string subscriptionListTimeZonesValue;
+
+        /// <summary>
         /// Channel ID Key to consume Graph
         /// </summary>
         private string channelIDKey;
@@ -71,6 +78,7 @@ namespace CrewMobileApi.Apis
             subscriptionFlightOperationsValue = configuration["RestApiSuscriptionKeys:FlightOperations"];
             subscriptionCheckinSeatsValue = configuration["RestApiSuscriptionKeys:CheckinSeats"];
             subscriptionIrregularOperations = configuration["RestApiSuscriptionKeys:IrregularOperations"];
+            subscriptionListTimeZonesValue = configuration["RestApiSuscriptionKeys:ListTimeZones"];
             channelIDKey = configuration["CopaApi:ChannelIDKey"];
             channelIDValue = configuration["CopaApi:ChannelIDValue"];
         }
@@ -362,10 +370,9 @@ namespace CrewMobileApi.Apis
             }
         }
 
-        public async Task<Response> GetApiFlightInformation(
+        public async Task<Response> GetApiFlightList(
             DateTime departureFrom,
-            DateTime departureTo,
-            string flightNumber)
+            DateTime departureTo)
         {
             try
             {
@@ -374,7 +381,63 @@ namespace CrewMobileApi.Apis
                 client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionFlightOperationsValue);
                 client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
                 var url = string.Format(
+                    "/FlightOperations/v2/Flights/flight?dateofdepartureFrom={0:yyyyMMdd}&dateofdepartureTo={1:yyyyMMdd}",
+                    departureFrom,
+                    departureTo);
+
+                var response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorString = await response.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ErrorApiCom>(errorString);
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Result = error,
+                    };
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<FlightListHeaderCom>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = model,
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+        public async Task<Response> GetApiFlightInformation(
+            DateTime departureFrom,
+            DateTime departureTo,
+            string flightNumber)
+        {
+            try
+            {//TODO: Restaurar lineas que hacen referencia a las variables de url y subscripcion
+                var client = new HttpClient();
+                //client.BaseAddress = new Uri(urlCopa);
+                client.BaseAddress = new Uri("REPLACE");
+                client.DefaultRequestHeaders.Add("REPLACE", "REPLACE");
+                //client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionFlightOperationsValue);
+                client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
+                /*var url = string.Format(
                     "/FlightOperations/v2/Flights/flight?dateofdepartureFrom={0:yyyyMMdd}&dateofdepartureTo={1:yyyyMMdd}&flightnumber={2}",
+                    departureFrom,
+                    departureTo,
+                    flightNumber);
+                */
+                var url = string.Format(
+                    "/osl/osb/flightSchedule/v1.0/byflightdaterange?FlightDateFrom={0}&FlightDateTo={1}&FlightNumber={2}",
                     departureFrom,
                     departureTo,
                     flightNumber);
@@ -393,6 +456,50 @@ namespace CrewMobileApi.Apis
 
                 var result = await response.Content.ReadAsStringAsync();
                 var model = JsonConvert.DeserializeObject<FlightDetailHeaderCom>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = model,
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+        public async Task<Response> GetApiAirportsInformation()
+        {
+            try
+            {//TODO: Restaurar lineas que hacen referencia a las variables de url y subscripcion
+                var client = new HttpClient();
+                //client.BaseAddress = new Uri(urlCopa);
+                client.BaseAddress = new Uri("REPLACE");
+                client.DefaultRequestHeaders.Add("REPLACE", "REPLACE");
+                //client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionFlightOperationsValue);
+                client.DefaultRequestHeaders.Add(channelIDKey, channelIDValue);
+                var url = string.Format(
+                    "/FlightOperations/v5/Airports/");
+                var response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorString = await response.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ErrorApiCom>(errorString);
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Result = error,
+                    };
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<AirportsResponse>(result);
                 return new Response
                 {
                     IsSuccess = true,
@@ -498,6 +605,72 @@ namespace CrewMobileApi.Apis
                 {
                     IsSuccess = false,
                     Message = ex.Message,
+                };
+            }
+        }
+
+
+        public async Task<Response> GetListTimeZone(List<Airport> airports)
+        {
+            try
+            {//TODO: Restaurar lineas que hacen referencia a las variables de url y subscripcion
+                var client = new HttpClient();
+                //client.BaseAddress = new Uri(urlCopa);
+                client.BaseAddress = new Uri("REPLACE");
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.DefaultRequestHeaders.Add("REPLACE", "REPLACE");
+                //client.DefaultRequestHeaders.Add(subscriptionKey, subscriptionListTimeZonesValue);
+                client.DefaultRequestHeaders.Add("Request-type", "json");
+                client.DefaultRequestHeaders.Add("Response-type", "json");
+                // If you need to send cookies, use:
+                // client.DefaultRequestHeaders.Add("Cookie", "REPLACE");
+
+                var url = "/api-timezone/services/trn/zco/v2.1/list-timezone";
+
+
+                var locationsTimeZone = airports
+                .Select(a => new LocationTimeZoneRequest
+                {
+                    LocationCode = a.AirportCode
+                    // Puedes asignar LocationCategoryCode si es necesario
+                })
+                .ToList();
+
+                var requestBody = new
+                {
+                    BegingUtcDateTime = DateTime.UtcNow.ToString("yyyy-MM-ddT00:00:00Z"),
+                    EndUtcDateTime = DateTime.UtcNow.ToString("yyyy-MM-ddT23:59:59Z"),
+                    LocationsTimeZone = locationsTimeZone
+                };
+
+                var json = JsonConvert.SerializeObject(requestBody);
+                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(url, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorString = await response.Content.ReadAsStringAsync();
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = errorString
+                    };
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = result
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
                 };
             }
         }
