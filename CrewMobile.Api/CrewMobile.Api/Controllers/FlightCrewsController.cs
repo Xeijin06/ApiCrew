@@ -668,22 +668,22 @@ namespace CrewMobile.Api.Controllers
         [Authorize]
         [HttpPost]
         [Route("GetNextLeg")]
-        public async Task<IActionResult> GetNextLeg(JObject form)
+        public async Task<IActionResult> GetNextLeg(JObject? form)
         {
             string email = "";
             int employeeId = 0;
-            dynamic jsonObject = form;
+            //dynamic jsonObject = form;
 
             try
             {
-                try
+                /*try
                 {
                     email = jsonObject.Email.Value;
                 }
                 catch (Exception ex)
                 {
                     return BadRequest("001. Incorrect call." + ex.ToString());
-                }
+                }*/
 
                 var dateString = DateTime.Now.ToUniversalTime().ToString();
 
@@ -705,14 +705,34 @@ namespace CrewMobile.Api.Controllers
                 }
                 else
                 {
-                    var user = await GetUser(email);
+                    var authHeader = Request.Headers["Authorization"].FirstOrDefault();
+
+                    if (string.IsNullOrWhiteSpace(authHeader) ||
+                        !authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return Unauthorized("No se encontró un token Bearer en el header Authorization.");
+                    }
+
+                    var accessToken = authHeader.Substring("Bearer ".Length).Trim();
+
+                    var user = await GetUser(accessToken); //(email);
 
                     if (user == null)
                     {
                         return BadRequest("002. The employee information can't be recovered.");
                     }
 
-                    var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+                    //var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+
+                    var userinfo = user["value"] is JArray values
+                                ? values.FirstOrDefault()?.ToObject<GModels.User>()
+                                : user.ToObject<GModels.User>();
+
+                    if (userinfo == null || string.IsNullOrWhiteSpace(userinfo.EmployeeId) ||
+                        !int.TryParse(userinfo.EmployeeId, out employeeId))
+                    {
+                        return BadRequest("002. The employee information can't be recovered.");
+                    }
 
                     employeeId = int.Parse(userinfo.EmployeeId);
                 }
@@ -853,11 +873,11 @@ namespace CrewMobile.Api.Controllers
         [Authorize]
         [HttpPost]
         [Route("GetNextLegAfterCancelled")]
-        public async Task<IActionResult> GetNextLegAfterCancelled(JObject form)
+        public async Task<IActionResult> GetNextLegAfterCancelled(JObject? form)
         {
             string email = "";
             int employeeId = 0;
-            dynamic jsonObject = form;
+            /*dynamic jsonObject = form;
 
             try
             {
@@ -866,9 +886,12 @@ namespace CrewMobile.Api.Controllers
             catch (Exception ex)
             {
                 return BadRequest("001. Incorrect call." + ex.ToString());
-            }
+            }*/
 
             var dateString = DateTime.Now.ToUniversalTime().ToString();
+
+            nextLegResponse = new NextLegResponse();
+            nextLegResponse.ServiceStatus = new ServiceStatus();
 
             listEmployeeFlights = new List<PreNextLegResponseCom>();
             parameters = await db.Parameters.FirstOrDefaultAsync();
@@ -886,14 +909,34 @@ namespace CrewMobile.Api.Controllers
             }
             else
             {
-                var user = await GetUser(email);
+                var authHeader = Request.Headers["Authorization"].FirstOrDefault();
+
+                if (string.IsNullOrWhiteSpace(authHeader) ||
+                    !authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                {
+                    return Unauthorized("No se encontró un token Bearer en el header Authorization.");
+                }
+
+                var accessToken = authHeader.Substring("Bearer ".Length).Trim();
+
+                var user = await GetUser(accessToken); //(email);
 
                 if (user == null)
                 {
                     return BadRequest("002. The employee information can't be recovered.");
                 }
 
-                var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+                //var userinfo = user["value"]?.FirstOrDefault()?.ToObject<GModels.User>();
+
+                var userinfo = user["value"] is JArray values
+                            ? values.FirstOrDefault()?.ToObject<GModels.User>()
+                            : user.ToObject<GModels.User>();
+
+                if (userinfo == null || string.IsNullOrWhiteSpace(userinfo.EmployeeId) ||
+                    !int.TryParse(userinfo.EmployeeId, out employeeId))
+                {
+                    return BadRequest("002. The employee information can't be recovered.");
+                }
 
                 employeeId = int.Parse(userinfo.EmployeeId);
             }
@@ -2398,11 +2441,11 @@ namespace CrewMobile.Api.Controllers
         /// <param name="email">The user email</param>
         /// <returns>Graph user</returns>
         /// TODO: Revisar la logica de este metodo
-        private async Task<JObject> GetUser(string email)
+        private async Task<JObject> GetUser(string accessToken) //(string email)
         {
             try
             {
-                var user = await graphService.GetUserInformationByEmailAsync(email);
+                var user = await graphService.GetMyUserInformationAsync(accessToken);  //.GetUserInformationByEmailAsync(email);
                 return user;
             }
             catch (Exception ex)

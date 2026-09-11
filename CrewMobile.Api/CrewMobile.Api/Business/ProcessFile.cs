@@ -275,7 +275,7 @@ namespace CrewMobileApi.Business
                         Source = obj.Source,
                         Destination = obj.Destination,
                         CrewRoll = obj.CrewRoll,
-                        CrewName = obj.CrewName,
+                        CrewName = "", //obj.CrewName,
                         CrewId = obj.CrewId
                     });
                 }

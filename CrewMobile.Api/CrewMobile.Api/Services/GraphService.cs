@@ -95,6 +95,51 @@ namespace CrewMobileApi.Services
         }
 
 
+        /// <summary>
+        /// Intercambia (On-Behalf-Of) el token del usuario recibido por la API por un token
+        /// con audiencia Microsoft Graph, conservando la identidad del usuario.
+        /// </summary>
+        /// <param name="userAccessToken">Access token del usuario (sin el prefijo "Bearer").</param>
+        private async Task<string> GetGraphTokenOnBehalfOfAsync(string userAccessToken)
+        {
+            string[] scopes = _configuration.GetSection("AzureAd:Scope_graph_delegated").Get<string[]>()
+                              ?? new[] { "https://graph.microsoft.com/User.Read" };
+
+            var userAssertion = new UserAssertion(userAccessToken);
+
+            var result = await _clientApp.AcquireTokenOnBehalfOf(scopes, userAssertion)
+                                         .ExecuteAsync();
+
+            return result.AccessToken;
+        }
+
+        /// <summary>
+        /// Consulta el endpoint /me de Microsoft Graph en nombre del usuario autenticado (flujo OBO).
+        /// </summary>
+        /// <param name="userAccessToken">Access token del usuario (sin el prefijo "Bearer").</param>
+        public async Task<JObject> GetMyUserInformationAsync(string userAccessToken)
+        {
+            if (string.IsNullOrWhiteSpace(userAccessToken))
+            {
+                throw new ArgumentException("El access token del usuario es requerido.", nameof(userAccessToken));
+            }
+
+            var graphToken = await GetGraphTokenOnBehalfOfAsync(userAccessToken);
+
+            string vGraph = _configuration["AzureAd:graph_version"] ?? "v1.0";
+
+            var requestUrl = $"https://graph.microsoft.com/{vGraph}/me?$select=employeeId";
+            using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", graphToken);
+
+            using var response = await _httpClient.SendAsync(request);
+            var content = await response.Content.ReadAsStringAsync();
+            response.EnsureSuccessStatusCode();
+
+            return JObject.Parse(content);
+        }
+
+
         public IDictionary<string, object> GetExtendedProperties(User user)
         {
             if (user == null)
